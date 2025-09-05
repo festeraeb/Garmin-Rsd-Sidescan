@@ -7,3 +7,44 @@ Thanks for your interest in improving **garmin-rsd-sidescan**!
 1. **Fork** the repo and create your branch from `main`:
    ```bash
    git checkout -b feat/my-feature
+2. Make changes:
+
+For notebooks: keep .ipynb in notebooks/
+
+For code: put reusable modules in src/
+
+3. Test:
+
+Run the notebook on a small .RSD sample
+
+Make sure outputs (.csv, .kml, .kmz) are valid
+
+4. Commit using Conventional Commits:
+
+feat: add target detection toggle
+fix: correct lon/lat orientation
+
+
+Push and open a Pull Request:
+
+Fill in the PR template
+
+Link any related issues
+
+Repo hygiene
+
+Do not commit .RSD files or large outputs.
+
+Outputs (rsd_runs/) should be in .gitignore.
+
+Use nbstripout
+ or Jupytext
+ to keep notebook diffs clean.
+
+Communication
+
+Use Issues for bugs/features
+
+Use Discussions for open Q&A / ideas
+
+PRs require at least 1 review before merge
