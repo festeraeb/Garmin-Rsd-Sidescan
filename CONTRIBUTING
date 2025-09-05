@@ -1,0 +1,9 @@
+# Contributing Guide
+
+Thanks for your interest in improving **garmin-rsd-sidescan**!
+
+## How to contribute
+
+1. **Fork** the repo and create your branch from `main`:
+   ```bash
+   git checkout -b feat/my-feature
