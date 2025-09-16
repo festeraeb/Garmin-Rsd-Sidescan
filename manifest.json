@@ -1,0 +1,33 @@
+{
+  "created": "20250916_013938",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 542
+    },
+    {
+      "path": "app.py",
+      "bytes": 5641
+    },
+    {
+      "path": "one_test.py",
+      "bytes": 2667
+    },
+    {
+      "path": "parsing_rules.json",
+      "bytes": 174
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 0
+    },
+    {
+      "path": "rsd_core_crc_plus.py",
+      "bytes": 7403
+    },
+    {
+      "path": "rsd_core_signature.py",
+      "bytes": 1519
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "heuristics": {
+    "pad_skip": true,
+    "scan_step": 1
+  },
+  "magic": {
+    "record_header": "0xB7E9DA86",
+    "record_trailer": "0xF98EACBC"
+  }
+}
