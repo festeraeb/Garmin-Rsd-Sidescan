@@ -1,0 +1,4 @@
+[2025-10-06 11:47:54] START engine=nextgen input=C:/Temp/Sonar Samples/Holloway.RSD
+END engine=nextgen records=81394 dt=63.82s
+[2025-10-06 12:03:07] START engine=nextgen input=C:/Temp/Sonar Samples/Holloway.RSD
+END engine=nextgen records=81394 dt=186.56s

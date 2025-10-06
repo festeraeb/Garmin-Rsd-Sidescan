@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Output files
+*.csv
+*.log
+*.mp4
+*.png
+*.jpg
+*.jpeg
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Raw data files
+*.RSD
