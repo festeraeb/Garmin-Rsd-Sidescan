@@ -1,39 +1,22 @@
 # License generation tools (keep private - for internal use only)
 license_generator.py
 license_admin_gui.py
-license_admin_*
-*_license_generator*
 
 # License files (user-generated)
 rsd_studio_license.json
-*.license
 
-# Python
+# Python bytecode
 __pycache__/
 *.py[cod]
 *$py.class
 
 # Output files
-*.csv
-*.log
-*.mp4
-*.png
-*.jpg
-*.jpeg
-
-# VS Code
-.vscode/
-*.code-workspace
-
-# Raw data files
-*.RSD
-
-# Additional sensitive files
-config_private.py
-secrets.py
-api_keys.txt
-
-# Large output directories
 outputs/
 outputs_auto/
 temp_*/
+*.csv
+*.log
+*.mp4
+
+# Raw data files
+*.RSD
