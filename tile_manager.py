@@ -1,0 +1,319 @@
+#!/usr/bin/env python3
+"""Tile manager for RSD Studio - handles MBTiles and KML super-overlays."""
+from typing import Tuple, List, Optional
+import sqlite3
+import numpy as np
+from PIL import Image
+from pathlib import Path
+import math
+import json
+from color_manager import ColorManager
+
+class TileManager:
+    """Manages tile generation and storage for various formats."""
+    
+    def __init__(self, base_path: str):
+        self.base_path = Path(base_path)
+        self.color_manager = ColorManager()
+        self._init_paths()
+        
+    def _init_paths(self):
+        """Initialize output directories."""
+        self.tiles_path = self.base_path / "tiles"
+        self.kml_path = self.base_path / "kml"
+        self.mbtiles_path = self.base_path / "mbtiles"
+        
+        for p in [self.tiles_path, self.kml_path, self.mbtiles_path]:
+            p.mkdir(parents=True, exist_ok=True)
+    
+    def _calculate_bounds(self, csv_path: str) -> Tuple[float, float, float, float]:
+        """Calculate lat/lon bounds from CSV data."""
+        import csv
+        min_lat = float('inf')
+        max_lat = float('-inf')
+        min_lon = float('inf')
+        max_lon = float('-inf')
+        
+        with open(csv_path, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                try:
+                    lat = float(row['lat'])
+                    lon = float(row['lon'])
+                    min_lat = min(min_lat, lat)
+                    max_lat = max(max_lat, lat)
+                    min_lon = min(min_lon, lon)
+                    max_lon = max(max_lon, lon)
+                except (ValueError, KeyError):
+                    continue
+                    
+        return min_lon, min_lat, max_lon, max_lat
+    
+    def create_mbtiles(self, images: List[str], csv_path: str, colormap: str = "grayscale", 
+                      min_zoom: int = 10, max_zoom: int = 16) -> str:
+        """Create MBTiles database from images with geo-reference from CSV."""
+        db_path = self.mbtiles_path / "output.mbtiles"
+        
+        # Get bounds
+        bounds = self._calculate_bounds(csv_path)
+        
+        # Initialize database
+        conn = sqlite3.connect(str(db_path))
+        c = conn.cursor()
+        
+        # Create schema
+        c.executescript('''
+            CREATE TABLE IF NOT EXISTS metadata (name text, value text);
+            CREATE TABLE IF NOT EXISTS tiles (
+                zoom_level integer,
+                tile_column integer,
+                tile_row integer,
+                tile_data blob
+            );
+            CREATE UNIQUE INDEX IF NOT EXISTS tile_index ON tiles
+                (zoom_level, tile_column, tile_row);
+        ''')
+        
+        # Add metadata
+        metadata = {
+            "name": "RSD Sidescan",
+            "type": "overlay",
+            "version": "1.0.0",
+            "description": "Garmin side-scan sonar data",
+            "format": "png",
+            "bounds": ",".join(map(str, bounds)),
+            "minzoom": str(min_zoom),
+            "maxzoom": str(max_zoom)
+        }
+        
+        c.executemany("INSERT OR REPLACE INTO metadata VALUES (?, ?)",
+                     [(k, v) for k, v in metadata.items()])
+        
+        # Process images and create tiles
+        for img_path in images:
+            img = np.array(Image.open(img_path))
+            colored = self.color_manager.apply(img, colormap)
+            
+            # Generate tiles for each zoom level
+            for zoom in range(min_zoom, max_zoom + 1):
+                self._generate_tiles_for_zoom(colored, zoom, bounds, c)
+        
+        conn.commit()
+        conn.close()
+        
+        return str(db_path)
+    
+    def create_kml_overlay(self, images: List[str], csv_path: str, colormap: str = "grayscale",
+                          min_zoom: int = 10, max_zoom: int = 16) -> str:
+        """Create KML super-overlay structure."""
+        bounds = self._calculate_bounds(csv_path)
+        root_kml = self.kml_path / "doc.kml"
+        
+        # Create directory structure
+        for zoom in range(min_zoom, max_zoom + 1):
+            (self.kml_path / str(zoom)).mkdir(exist_ok=True)
+            (self.tiles_path / str(zoom)).mkdir(exist_ok=True)
+        
+        # Process images and create tiles
+        for img_path in images:
+            img = np.array(Image.open(img_path))
+            colored = self.color_manager.apply(img, colormap)
+            
+            for zoom in range(min_zoom, max_zoom + 1):
+                self._generate_kml_tiles(colored, zoom, bounds, img_path)
+        
+        # Create root KML
+        self._create_root_kml(root_kml, bounds, min_zoom, max_zoom)
+        
+        return str(root_kml)
+    
+    def _generate_tiles_for_zoom(self, img: np.ndarray, zoom: int, 
+                               bounds: Tuple[float, float, float, float],
+                               cursor: sqlite3.Cursor):
+        """Generate and store tiles for a specific zoom level."""
+        min_lon, min_lat, max_lon, max_lat = bounds
+        
+        # Calculate tile numbers
+        n = 2.0 ** zoom
+        for y in range(int(n)):
+            for x in range(int(n)):
+                tile_bounds = (
+                    x / n * 360.0 - 180.0,
+                    (1 - (y + 1) / n) * 170.1022,
+                    (x + 1) / n * 360.0 - 180.0,
+                    (1 - y / n) * 170.1022
+                )
+                
+                if self._bounds_intersect(bounds, tile_bounds):
+                    tile_img = self._render_tile(img, tile_bounds, bounds)
+                    if tile_img is not None:
+                        # Convert to PNG bytes
+                        from io import BytesIO
+                        buf = BytesIO()
+                        tile_img.save(buf, format='PNG')
+                        tile_data = buf.getvalue()
+                        
+                        # Store in database
+                        cursor.execute(
+                            "INSERT OR REPLACE INTO tiles VALUES (?, ?, ?, ?)",
+                            (zoom, x, y, sqlite3.Binary(tile_data))
+                        )
+    
+    def _generate_kml_tiles(self, img: np.ndarray, zoom: int,
+                          bounds: Tuple[float, float, float, float],
+                          image_path: str):
+        """Generate tiles and KML files for super-overlay."""
+        min_lon, min_lat, max_lon, max_lat = bounds
+        n = 2.0 ** zoom
+        
+        for y in range(int(n)):
+            for x in range(int(n)):
+                tile_bounds = (
+                    x / n * 360.0 - 180.0,
+                    (1 - (y + 1) / n) * 170.1022,
+                    (x + 1) / n * 360.0 - 180.0,
+                    (1 - y / n) * 170.1022
+                )
+                
+                if self._bounds_intersect(bounds, tile_bounds):
+                    tile_img = self._render_tile(img, tile_bounds, bounds)
+                    if tile_img is not None:
+                        # Save tile image
+                        tile_path = self.tiles_path / str(zoom) / f"{x}_{y}.png"
+                        tile_img.save(tile_path)
+                        
+                        # Create tile KML
+                        self._create_tile_kml(zoom, x, y, tile_bounds, tile_path)
+    
+    def _render_tile(self, img: np.ndarray, tile_bounds: Tuple[float, float, float, float],
+                    img_bounds: Tuple[float, float, float, float]) -> Optional[Image.Image]:
+        """Render a map tile from the image."""
+        # Calculate pixel coordinates
+        img_h, img_w = img.shape[:2]
+        min_lon, min_lat, max_lon, max_lat = img_bounds
+        tile_min_lon, tile_min_lat, tile_max_lon, tile_max_lat = tile_bounds
+        
+        # Convert to pixel coordinates
+        x1 = int((tile_min_lon - min_lon) / (max_lon - min_lon) * img_w)
+        x2 = int((tile_max_lon - min_lon) / (max_lon - min_lon) * img_w)
+        y1 = int((max_lat - tile_max_lat) / (max_lat - min_lat) * img_h)
+        y2 = int((max_lat - tile_min_lat) / (max_lat - min_lat) * img_h)
+        
+        if x1 < 0: x1 = 0
+        if x2 > img_w: x2 = img_w
+        if y1 < 0: y1 = 0
+        if y2 > img_h: y2 = img_h
+        
+        if x2 <= x1 or y2 <= y1:
+            return None
+            
+        # Extract and resize tile
+        tile = img[y1:y2, x1:x2]
+        tile_img = Image.fromarray(tile)
+        tile_img = tile_img.resize((256, 256), Image.Resampling.LANCZOS)
+        
+        return tile_img
+    
+    def _create_tile_kml(self, zoom: int, x: int, y: int, bounds: Tuple[float, float, float, float],
+                        tile_path: Path):
+        """Create KML file for a single tile."""
+        min_lon, min_lat, max_lon, max_lat = bounds
+        kml_path = self.kml_path / str(zoom) / f"{x}_{y}.kml"
+        
+        kml_content = f'''<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Region>
+      <LatLonAltBox>
+        <north>{max_lat}</north>
+        <south>{min_lat}</south>
+        <east>{max_lon}</east>
+        <west>{min_lon}</west>
+      </LatLonAltBox>
+      <Lod>
+        <minLodPixels>128</minLodPixels>
+        <maxLodPixels>-1</maxLodPixels>
+      </Lod>
+    </Region>
+    <GroundOverlay>
+      <drawOrder>{zoom}</drawOrder>
+      <Icon>
+        <href>{tile_path.relative_to(self.base_path)}</href>
+      </Icon>
+      <LatLonBox>
+        <north>{max_lat}</north>
+        <south>{min_lat}</south>
+        <east>{max_lon}</east>
+        <west>{min_lon}</west>
+      </LatLonBox>
+    </GroundOverlay>
+  </Document>
+</kml>'''
+        
+        kml_path.write_text(kml_content)
+    
+    def _create_root_kml(self, kml_path: Path, bounds: Tuple[float, float, float, float],
+                        min_zoom: int, max_zoom: int):
+        """Create root KML file with network links."""
+        min_lon, min_lat, max_lon, max_lat = bounds
+        
+        links = []
+        for zoom in range(min_zoom, max_zoom + 1):
+            n = 2.0 ** zoom
+            for y in range(int(n)):
+                for x in range(int(n)):
+                    tile_kml = self.kml_path / str(zoom) / f"{x}_{y}.kml"
+                    if tile_kml.exists():
+                        links.append(f'''
+    <NetworkLink>
+      <name>Zoom {zoom} Tile {x},{y}</name>
+      <Region>
+        <LatLonAltBox>
+          <north>{(1 - y / n) * 170.1022}</north>
+          <south>{(1 - (y + 1) / n) * 170.1022}</south>
+          <east>{(x + 1) / n * 360.0 - 180.0}</east>
+          <west>{x / n * 360.0 - 180.0}</west>
+        </LatLonAltBox>
+        <Lod>
+          <minLodPixels>128</minLodPixels>
+          <maxLodPixels>-1</maxLodPixels>
+        </Lod>
+      </Region>
+      <Link>
+        <href>{tile_kml.relative_to(self.base_path)}</href>
+        <viewRefreshMode>onRegion</viewRefreshMode>
+      </Link>
+    </NetworkLink>''')
+        
+        kml_content = f'''<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>RSD Sidescan Data</name>
+    <description>Generated by RSD Studio</description>
+    <Region>
+      <LatLonAltBox>
+        <north>{max_lat}</north>
+        <south>{min_lat}</south>
+        <east>{max_lon}</east>
+        <west>{min_lon}</west>
+      </LatLonAltBox>
+      <Lod>
+        <minLodPixels>128</minLodPixels>
+        <maxLodPixels>-1</maxLodPixels>
+      </Lod>
+    </Region>
+    {"".join(links)}
+  </Document>
+</kml>'''
+        
+        kml_path.write_text(kml_content)
+    
+    @staticmethod
+    def _bounds_intersect(bounds1: Tuple[float, float, float, float],
+                         bounds2: Tuple[float, float, float, float]) -> bool:
+        """Check if two bounding boxes intersect."""
+        min_lon1, min_lat1, max_lon1, max_lat1 = bounds1
+        min_lon2, min_lat2, max_lon2, max_lat2 = bounds2
+        
+        return not (max_lon1 < min_lon2 or min_lon1 > max_lon2 or
+                   max_lat1 < min_lat2 or min_lat1 > max_lat2)

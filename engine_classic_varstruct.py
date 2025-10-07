@@ -105,11 +105,13 @@ def _iter_records(mm: mmap.mmap, start: int, limit: int, log_file, limit_records
                 try: heave = int.from_bytes(body[14][:2], 'little', signed=True) / 1000.0
                 except Exception: pass
             if 15 in body and len(body[15])>=4:
-                txo = _try_read_float32(body[15])
+                depth = _try_read_float32(body[15])  # Field 15 contains depth in classic format
             if 16 in body and len(body[16])>=4:
-                rxo = _try_read_float32(body[16])
-            if 17 in body and len(body[17])>=1:
-                color = int.from_bytes(body[17][:1], 'little')
+                txo = _try_read_float32(body[16])    # Field 16 is tx_offset
+            if 17 in body and len(body[17])>=4:
+                rxo = _try_read_float32(body[17])    # Field 17 is rx_offset
+            if 18 in body and len(body[18])>=1:
+                color = int.from_bytes(body[18][:1], 'little')
             extras = _decode_body_fields(body)
 
         except Exception:
@@ -132,10 +134,10 @@ def _iter_records(mm: mmap.mmap, start: int, limit: int, log_file, limit_records
 
         yield RSDRecord(
             hdr_start, ch, seq, time_ms, data_sz,
-            lat, lon, depth, sample,
+            lat, lon, txo, sample,
             sonar_ofs if sonar_len>0 else None,
             sonar_len if sonar_len>0 else None,
-            beam, pitch, roll, heave, txo, rxo, color, extras
+            beam, pitch, roll, heave, depth, rxo, color, extras
         )
         count += 1
         if count % 250 == 0:

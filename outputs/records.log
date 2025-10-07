@@ -2,3 +2,54 @@
 END engine=nextgen records=81394 dt=63.82s
 [2025-10-06 12:03:07] START engine=nextgen input=C:/Temp/Sonar Samples/Holloway.RSD
 END engine=nextgen records=81394 dt=186.56s
+[2025-10-06 12:29:39] START engine=nextgen input=C:/Temp/Sonar Samples/Holloway.RSD
+[engine_glue] progress engine=nextgen records=2000 elapsed=1.4s
+[engine_glue] progress engine=nextgen records=3708 elapsed=3.4s
+[engine_glue] progress engine=nextgen records=4000 elapsed=3.6s
+[engine_glue] progress engine=nextgen records=6000 elapsed=5.0s
+[engine_glue] progress engine=nextgen records=8000 elapsed=6.3s
+[engine_glue] progress engine=nextgen records=10000 elapsed=7.7s
+[engine_glue] progress engine=nextgen records=12000 elapsed=9.1s
+[engine_glue] progress engine=nextgen records=14000 elapsed=10.5s
+[engine_glue] progress engine=nextgen records=16000 elapsed=12.4s
+[engine_glue] progress engine=nextgen records=18000 elapsed=14.0s
+[engine_glue] progress engine=nextgen records=20000 elapsed=15.4s
+[engine_glue] progress engine=nextgen records=22000 elapsed=16.7s
+[engine_glue] progress engine=nextgen records=24000 elapsed=18.1s
+[engine_glue] progress engine=nextgen records=26000 elapsed=19.6s
+[engine_glue] progress engine=nextgen records=28000 elapsed=20.9s
+[engine_glue] progress engine=nextgen records=30000 elapsed=22.3s
+[engine_glue] progress engine=nextgen records=32000 elapsed=23.7s
+[engine_glue] progress engine=nextgen records=34000 elapsed=25.1s
+[engine_glue] progress engine=nextgen records=36000 elapsed=26.5s
+[engine_glue] progress engine=nextgen records=38000 elapsed=27.9s
+[engine_glue] progress engine=nextgen records=40000 elapsed=29.7s
+[engine_glue] progress engine=nextgen records=40739 elapsed=31.7s
+[engine_glue] progress engine=nextgen records=41439 elapsed=33.7s
+[engine_glue] progress engine=nextgen records=42000 elapsed=35.1s
+[engine_glue] progress engine=nextgen records=42820 elapsed=37.1s
+[engine_glue] progress engine=nextgen records=44000 elapsed=38.7s
+[engine_glue] progress engine=nextgen records=45636 elapsed=40.7s
+[engine_glue] progress engine=nextgen records=46000 elapsed=41.0s
+[engine_glue] progress engine=nextgen records=48000 elapsed=42.8s
+[engine_glue] progress engine=nextgen records=50000 elapsed=44.6s
+[engine_glue] progress engine=nextgen records=52000 elapsed=46.0s
+[engine_glue] progress engine=nextgen records=54000 elapsed=47.4s
+[engine_glue] progress engine=nextgen records=56000 elapsed=48.7s
+[engine_glue] progress engine=nextgen records=58000 elapsed=50.1s
+[engine_glue] progress engine=nextgen records=60000 elapsed=51.5s
+[engine_glue] progress engine=nextgen records=62000 elapsed=52.9s
+[engine_glue] progress engine=nextgen records=64000 elapsed=54.3s
+[engine_glue] progress engine=nextgen records=65589 elapsed=56.3s
+[engine_glue] progress engine=nextgen records=66000 elapsed=57.2s
+[engine_glue] progress engine=nextgen records=68000 elapsed=58.8s
+[engine_glue] progress engine=nextgen records=69241 elapsed=60.8s
+[engine_glue] progress engine=nextgen records=70000 elapsed=61.3s
+[engine_glue] progress engine=nextgen records=72000 elapsed=62.8s
+[engine_glue] progress engine=nextgen records=74000 elapsed=64.5s
+[engine_glue] progress engine=nextgen records=75092 elapsed=66.5s
+[engine_glue] progress engine=nextgen records=76000 elapsed=67.3s
+[engine_glue] progress engine=nextgen records=78000 elapsed=68.7s
+[engine_glue] progress engine=nextgen records=79782 elapsed=70.7s
+[engine_glue] progress engine=nextgen records=80000 elapsed=70.8s
+END engine=nextgen records=81394 dt=71.85s

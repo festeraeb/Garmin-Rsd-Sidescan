@@ -46,37 +46,17 @@ def read_records_from_csv(csv_path: str) -> List[RSDRecord]:
                     except:
                         pass
                 
-                # Helper function to safely convert values
-                def safe_float(val, default=None):
-                    try:
-                        return float(val) if val and val.strip() else default
-                    except (ValueError, AttributeError):
-                        return default
-                
-                def safe_int(val, default=None):
-                    try:
-                        return int(val) if val and val.strip() else default
-                    except (ValueError, AttributeError):
-                        return default
-                
                 record = RSDRecord(
-                    ofs=safe_int(row.get('ofs'), 0),
-                    channel_id=safe_int(row.get('channel_id')),
-                    seq=safe_int(row.get('seq'), 0),
-                    time_ms=safe_int(row.get('time_ms'), 0),
-                    lat=safe_float(row.get('lat')),
-                    lon=safe_float(row.get('lon')),
-                    depth_m=safe_float(row.get('depth_m')),
-                    sample_cnt=safe_int(row.get('sample_cnt')),
-                    sonar_ofs=safe_int(row.get('sonar_ofs')),
-                    sonar_size=safe_int(row.get('sonar_size')),
-                    beam_deg=safe_float(row.get('beam_deg')),
-                    pitch_deg=safe_float(row.get('pitch_deg')),
-                    roll_deg=safe_float(row.get('roll_deg')),
-                    heave_m=safe_float(row.get('heave_m')),
-                    tx_ofs_m=safe_float(row.get('tx_ofs_m')),
-                    rx_ofs_m=safe_float(row.get('rx_ofs_m')),
-                    color_id=safe_int(row.get('color_id')),
+                    ofs=int(row.get('ofs', 0)),
+                    channel_id=int(row['channel_id']) if row.get('channel_id') else None,
+                    seq=int(row.get('seq', 0)),
+                    time_ms=int(row.get('time_ms', 0)),
+                    lat=float(row['lat']) if row.get('lat') else None,
+                    lon=float(row['lon']) if row.get('lon') else None,
+                    depth_m=float(row['depth_m']) if row.get('depth_m') else None,
+                    sample_cnt=int(row['sample_cnt']) if row.get('sample_cnt') else None,
+                    sonar_ofs=int(row['sonar_ofs']) if row.get('sonar_ofs') else None,
+                    sonar_size=int(row['sonar_size']) if row.get('sonar_size') else None,
                     extras=extras
                 )
                 records.append(record)
@@ -102,15 +82,10 @@ def split_by_channels(records: List[RSDRecord]) -> Dict[int, List[RSDRecord]]:
 def create_channel_blocks(channel_records: List[RSDRecord], block_size: int = 50) -> List[List[RSDRecord]]:
     """Create blocks of records for processing"""
     blocks = []
-    print(f"Creating blocks from {len(channel_records)} records with block_size={block_size}")
-    
     for i in range(0, len(channel_records), block_size):
         block = channel_records[i:i + block_size]
-        if len(block) >= 5:  # Lower threshold - keep blocks with at least 5 records
+        if len(block) >= block_size // 2:  # Only keep blocks with at least half the expected size
             blocks.append(block)
-            print(f"  Block {len(blocks)-1}: {len(block)} records (seq {block[0].seq} - {block[-1].seq})")
-    
-    print(f"Created {len(blocks)} total blocks")
     return blocks
 
 def pair_channel_blocks(left_blocks: List[List[RSDRecord]], 
@@ -118,20 +93,36 @@ def pair_channel_blocks(left_blocks: List[List[RSDRecord]],
     """Pair blocks from left and right channels based on sequence alignment"""
     paired_blocks = []
     
-    print(f"Pairing {len(left_blocks)} left blocks with {len(right_blocks)} right blocks")
-    
-    # Use simple index-based pairing to ensure we get multiple blocks
-    max_pairs = min(len(left_blocks), len(right_blocks))
-    
-    for i in range(max_pairs):
-        left_block = left_blocks[i]
-        right_block = right_blocks[i]
+    for left_block in left_blocks:
+        if not left_block:
+            continue
+            
+        left_seq_start = left_block[0].seq
+        left_seq_end = left_block[-1].seq
         
-        if left_block and right_block:
-            paired_blocks.append((left_block, right_block))
-            print(f"  Paired block {i}: Left {len(left_block)} records, Right {len(right_block)} records")
+        # Find best matching right block
+        best_right_block = None
+        best_overlap = 0
+        
+        for right_block in right_blocks:
+            if not right_block:
+                continue
+                
+            right_seq_start = right_block[0].seq
+            right_seq_end = right_block[-1].seq
+            
+            # Calculate sequence overlap
+            overlap_start = max(left_seq_start, right_seq_start)
+            overlap_end = min(left_seq_end, right_seq_end)
+            overlap = max(0, overlap_end - overlap_start + 1)
+            
+            if overlap > best_overlap:
+                best_overlap = overlap
+                best_right_block = right_block
+        
+        if best_right_block and best_overlap > 10:  # Minimum overlap threshold
+            paired_blocks.append((left_block, best_right_block))
     
-    print(f"Created {len(paired_blocks)} paired blocks")
     return paired_blocks
 
 def extract_sonar_data(rsd_path: str, record: RSDRecord) -> bytes:
@@ -249,139 +240,6 @@ def auto_align_block_pair(rsd_path: str, left_block: List[RSDRecord],
     confidence = 1.0 - (np.std(shifts) / (np.std(shifts) + 10.0))  # Normalize confidence
     
     return median_shift, confidence
-
-def compose_channel_block_preview(rsd_path: str, left_block: List[RSDRecord], 
-                                right_block: List[RSDRecord], 
-                                preview_mode: str = "both",
-                                width: int = 512, 
-                                flip_left: bool = False, flip_right: bool = False,
-                                remove_water_column: bool = False,
-                                water_column_pixels: int = 50) -> np.ndarray:
-    """Create proper channel block preview showing full water columns as vertical blocks
-    
-    Each record becomes a horizontal row, stacked vertically to show the water column
-    over time (multiple pings). This creates the proper sonar waterfall display.
-    """
-    
-    def create_channel_waterfall(block: List[RSDRecord], flip: bool) -> np.ndarray:
-        """Create a waterfall image from a block of records"""
-        if not block:
-            return np.zeros((50, width), dtype=np.uint8)  # Default size
-        
-        # We'll create an image where each row is one ping (record)
-        # Height = number of records, Width = sonar range samples
-        block_height = len(block)
-        waterfall = np.zeros((block_height, width), dtype=np.uint8)
-        
-        print(f"Creating waterfall: {block_height} pings x {width} samples")
-        
-        for row_idx, record in enumerate(block):
-            try:
-                # Extract sonar data for this ping
-                sonar_data = extract_sonar_data(rsd_path, record)
-                
-                if sonar_data and len(sonar_data) > 0:
-                    # Convert to intensity values (0-255)
-                    intensity_data = (sonar_data * 255).astype(np.uint8)
-                    
-                    # Resize to target width if needed
-                    if len(intensity_data) != width:
-                        # Simple interpolation to target width
-                        x_old = np.linspace(0, 1, len(intensity_data))
-                        x_new = np.linspace(0, 1, width)
-                        intensity_data = np.interp(x_new, x_old, intensity_data).astype(np.uint8)
-                    
-                    # Apply flipping if requested
-                    if flip:
-                        intensity_data = np.fliplr(intensity_data.reshape(1, -1))[0]
-                    
-                    # Set this row in the waterfall
-                    waterfall[row_idx, :] = intensity_data
-                    
-                else:
-                    # No data - leave as zeros (black)
-                    print(f"No sonar data for record {row_idx}")
-                    
-            except Exception as e:
-                print(f"Error processing record {row_idx}: {e}")
-                # Leave as zeros
-                continue
-        
-        # Remove water column if requested (crop horizontally from left)
-        if remove_water_column and water_column_pixels > 0:
-            if waterfall.shape[1] > water_column_pixels:
-                waterfall = waterfall[:, water_column_pixels:]
-        
-        return waterfall
-    
-    # Create waterfalls for each channel
-    left_waterfall = None
-    right_waterfall = None
-    
-    if left_block:
-        print(f"Processing left channel: {len(left_block)} records")
-        left_waterfall = create_channel_waterfall(left_block, flip_left)
-        
-    if right_block:
-        print(f"Processing right channel: {len(right_block)} records")
-        right_waterfall = create_channel_waterfall(right_block, flip_right)
-    
-    # Combine based on preview mode
-    if preview_mode == "left" and left_waterfall is not None:
-        return left_waterfall
-        
-    elif preview_mode == "right" and right_waterfall is not None:
-        return right_waterfall
-        
-    elif preview_mode == "both" and left_waterfall is not None and right_waterfall is not None:
-        # Side by side display
-        gap_width = 20  # Gap between channels
-        left_height, left_width = left_waterfall.shape
-        right_height, right_width = right_waterfall.shape
-        
-        # Make heights match
-        max_height = max(left_height, right_height)
-        
-        # Create combined image
-        total_width = left_width + gap_width + right_width
-        combined = np.zeros((max_height, total_width), dtype=np.uint8)
-        
-        # Copy left channel
-        combined[:left_height, :left_width] = left_waterfall
-        
-        # Add separator (gray line)
-        combined[:, left_width:left_width + gap_width] = 128
-        
-        # Copy right channel  
-        combined[:right_height, left_width + gap_width:left_width + gap_width + right_width] = right_waterfall
-        
-        return combined
-        
-    elif preview_mode == "overlay" and left_waterfall is not None and right_waterfall is not None:
-        # Overlay channels for alignment checking
-        left_height, left_width = left_waterfall.shape
-        right_height, right_width = right_waterfall.shape
-        
-        # Make dimensions match
-        max_height = max(left_height, right_height)
-        min_width = min(left_width, right_width)
-        
-        # Resize both to same size
-        overlay = np.zeros((max_height, min_width), dtype=np.uint8)
-        
-        # Blend the channels
-        left_resized = left_waterfall[:max_height, :min_width] if left_height >= max_height else np.pad(left_waterfall[:, :min_width], ((0, max_height - left_height), (0, 0)))
-        right_resized = right_waterfall[:max_height, :min_width] if right_height >= max_height else np.pad(right_waterfall[:, :min_width], ((0, max_height - right_height), (0, 0)))
-        
-        # Average the two channels
-        overlay = ((left_resized.astype(np.float32) + right_resized.astype(np.float32)) / 2).astype(np.uint8)
-        
-        return overlay
-    
-    else:
-        # Fallback - create a sample pattern
-        print("Fallback: creating sample pattern")
-        return np.random.randint(0, 128, (50, width), dtype=np.uint8)
 
 def compose_aligned_block(rsd_path: str, left_block: List[RSDRecord], 
                          right_block: List[RSDRecord], shift: int = 0,

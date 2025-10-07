@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Full-featured GUI for RSD Studio.
 
 This provides a complete Tk-based application for parsing RSD files and 
@@ -8,44 +8,204 @@ generating previews/exports. It includes file handling plus preview/export.
 from pathlib import Path
 import importlib.util
 import subprocess
+import sys
 import threading
 import queue
 import json
+import os
 import numpy as np
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from PIL import Image as PIm, ImageTk
+import time
+from typing import Optional, Dict, List
+
+# Try to import block processing functionality
+try:
+    from block_pipeline import BlockProcessor, get_suggested_channel_pairs, get_transducer_info
+    from colormap_utils import get_available_colormaps, apply_colormap, create_colormap_preview
+    from block_target_detection import BlockTargetAnalysisEngine, BlockTargetDetector
+    BLOCK_PROCESSING_AVAILABLE = True
+    TARGET_DETECTION_AVAILABLE = True
+except ImportError as e:
+    BLOCK_PROCESSING_AVAILABLE = False
+    TARGET_DETECTION_AVAILABLE = False
+    print(f"Warning: Advanced features not available: {e}")
+
+
+class ProcessManager:
+    def __init__(self, queue_callback):
+        self.active_processes: Dict[str, threading.Thread] = {}
+        self.should_cancel: Dict[str, bool] = {}
+        self._queue = queue_callback
+        
+    def start_process(self, process_id: str, target, **kwargs):
+        if process_id in self.active_processes and self.active_processes[process_id].is_alive():
+            return False
+            
+        self.should_cancel[process_id] = False
+        thread = threading.Thread(
+            target=self._wrapped_target,
+            args=(process_id, target),
+            kwargs=kwargs,
+            daemon=True
+        )
+        self.active_processes[process_id] = thread
+        thread.start()
+        return True
+        
+    def _wrapped_target(self, process_id: str, target, **kwargs):
+        try:
+            kwargs['on_progress'] = lambda pct, msg: self._queue.put(('progress', process_id, pct, msg))
+            kwargs['check_cancel'] = lambda: self.should_cancel.get(process_id, False)
+            target(**kwargs)
+        except Exception as e:
+            self._queue.put(('error', process_id, str(e)))
+        finally:
+            self._queue.put(('done', process_id))
+            
+    def cancel_process(self, process_id: str):
+        self.should_cancel[process_id] = True
 
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("RSD Studio")
+        self.title("RSD Studio - Enhanced Block Processing")
+        self.geometry("1400x900")
+        self.minsize(1200, 800)
+        
+        # Process management
+        self._q = queue.Queue()
+        self.process_mgr = ProcessManager(self._q)
         
         # File handling vars
         self.input_path = tk.StringVar()
         self.output_path = tk.StringVar()
         self.parser_pref = tk.StringVar(value="auto-nextgen-then-classic")
+        self.scan_type = tk.StringVar(value="auto")
+        self.channel_id = tk.StringVar(value="all")
         
         # Preview/export vars  
         self.cmap = tk.StringVar(value="gray")
         self.preview_mode = tk.StringVar(value="auto")
         self.show_seam = tk.IntVar(value=1)
+        self.preview_live = tk.IntVar(value=1)
         self.vh = tk.StringVar(value="200")
         self.vfps = tk.StringVar(value="30")
         self.vmax = tk.StringVar(value="255")
         
-        # Internal queue for log/preview
-        self._q = queue.Queue()
+        # Export options
+        self.export_format = tk.StringVar(value="video")
+        self.tile_size = tk.IntVar(value=256)
+        self.min_zoom = tk.IntVar(value=10)
+        self.max_zoom = tk.IntVar(value=18)
+        
+        # Block processing variables
+        self.block_size = tk.IntVar(value=25)  # Smaller default for more blocks
+        self.auto_align = tk.BooleanVar(value=True)
+        self.manual_shift = tk.IntVar(value=0)
+        self.flip_left = tk.BooleanVar(value=False)
+        self.flip_right = tk.BooleanVar(value=False)
+        self.swap_channels = tk.BooleanVar(value=False)
+        self.left_channel = tk.IntVar(value=4)
+        self.right_channel = tk.IntVar(value=5)
+        self.block_preview_mode = tk.StringVar(value="both")
+        self.block_colormap = tk.StringVar(value="gray")  # Add missing block colormap variable
+        # Initialize colormap variable to use the same as block_colormap
+        self.colormap_var = self.block_colormap
+        
+        # Target detection variables
+        self.current_sar_report = None
+        self.current_wreck_report = None
+        self.current_target_analyses = None
+        self.target_max_blocks = tk.IntVar(value=100)
+        self.target_confidence_threshold = tk.DoubleVar(value=0.4)
+        
+        # Runtime state for block processing
+        self.block_processor = None
+        self.current_csv_path = None
+        self.current_rsd_path = None
+        self.last_output_csv_path = None  # Track CSV output path for exports
+        
+        # Set default CSV path if it exists (for testing)
+        if Path("outputs/records.csv").exists():
+            self.last_output_csv_path = str(Path("outputs/records.csv").absolute())
+        self.available_channels = []
+        self.suggested_pairs = []
+        self.current_block_images = []
+        self.current_block_index = 0
+        
+        # Available colormaps
+        # Initialize colormaps with amber/warm tones
+        self.colormaps = [
+            "gray", "amber", "sepia", "orange", "copper", 
+            "jet", "plasma", "viridis", "magma", "inferno",
+            "bathymetry", "bathymetry_r", "ocean", "earth", "terrain",
+            "rainbow", "gnuplot", "gnuplot2", "brg", "gist_earth",
+            "gist_stern", "gist_rainbow", "nipy_spectral", "terrain_r",
+            "hot", "afmhot", "gist_heat", "Oranges", "YlOrBr", "autumn"
+        ]
+        
+        # Create custom amber colormap if not available
+        self._setup_custom_colormaps()
+        
+        # Progress tracking
+        self.progress_vars = {}
         
         self._build_ui()
         self._check_loop()
     
     def _build_ui(self):
-        """Build the complete user interface."""
+        """Build the complete user interface with tabbed interface."""
+        # Create main notebook for tabbed interface
+        self.notebook = ttk.Notebook(self)
+        self.notebook.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        # Main Processing Tab - use the existing UI code for now
+        main_frame = ttk.Frame(self.notebook)
+        self.notebook.add(main_frame, text="📁 File Processing")
+        
+        # Use the original UI layout inside the main tab
+        self._create_original_ui(main_frame)
+        
+        # Target Detection Tab (only if available) - placeholder for now
+        if TARGET_DETECTION_AVAILABLE:
+            target_frame = ttk.Frame(self.notebook)
+            self.notebook.add(target_frame, text="🎯 Target Detection (Advanced)")
+            
+            # Simple placeholder for target detection tab
+            ttk.Label(target_frame, text="🎯 Advanced Target Detection", 
+                     font=("Arial", 14, "bold")).pack(pady=20)
+            ttk.Label(target_frame, text="Target detection features will be implemented here.", 
+                     font=("Arial", 10)).pack(pady=10)
+            ttk.Label(target_frame, text="Use the File Processing tab to parse RSD files first.", 
+                     font=("Arial", 10)).pack(pady=5)
+        
+        # Info/About Tab
+        info_frame = ttk.Frame(self.notebook)
+        self.notebook.add(info_frame, text="ℹ️ About")
+        
+        # Simple about tab
+        ttk.Label(info_frame, text="Garmin RSD Studio v3.14", 
+                 font=("Arial", 16, "bold")).pack(pady=20)
+        ttk.Label(info_frame, text="Enhanced with target detection capabilities", 
+                 font=("Arial", 10)).pack(pady=10)
+    
+    def _create_original_ui(self, parent):
+        """Create the original UI layout inside a parent frame"""
+        # This is the original UI code moved into the main tab
+        # Main container
+        main = ttk.PanedWindow(parent, orient="horizontal")
+        main.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        # Left side - controls
+        left = ttk.Frame(main)
+        main.add(left, weight=1)
+        
         # File handling frame
-        ff = ttk.LabelFrame(self, text="File Handling")
-        ff.pack(fill="x", padx=8, pady=4)
+        ff = ttk.LabelFrame(left, text="File Handling")
+        ff.pack(fill="x", padx=4, pady=4)
         
         ttk.Label(ff, text="Input RSD:").pack(anchor="w", padx=4)
         f1 = ttk.Frame(ff)
@@ -53,56 +213,611 @@ class App(tk.Tk):
         ttk.Entry(f1, textvariable=self.input_path).pack(side="left", fill="x", expand=True)
         ttk.Button(f1, text="Browse", command=self._browse_input).pack(side="right", padx=2)
         
-        ttk.Label(ff, text="Output CSV:").pack(anchor="w", padx=4)
+        ttk.Label(ff, text="Output Directory:").pack(anchor="w", padx=4)
         f2 = ttk.Frame(ff)
         f2.pack(fill="x", padx=4)
         ttk.Entry(f2, textvariable=self.output_path).pack(side="left", fill="x", expand=True)
         ttk.Button(f2, text="Browse", command=self._browse_output).pack(side="right", padx=2)
         
-        ttk.Label(ff, text="Parser:").pack(anchor="w", padx=4)
-        ttk.OptionMenu(ff, self.parser_pref, 
+        f3 = ttk.Frame(ff)
+        f3.pack(fill="x", padx=4, pady=4)
+        ttk.Label(f3, text="Parser:").pack(side="left")
+        ttk.OptionMenu(f3, self.parser_pref, 
                       "auto-nextgen-then-classic",
-                      "auto-nextgen-then-classic",
+                      "auto-nextgen-then-classic", 
                       "classic",
-                      "nextgen").pack(fill="x", padx=4)
+                      "nextgen").pack(side="left", padx=4)
         
-        ttk.Button(ff, text="Parse RSD File", command=self._parse).pack(pady=4)
+        # Add scan type and channel selection
+        f3b = ttk.Frame(ff)
+        f3b.pack(fill="x", padx=4)
+        ttk.Label(f3b, text="Scan Type:").pack(side="left")
+        ttk.OptionMenu(f3b, self.scan_type, "auto", "auto", "sidescan", "downscan", "chirp").pack(side="left", padx=4)
+        ttk.Label(f3b, text="Channel:").pack(side="left", padx=4)
+        ttk.OptionMenu(f3b, self.channel_id, "all", "all", "auto").pack(side="left", padx=4)
         
-        # Preview/Export frame  
-        pf = ttk.LabelFrame(self, text="Preview/Export")
-        pf.pack(fill="x", padx=8, pady=4)
+        parse_btn = ttk.Button(ff, text="Parse RSD File", command=self._parse)
+        parse_btn.pack(pady=4)
         
-        f3 = ttk.Frame(pf)
-        f3.pack(fill="x", padx=4)
-        ttk.Label(f3, text="Colormap:").pack(side="left")
-        ttk.OptionMenu(f3, self.cmap, "gray", "gray", "jet", "plasma").pack(side="left", padx=4)
-        ttk.Label(f3, text="Preview:").pack(side="left", padx=4)
-        ttk.OptionMenu(f3, self.preview_mode, "auto", "auto", "left", "right", "both").pack(side="left", padx=4)
-        ttk.Checkbutton(f3, text="Show Seam", variable=self.show_seam).pack(side="left", padx=4)
+        # Block processing controls (if available) - consolidated preview settings here
+        if BLOCK_PROCESSING_AVAILABLE:
+            # Combined Block Processing and Preview Settings
+            ch_frame = ttk.LabelFrame(left, text="Block Processing & Preview")
+            ch_frame.pack(fill="x", padx=4, pady=4)
+            
+            f6 = ttk.Frame(ch_frame)
+            f6.pack(fill="x", padx=4)
+            ttk.Label(f6, text="Left Ch:").pack(side="left")
+            self.left_ch_combo = ttk.Combobox(f6, textvariable=self.left_channel, width=6, state="readonly")
+            self.left_ch_combo.pack(side="left", padx=2)
+            ttk.Label(f6, text="Right Ch:").pack(side="left", padx=4)
+            self.right_ch_combo = ttk.Combobox(f6, textvariable=self.right_channel, width=6, state="readonly")
+            self.right_ch_combo.pack(side="left", padx=2)
+            ttk.Button(f6, text="Auto-Detect", command=self._auto_detect_channels).pack(side="right")
+            
+            f7 = ttk.Frame(ch_frame)
+            f7.pack(fill="x", padx=4, pady=2)
+            ttk.Label(f7, text="Block Size:").pack(side="left")
+            ttk.Spinbox(f7, from_=10, to=200, textvariable=self.block_size, width=6).pack(side="left", padx=2)
+            ttk.Checkbutton(f7, text="Auto-Align", variable=self.auto_align).pack(side="left", padx=4)
+            ttk.Label(f7, text="Shift:").pack(side="left", padx=4)
+            ttk.Spinbox(f7, from_=-100, to=100, textvariable=self.manual_shift, width=6).pack(side="left", padx=2)
+            
+            f8 = ttk.Frame(ch_frame)
+            f8.pack(fill="x", padx=4, pady=2)
+            ttk.Checkbutton(f8, text="Flip Left", variable=self.flip_left).pack(side="left")
+            ttk.Checkbutton(f8, text="Flip Right", variable=self.flip_right).pack(side="left", padx=4)
+            ttk.Checkbutton(f8, text="Swap L/R", variable=self.swap_channels).pack(side="left", padx=4)
+            
+            # Block preview options
+            f9 = ttk.Frame(ch_frame)
+            f9.pack(fill="x", padx=4, pady=2)
+            ttk.Label(f9, text="View:").pack(side="left")
+            ttk.OptionMenu(f9, self.block_preview_mode, "both", "both", "left", "right", "overlay").pack(side="left", padx=2)
+            ttk.Label(f9, text="Colormap:").pack(side="left", padx=4)
+            
+            # Add trace to refresh display when colormap changes
+            self.colormap_var.trace_add("write", self._on_colormap_change)
+            ttk.OptionMenu(f9, self.block_colormap, "gray", *self.colormaps).pack(side="left", padx=2)
+            ttk.Button(f9, text="Refresh", command=self._refresh_block_display).pack(side="left", padx=2)
+            
+            # Water column controls
+            f10 = ttk.Frame(ch_frame)
+            f10.pack(fill="x", padx=4, pady=2)
+            self.remove_water_column = tk.BooleanVar(value=False)
+            self.water_column_pixels = tk.IntVar(value=50)
+            ttk.Checkbutton(f10, text="Remove Water Column", variable=self.remove_water_column).pack(side="left")
+            ttk.Label(f10, text="Pixels:").pack(side="left", padx=4)
+            ttk.Spinbox(f10, from_=10, to=200, textvariable=self.water_column_pixels, width=4).pack(side="left", padx=2)
+            
+            # Block navigation
+            nav_frame = ttk.Frame(ch_frame)
+            nav_frame.pack(fill="x", padx=4, pady=2)
+            self.prev_block_btn = ttk.Button(nav_frame, text="← Prev", command=self._prev_block, state="disabled")
+            self.prev_block_btn.pack(side="left")
+            self.block_info_label = ttk.Label(nav_frame, text="No blocks loaded")
+            self.block_info_label.pack(side="left", padx=10)
+            self.next_block_btn = ttk.Button(nav_frame, text="Next →", command=self._next_block, state="disabled")
+            self.next_block_btn.pack(side="right")
+            
         
-        f4 = ttk.Frame(pf)
-        f4.pack(fill="x", padx=4, pady=4)
-        ttk.Label(f4, text="Height:").pack(side="left")
-        ttk.Entry(f4, textvariable=self.vh, width=6).pack(side="left", padx=4)
-        ttk.Label(f4, text="FPS:").pack(side="left", padx=4)
-        ttk.Entry(f4, textvariable=self.vfps, width=6).pack(side="left", padx=4)
-        ttk.Label(f4, text="Max:").pack(side="left", padx=4)
-        ttk.Entry(f4, textvariable=self.vmax, width=6).pack(side="left", padx=4)
+        ttk.Button(ch_frame, text="Generate Block Preview", command=self._block_preview).pack(pady=4)
         
-        ttk.Button(pf, text="Preview", command=self._preview).pack(pady=4)
-        ttk.Button(pf, text="Export Video", command=self._export).pack(pady=4)
+        # Remove legacy preview button - consolidated into block preview        # Export frame
+        ef = ttk.LabelFrame(left, text="Export Options")
+        ef.pack(fill="x", padx=4, pady=4)
+        
+        # Export selection with checkboxes
+        export_selection_frame = ttk.LabelFrame(ef, text="📤 Export Options")
+        export_selection_frame.pack(fill="x", padx=4, pady=4)
+        
+        # Export format checkboxes
+        self.export_video_var = tk.BooleanVar()
+        self.export_kml_var = tk.BooleanVar()
+        self.export_tiles_var = tk.BooleanVar()
+        
+        checkboxes_frame = ttk.Frame(export_selection_frame)
+        checkboxes_frame.pack(fill="x", padx=4, pady=4)
+        
+        ttk.Checkbutton(checkboxes_frame, text="📹 Video (MP4)", 
+                       variable=self.export_video_var).pack(side="left", padx=10)
+        ttk.Checkbutton(checkboxes_frame, text="🗺️ KML Overlay", 
+                       variable=self.export_kml_var).pack(side="left", padx=10)
+        ttk.Checkbutton(checkboxes_frame, text="🧩 MBTiles Map", 
+                       variable=self.export_tiles_var).pack(side="left", padx=10)
+        
+        # Process button
+        process_frame = ttk.Frame(export_selection_frame)
+        process_frame.pack(fill="x", padx=4, pady=4)
+        
+        ttk.Button(process_frame, text="🚀 Process Selected Exports", 
+                  command=self._process_selected_exports).pack(pady=5)
+        
+        # Quick selection buttons
+        quick_select_frame = ttk.Frame(export_selection_frame)
+        quick_select_frame.pack(fill="x", padx=4, pady=2)
+        
+        ttk.Button(quick_select_frame, text="Select All", 
+                  command=self._select_all_exports).pack(side="left", padx=2)
+        ttk.Button(quick_select_frame, text="Clear All", 
+                  command=self._clear_all_exports).pack(side="left", padx=2)
+        
+        # Video settings (always visible now)
+        video_settings_frame = ttk.LabelFrame(ef, text="Video Settings")
+        video_settings_frame.pack(fill="x", padx=4, pady=4)
+        
+        vs_frame = ttk.Frame(video_settings_frame)
+        vs_frame.pack(fill="x", padx=4, pady=2)
+        ttk.Label(vs_frame, text="Height:").pack(side="left")
+        ttk.Entry(vs_frame, textvariable=self.vh, width=6).pack(side="left", padx=4)
+        ttk.Label(vs_frame, text="FPS:").pack(side="left", padx=4)
+        ttk.Entry(vs_frame, textvariable=self.vfps, width=6).pack(side="left", padx=4)
+        ttk.Label(vs_frame, text="Max:").pack(side="left", padx=4)
+        ttk.Entry(vs_frame, textvariable=self.vmax, width=6).pack(side="left", padx=4)
+        
+        # Right side - preview and log
+        right = ttk.Frame(main)
+        main.add(right, weight=2)
+        
+        # Preview display with scrollable canvas
+        preview_frame = ttk.LabelFrame(right, text="Preview Display")
+        preview_frame.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        # Create canvas with scrollbars for large images
+        canvas_frame = ttk.Frame(preview_frame)
+        canvas_frame.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        self.preview_canvas = tk.Canvas(canvas_frame, bg="black")
+        h_scroll = ttk.Scrollbar(canvas_frame, orient="horizontal", command=self.preview_canvas.xview)
+        v_scroll = ttk.Scrollbar(canvas_frame, orient="vertical", command=self.preview_canvas.yview)
+        self.preview_canvas.configure(xscrollcommand=h_scroll.set, yscrollcommand=v_scroll.set)
+        
+        self.preview_canvas.grid(row=0, column=0, sticky="nsew")
+        h_scroll.grid(row=1, column=0, sticky="ew")
+        v_scroll.grid(row=0, column=1, sticky="ns")
+        
+        canvas_frame.grid_rowconfigure(0, weight=1)
+        canvas_frame.grid_columnconfigure(0, weight=1)
+        
+        # Remove legacy preview label - using canvas only now
         
         # Log frame
-        lf = ttk.LabelFrame(self, text="Log")
-        lf.pack(fill="both", expand=True, padx=8, pady=4)
+        lf = ttk.LabelFrame(right, text="Log")
+        lf.pack(fill="both", expand=True, padx=4, pady=4)
         
-        self.log = tk.Text(lf, height=10)
+        # Add scrollbar to log
+        log_scroll = ttk.Scrollbar(lf)
+        log_scroll.pack(side="right", fill="y")
+        
+        self.log = tk.Text(lf, height=10, yscrollcommand=log_scroll.set)
         self.log.pack(fill="both", expand=True, padx=4, pady=4)
+        log_scroll.config(command=self.log.yview)
         
-        # Preview display
-        self.preview = ttk.Label(self)
-        self.preview.pack(padx=8, pady=4)
+        # Ensure log visibility
+        self.log.see("end")
     
+    def on_target_csv_browse(self):
+        """Browse for CSV file for target detection"""
+        filetypes = [("CSV files", "*.csv"), ("All files", "*.*")]
+        filename = filedialog.askopenfilename(title="Select CSV Records File", filetypes=filetypes)
+        if filename:
+            self.target_csv_entry.delete(0, tk.END)
+            self.target_csv_entry.insert(0, filename)
+    
+    def on_run_target_analysis(self):
+        """Run target detection analysis on blocks"""
+        if not TARGET_DETECTION_AVAILABLE:
+            messagebox.showerror("Error", "Target detection module not available")
+            return
+            
+        csv_path = self.target_csv_entry.get().strip()
+        if not csv_path or not os.path.exists(csv_path):
+            messagebox.showerror("Error", "Please select a valid CSV records file")
+            return
+        
+        # Disable analysis button during processing
+        self.analyze_btn.config(state="disabled")
+        self.target_progress_bar.start()
+        self.target_progress_var.set("Initializing target detection...")
+        
+        # Run analysis in thread to avoid blocking UI
+        import threading
+        
+        def run_analysis():
+            try:
+                from block_target_detection import BlockTargetAnalysisEngine
+                
+                # Initialize analysis engine
+                engine = BlockTargetAnalysisEngine()
+                
+                # Set up progress callback
+                def progress_callback(pct, message):
+                    self.target_progress_var.set(f"{message} ({pct:.1f}%)" if pct else message)
+                
+                # Run analysis
+                mode = self.detection_mode_var.get().lower().replace(" ", "_")
+                sensitivity = self.sensitivity_var.get()
+                
+                results = engine.analyze_csv_file(
+                    csv_path,
+                    detection_mode=mode,
+                    sensitivity=sensitivity,
+                    progress_callback=progress_callback
+                )
+                
+                # Update UI with results
+                self.after(0, lambda: self._display_target_results(results))
+                
+            except Exception as e:
+                error_msg = f"Target analysis failed: {str(e)}"
+                self.after(0, lambda: messagebox.showerror("Analysis Error", error_msg))
+                self.after(0, lambda: self.target_progress_var.set("Analysis failed"))
+            
+            finally:
+                self.after(0, lambda: self.target_progress_bar.stop())
+                self.after(0, lambda: self.analyze_btn.config(state="normal"))
+        
+        thread = threading.Thread(target=run_analysis, daemon=True)
+        thread.start()
+    
+    def _display_target_results(self, results):
+        """Display target detection results in the UI"""
+        # Clear previous results
+        self.results_text.delete(1.0, tk.END)
+        
+        if not results or 'targets' not in results:
+            self.results_text.insert(tk.END, "No targets detected in analysis.\n")
+            self.target_progress_var.set("Analysis complete - no targets found")
+            return
+        
+        targets = results['targets']
+        summary = results.get('summary', {})
+        
+        # Display summary
+        self.results_text.insert(tk.END, f"TARGET DETECTION RESULTS\n")
+        self.results_text.insert(tk.END, f"{'='*40}\n\n")
+        self.results_text.insert(tk.END, f"Total Targets Detected: {len(targets)}\n")
+        self.results_text.insert(tk.END, f"Analysis Date: {summary.get('timestamp', 'Unknown')}\n")
+        self.results_text.insert(tk.END, f"Detection Mode: {summary.get('mode', 'Unknown')}\n")
+        self.results_text.insert(tk.END, f"Sensitivity: {summary.get('sensitivity', 'Unknown')}\n\n")
+        
+        # Display individual targets
+        for i, target in enumerate(targets, 1):
+            self.results_text.insert(tk.END, f"Target #{i}:\n")
+            self.results_text.insert(tk.END, f"  Type: {target.get('type', 'Unknown')}\n")
+            self.results_text.insert(tk.END, f"  Confidence: {target.get('confidence', 0):.2f}\n")
+            
+            if 'gps' in target:
+                gps = target['gps']
+                self.results_text.insert(tk.END, f"  GPS: {gps.get('lat', 'N/A'):.6f}, {gps.get('lon', 'N/A'):.6f}\n")
+            
+            if 'dimensions' in target:
+                dims = target['dimensions']
+                self.results_text.insert(tk.END, f"  Size: {dims.get('length', 'N/A')} x {dims.get('width', 'N/A')} m\n")
+            
+            self.results_text.insert(tk.END, f"  Block: {target.get('block_id', 'N/A')}\n\n")
+        
+        # Store results for report generation
+        self.current_target_results = results
+        
+        self.target_progress_var.set(f"Analysis complete - {len(targets)} targets found")
+    
+    def on_generate_sar_report(self):
+        """Generate SAR report from current target results"""
+        if not hasattr(self, 'current_target_results') or not self.current_target_results:
+            messagebox.showwarning("No Data", "Please run target analysis first")
+            return
+        
+        try:
+            from block_target_detection import BlockTargetAnalysisEngine
+            engine = BlockTargetAnalysisEngine()
+            
+            sar_report = engine.generate_sar_report(self.current_target_results)
+            self.current_sar_report = sar_report
+            
+            # Display in report viewer
+            self.report_text.delete(1.0, tk.END)
+            self.report_text.insert(tk.END, sar_report)
+            
+            # Switch to report tab
+            self.target_notebook.select(1)  # Report viewer tab
+            
+            messagebox.showinfo("Report Generated", "SAR report has been generated and displayed")
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to generate SAR report: {str(e)}")
+    
+    def on_generate_wreck_report(self):
+        """Generate wreck hunting report from current target results"""
+        if not hasattr(self, 'current_target_results') or not self.current_target_results:
+            messagebox.showwarning("No Data", "Please run target analysis first")
+            return
+        
+        try:
+            from block_target_detection import BlockTargetAnalysisEngine
+            engine = BlockTargetAnalysisEngine()
+            
+            wreck_report = engine.generate_wreck_report(self.current_target_results)
+            self.current_wreck_report = wreck_report
+            
+            # Display in report viewer
+            self.report_text.delete(1.0, tk.END)
+            self.report_text.insert(tk.END, wreck_report)
+            
+            # Switch to report tab
+            self.target_notebook.select(1)  # Report viewer tab
+            
+            messagebox.showinfo("Report Generated", "Wreck hunting report has been generated and displayed")
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to generate wreck report: {str(e)}")
+
+    def on_input_browse(self):
+        """Browse for input RSD file"""
+        filetypes = [("RSD files", "*.RSD"), ("All files", "*.*")]
+        filename = filedialog.askopenfilename(title="Select RSD File", filetypes=filetypes)
+        if filename:
+            self.input_entry.delete(0, tk.END)
+            self.input_entry.insert(0, filename)
+    
+    def on_output_browse(self):
+        """Browse for output directory"""
+        directory = filedialog.askdirectory(title="Select Output Directory")
+        if directory:
+            self.output_entry.delete(0, tk.END)
+            self.output_entry.insert(0, directory)
+    
+    def on_csv_browse(self):
+        """Browse for CSV records file"""
+        filetypes = [("CSV files", "*.csv"), ("All files", "*.*")]
+        filename = filedialog.askopenfilename(title="Select CSV Records File", filetypes=filetypes)
+        if filename:
+            self.csv_entry.delete(0, tk.END)
+            self.csv_entry.insert(0, filename)
+    
+    def on_parse_click(self):
+        """Handle parse button click"""
+        input_file = self.input_entry.get().strip()
+        output_dir = self.output_entry.get().strip()
+        
+        if not input_file:
+            messagebox.showerror("Error", "Please select an input RSD file")
+            return
+        
+        if not os.path.exists(input_file):
+            messagebox.showerror("Error", "Input file does not exist")
+            return
+        
+        if not output_dir:
+            messagebox.showerror("Error", "Please select an output directory")
+            return
+        
+        # Create output directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Disable parse button during processing
+        self.parse_btn.config(state="disabled")
+        self.progress_bar.start()
+        self.progress_var.set("Starting parse...")
+        
+        # Clear output text
+        self.output_text.delete(1.0, tk.END)
+        
+        # Get parse settings
+        engine = self.engine_var.get()
+        limit_rows = None
+        if self.limit_enabled.get():
+            try:
+                limit_rows = int(self.limit_entry.get())
+            except ValueError:
+                limit_rows = None
+        
+        # Run parse in thread to avoid blocking UI
+        import threading
+        
+        def run_parse():
+            try:
+                from engine_glue import run_engine
+                
+                # Set up progress callback
+                def progress_callback(pct, message):
+                    if message:
+                        self.after(0, lambda m=message: self._append_output(f"{m}\n"))
+                    if pct is not None:
+                        self.after(0, lambda p=pct: self.progress_var.set(f"Parsing... {p:.1f}%"))
+                
+                # Import and set progress hook
+                import core_shared
+                core_shared.set_progress_hook(progress_callback)
+                
+                # Generate output CSV path
+                output_csv = os.path.join(output_dir, "records.csv")
+                
+                # Run the engine
+                result_paths = run_engine(
+                    engine=engine,
+                    rsd_path=input_file,
+                    csv_out=output_csv,
+                    limit_rows=limit_rows
+                )
+                
+                # Update UI with success
+                self.after(0, lambda: self._append_output(f"\nParse completed successfully!\n"))
+                self.after(0, lambda: self._append_output(f"Output files: {result_paths}\n"))
+                self.after(0, lambda: self.progress_var.set("Parse completed successfully"))
+                
+                # Store the output CSV path for exports
+                if result_paths and len(result_paths) > 0:
+                    self.last_output_csv_path = result_paths[0]
+                
+                # Auto-populate CSV entry for preview
+                if result_paths and len(result_paths) > 0:
+                    self.after(0, lambda: self.csv_entry.delete(0, tk.END))
+                    self.after(0, lambda: self.csv_entry.insert(0, result_paths[0]))
+                
+            except Exception as e:
+                error_msg = f"Parse failed: {str(e)}"
+                self.after(0, lambda: self._append_output(f"\nERROR: {error_msg}\n"))
+                self.after(0, lambda: self.progress_var.set("Parse failed"))
+                self.after(0, lambda: messagebox.showerror("Parse Error", error_msg))
+            
+            finally:
+                self.after(0, lambda: self.progress_bar.stop())
+                self.after(0, lambda: self.parse_btn.config(state="normal"))
+        
+        thread = threading.Thread(target=run_parse, daemon=True)
+        thread.start()
+    
+    def on_preview_click(self):
+        """Handle preview button click"""
+        csv_file = self.csv_entry.get().strip()
+        
+        if not csv_file:
+            messagebox.showerror("Error", "Please select a CSV records file")
+            return
+        
+        if not os.path.exists(csv_file):
+            messagebox.showerror("Error", "CSV file does not exist")
+            return
+        
+        try:
+            from video_exporter import build_preview_frame
+            
+            self.preview_btn.config(state="disabled")
+            self._append_output("Building preview...\n")
+            
+            # Build preview in thread
+            import threading
+            
+            def build_preview():
+                try:
+                    # Create basic config for preview
+                    cfg = {
+                        'colormap': 'gray',
+                        'height': 800,
+                        'preview_mode': 'auto'
+                    }
+                    
+                    # Build preview frame
+                    preview_path = build_preview_frame([csv_file], cfg)
+                    
+                    if preview_path and os.path.exists(preview_path):
+                        # Update preview display
+                        self.after(0, lambda: self._display_image_in_canvas(preview_path))
+                        self.after(0, lambda: self._append_output(f"Preview built: {preview_path}\n"))
+                    else:
+                        self.after(0, lambda: self._append_output("Failed to build preview\n"))
+                
+                except Exception as e:
+                    error_msg = f"Preview failed: {str(e)}"
+                    self.after(0, lambda: self._append_output(f"ERROR: {error_msg}\n"))
+                    self.after(0, lambda: messagebox.showerror("Preview Error", error_msg))
+                
+                finally:
+                    self.after(0, lambda: self.preview_btn.config(state="normal"))
+            
+            thread = threading.Thread(target=build_preview, daemon=True)
+            thread.start()
+            
+        except ImportError:
+            messagebox.showerror("Error", "Video exporter module not available")
+    
+    def on_export_click(self):
+        """Handle export button click"""
+        csv_file = self.csv_entry.get().strip()
+        
+        if not csv_file:
+            messagebox.showerror("Error", "Please select a CSV records file")
+            return
+        
+        if not os.path.exists(csv_file):
+            messagebox.showerror("Error", "CSV file does not exist")
+            return
+        
+        # Ask for output video path
+        output_path = filedialog.asksaveasfilename(
+            title="Save Video As",
+            defaultextension=".mp4",
+            filetypes=[("MP4 videos", "*.mp4"), ("All files", "*.*")]
+        )
+        
+        if not output_path:
+            return
+        
+        try:
+            from video_exporter import export_waterfall_mp4
+            
+            self.export_btn.config(state="disabled")
+            self._append_output("Starting video export...\n")
+            
+            # Export in thread
+            import threading
+            
+            def export_video():
+                try:
+                    # Create export config
+                    cfg = {
+                        'colormap': 'gray',
+                        'height': 800,
+                        'fps': 30,
+                        'max_frames': 1000
+                    }
+                    
+                    # Export video
+                    success = export_waterfall_mp4([csv_file], output_path, cfg)
+                    
+                    if success:
+                        self.after(0, lambda: self._append_output(f"Video exported: {output_path}\n"))
+                        self.after(0, lambda: messagebox.showinfo("Export Complete", f"Video saved to: {output_path}"))
+                    else:
+                        self.after(0, lambda: self._append_output("Video export failed\n"))
+                
+                except Exception as e:
+                    error_msg = f"Export failed: {str(e)}"
+                    self.after(0, lambda: self._append_output(f"ERROR: {error_msg}\n"))
+                    self.after(0, lambda: messagebox.showerror("Export Error", error_msg))
+                
+                finally:
+                    self.after(0, lambda: self.export_btn.config(state="normal"))
+            
+            thread = threading.Thread(target=export_video, daemon=True)
+            thread.start()
+            
+        except ImportError:
+            messagebox.showerror("Error", "Video exporter module not available")
+    
+    def _append_output(self, text):
+        """Append text to output display"""
+        self.output_text.insert(tk.END, text)
+        self.output_text.see(tk.END)
+    
+    def _display_preview_image(self, image_path):
+        """Display preview image in the UI"""
+        try:
+            from PIL import Image, ImageTk
+            
+            # Load and resize image for display
+            img = Image.open(image_path)
+            
+            # Resize to fit display area (max 600px wide)
+            max_width = 600
+            if img.width > max_width:
+                ratio = max_width / img.width
+                new_height = int(img.height * ratio)
+                img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+            
+            # Convert to PhotoImage
+            photo = ImageTk.PhotoImage(img)
+            
+            # Update preview label
+            self.preview_label.config(image=photo, text="")
+            self.preview_label.image = photo  # Keep a reference
+            
+        except ImportError:
+            self.preview_label.config(text=f"Preview available at: {image_path}\n(PIL not available for display)")
+        except Exception as e:
+            self.preview_label.config(text=f"Error displaying preview: {str(e)}")
+
     def _browse_input(self):
         path = filedialog.askopenfilename(filetypes=[("RSD files", "*.RSD")])
         if path:
@@ -111,10 +826,7 @@ class App(tk.Tk):
                 self.output_path.set(str(Path(path).with_suffix(".csv")))
     
     def _browse_output(self):
-        path = filedialog.asksaveasfilename(
-            defaultextension=".csv",
-            filetypes=[("CSV files", "*.csv")]
-        )
+        path = filedialog.askdirectory(title="Select Output Directory")
         if path:
             self.output_path.set(path)
     
@@ -126,41 +838,187 @@ class App(tk.Tk):
             
         out_path = self.output_path.get()
         if not out_path:
-            return messagebox.showerror("Error", "Please select an output CSV path")
+            return messagebox.showerror("Error", "Please select an output directory")
             
-        def job():
+        def parse_job(on_progress, check_cancel):
+            glue = Path(__file__).parent / "engine_glue.py"
+            
+            # First verify the engine_glue.py exists
+            if not glue.exists():
+                raise RuntimeError(f"Parser glue script not found: {glue}")
+            
+            # Get absolute path to python executable
+            python_exe = sys.executable
+            if not python_exe:
+                raise RuntimeError("Could not determine Python executable path")
+                
+            # Ensure output directory exists
+            out_path_obj = Path(out_path).resolve()
+            out_dir = out_path_obj if out_path_obj.is_dir() else out_path_obj.parent
+            out_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Phase 1: Setup and Validation
+            on_progress(5, "Phase 1: Setting up parser...")
+            
+            args = [
+                python_exe,  # Use full path to Python
+                str(glue.resolve()),  # Use absolute path to script
+                "--input", str(Path(in_path).resolve()),  # Absolute paths
+                "--out", str(out_dir),  # Use directory for output
+                "--prefer", self.parser_pref.get(),
+                "--scan-type", self.scan_type.get(),
+                "--channel", self.channel_id.get(),
+                "--verbose"
+            ]
+            on_progress(10, f"Parser command ready: {Path(in_path).name} → {out_dir.name}")
+            
             try:
-                glue = Path(__file__).parent / "engine_glue.py"
-                args = [
-                    "python",
-                    str(glue),
-                    "--input", in_path,
-                    "--out", str(Path(out_path).parent),
-                    "--prefer", self.parser_pref.get()
-                ]
+                # Phase 2: Starting Parser Process
+                on_progress(15, "Phase 2: Starting RSD parser process...")
+                
+                # Run with timeout to avoid hanging
                 proc = subprocess.Popen(
-                    args, 
+                    args,
                     stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    universal_newlines=True
+                    stderr=subprocess.PIPE,  # Capture stderr separately
+                    universal_newlines=True,
+                    cwd=str(glue.parent)  # Ensure working dir is correct
                 )
                 
-                for line in proc.stdout:
-                    self._q.put(("log", line.strip()))
+                parse_phase = "initializing"
+                last_progress = 15
+                
+                while True:
+                    if check_cancel():
+                        proc.terminate()
+                        break
+                        
+                    # Read from both stdout and stderr
+                    stdout_line = proc.stdout.readline() if proc.stdout else ''
+                    stderr_line = proc.stderr.readline() if proc.stderr else ''
                     
-                proc.wait()
-                if proc.returncode == 0:
-                    self._q.put(("log", "Parsing complete!"))
-                else:
-                    self._q.put(("log", f"Parser failed with code {proc.returncode}"))
+                    if not stdout_line and not stderr_line and proc.poll() is not None:
+                        break
+                        
+                    if stdout_line:
+                        line = stdout_line.strip()
+                        # Detect different phases of parsing
+                        if "Finding first sync" in line or "sync found" in line:
+                            parse_phase = "scanning"
+                            on_progress(25, "Phase 3: Scanning for sync patterns...")
+                        elif "Header @" in line or "Records:" in line:
+                            parse_phase = "parsing"
+                            if last_progress < 40:
+                                on_progress(40, "Phase 4: Parsing RSD records...")
+                                last_progress = 40
+                        elif "Done" in line and "Records:" in line:
+                            parse_phase = "completing"
+                            on_progress(80, "Phase 5: Finalizing parse results...")
+                            last_progress = 80
+                        elif "CSV written" in line:
+                            parse_phase = "finished"
+                            on_progress(95, "Phase 6: CSV file generated successfully!")
+                            last_progress = 95
+                        
+                        # Try to extract progress percentage for fine-grained updates
+                        try:
+                            if line.startswith("[engine_glue]"):
+                                # Status message
+                                on_progress(None, f"[Parser] {line}")
+                            elif "%" in line and parse_phase == "parsing":
+                                # Progress percentage during parsing phase
+                                pct_str = line.split("%")[0].strip().split()[-1]
+                                pct = float(pct_str)
+                                # Map parser percentage (0-100) to our range (40-75)
+                                mapped_pct = 40 + (pct * 35 / 100)
+                                on_progress(mapped_pct, f"Phase 4: Parsing records... {pct:.1f}%")
+                                last_progress = max(last_progress, mapped_pct)
+                            else:
+                                on_progress(None, f"[Parser] {line}")
+                        except (ValueError, IndexError):
+                            on_progress(None, f"[Parser] {line}")
+                            
+                    if stderr_line:
+                        on_progress(None, f"[Parser ERROR] {stderr_line.strip()}")
+                        
             except Exception as e:
-                self._q.put(("log", f"ERROR: {str(e)}"))
+                on_progress(None, f"Failed to start parser process: {str(e)}")
+                raise
+            
+            # Get final output if anything remains
+            remaining_stdout, remaining_stderr = proc.communicate()
+            if remaining_stdout:
+                for line in remaining_stdout.splitlines():
+                    if line.strip():
+                        on_progress(None, f"[Parser] {line.strip()}")
+            if remaining_stderr:
+                for line in remaining_stderr.splitlines():
+                    if line.strip():
+                        on_progress(None, f"[Parser ERROR] {line.strip()}")
+                    
+            if proc.returncode != 0 and not check_cancel():
+                # Try to give a helpful error message
+                err_msg = []
+                if remaining_stderr:
+                    err_msg.append(remaining_stderr.strip())
+                if remaining_stdout:
+                    err_msg.append(remaining_stdout.strip())
+                
+                if err_msg:
+                    raise RuntimeError("\n".join(["Parser failed:"] + err_msg))
+                else:
+                    raise RuntimeError(f"Parser failed with code {proc.returncode}")
+                
+                # Try to save log for debugging
+                try:
+                    log_path = out_dir / "parser_error.log"
+                    with open(log_path, "w") as f:
+                        f.write("\n".join(err_msg))
+                    on_progress(None, f"Error details saved to {log_path}")
+                except:
+                    pass
+            
+            # Phase 7: Post-processing and validation
+            on_progress(98, "Phase 7: Validating output files...")
+            
+            # Check for generated files
+            csv_files = list(out_dir.glob("*.csv"))
+            if csv_files:
+                csv_file = csv_files[0]
+                # Quick validation - count lines
+                try:
+                    with open(csv_file, 'r') as f:
+                        line_count = sum(1 for _ in f) - 1  # Subtract header
+                    on_progress(100, f"✓ Parse complete! Generated {line_count} records in {csv_file.name}")
+                    
+                    # Add helpful next steps message
+                    self._q.put(("log", ""))
+                    self._q.put(("log", "=== PARSING COMPLETE ==="))
+                    self._q.put(("log", f"✓ CSV file: {csv_file}"))
+                    self._q.put(("log", f"✓ Records processed: {line_count}"))
+                    self._q.put(("log", ""))
+                    self._q.put(("log", "🔍 NEXT STEPS:"))
+                    self._q.put(("log", "1. Click 'Auto-Detect' in Block Processing to find channels"))
+                    self._q.put(("log", "2. Generate block preview to see aligned sonar data"))
+                    self._q.put(("log", "3. Use Legacy Preview for traditional waterfall view"))
+                    self._q.put(("log", "4. Export to video, KML, or MBTiles when ready"))
+                    self._q.put(("log", ""))
+                    
+                except Exception as e:
+                    on_progress(100, f"✓ Parse complete! CSV generated: {csv_file.name}")
+            else:
+                on_progress(100, "Parse completed but no CSV file found")
+                
+            # Keep progress visible for a moment
+            import time
+            time.sleep(2)  # Keep progress bar visible for 2 seconds
         
-        self._run_bg(job)
+        self._create_progress_bar("parse", "Parsing RSD file...")
+        self.process_mgr.start_process("parse", parse_job)
     
     def _paths_cfg(self):
         """Return (pdir, paths, cfg) for preview/export."""
-        pdir = Path(self.output_path.get()).parent
+        pdir = Path(self.output_path.get())
         pats = []
         for ext in ("*.png", "*.jpg", "*.jpeg"):
             pats.extend(sorted(pdir.glob(ext)))
@@ -180,6 +1038,9 @@ class App(tk.Tk):
             "SMOOTH_SHIFT": 11,
             "AUTO_DECIDE": True,
             "EDGE_PAD": 0,
+            "SCAN_TYPE": self.scan_type.get(),
+            "CHANNEL_ID": self.channel_id.get(),
+            "FORCE_SINGLE_CHANNEL": self.scan_type.get() != "auto",
         }
         return pdir, paths, cfg
     
@@ -197,61 +1058,883 @@ class App(tk.Tk):
         if not paths:
             return messagebox.showerror("No images", "No .png/.jpg found.")
             
-        arr0 = np.array(PIm.open(paths[0]))
-        row_h = int(arr0.shape[0])
-        
-        def job():
-            try:
-                frame, seam, shift, score = vx.build_preview_frame(paths, cfg, row_h, int(self.vh.get()))
-                if shift is not None:
-                    self._q.put(("log", f"preview: shift={shift:+d}px"))
-                self._q.put(("preview", frame))
-            except Exception as e:
-                self._q.put(("log", "ERROR (preview): " + str(e)))
+        def preview_job(on_progress, check_cancel):
+            on_progress(10, "Phase 1: Loading image files...")
+            arr0 = np.array(PIm.open(paths[0]))
+            row_h = int(arr0.shape[0])
+            
+            on_progress(30, "Phase 2: Building preview frame...")
+            frame, seam, shift, score = vx.build_preview_frame(
+                paths, cfg, row_h, int(self.vh.get())
+            )
+            
+            on_progress(80, "Phase 3: Preparing display...")
+            
+            if shift is not None:
+                on_progress(100, f"✓ Legacy preview ready (shift={shift:+d}px, score={score:.2f})")
+                self._q.put(("log", f"Legacy preview: shift={shift:+d}px, alignment score={score:.2f}"))
+            else:
+                on_progress(100, "✓ Legacy preview ready")
                 
-        self._run_bg(job)
+            self._q.put(("preview", frame))
+            
+            # Keep progress visible
+            import time
+            time.sleep(1)
+        
+        self._create_progress_bar("preview", "Generating preview...")
+        self.process_mgr.start_process("preview", preview_job)
 
     def _export(self):
-        """Export video from images."""
+        """Export based on selected format with proper error handling."""
+        fmt = self.export_format.get()
+        
+        # Validate that we have data to export
+        if not hasattr(self, 'current_rsd_path') or not self.current_rsd_path:
+            messagebox.showerror("Error", "No RSD file loaded. Please load data first.")
+            return
+        
+        if not hasattr(self, 'last_output_csv_path') or not self.last_output_csv_path:
+            messagebox.showerror("Error", "No CSV data available. Please run parser first.")
+            return
+        
+        # Check if we have block processing results
+        use_block_images = (BLOCK_PROCESSING_AVAILABLE and 
+                           hasattr(self, 'current_block_images') and 
+                           self.current_block_images)
+        
+        if not use_block_images:
+            messagebox.showwarning("Limited Export", 
+                                 "No block preview data available. Using legacy export method.\n"
+                                 "For best results, build a block preview first.")
+        
+        self.log.insert(tk.END, f"\n🚀 Starting {fmt.upper()} export...\n")
+        self.log.see("end")
+        
         try:
-            modp = Path(__file__).parent / "video_exporter.py"
-            spec = importlib.util.spec_from_file_location("video_exporter_local", modp)
-            vx = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(vx)
+            if fmt == "video":
+                modp = Path(__file__).parent / "video_exporter.py"
+                if not modp.exists():
+                    raise FileNotFoundError(f"video_exporter.py not found at {modp}")
+                    
+                spec = importlib.util.spec_from_file_location("video_exporter_local", modp)
+                vx = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(vx)
+                exporter_module = vx
+                
+            else:  # kml or mbtiles
+                modp = Path(__file__).parent / "tile_manager.py"
+                if not modp.exists():
+                    raise FileNotFoundError(f"tile_manager.py not found at {modp}")
+                    
+                spec = importlib.util.spec_from_file_location("tile_manager_local", modp)
+                tm = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(tm)
+                exporter_module = tm
+                
         except Exception as e:
-            return messagebox.showerror("Missing/Bad", "video_exporter.py not importable:\n" + str(e))
+            error_msg = f"Failed to load export module: {str(e)}"
+            self.log.insert(tk.END, f"✗ {error_msg}\n")
+            messagebox.showerror("Export Error", error_msg)
+            return
+        
+        try:
+            if use_block_images:
+                # Use block processing images
+                self.log.insert(tk.END, f"Using block processing data ({len(self.current_block_images)} blocks)\n")
+                self._export_from_blocks(fmt, exporter_module)
+            else:
+                # Use legacy export method
+                self.log.insert(tk.END, "Using legacy export method\n")
+                self._export_legacy(fmt, exporter_module)
+                
+        except Exception as e:
+            error_msg = f"Export failed: {str(e)}"
+            self.log.insert(tk.END, f"✗ {error_msg}\n")
+            messagebox.showerror("Export Error", error_msg)
+            import traceback
+            traceback.print_exc()  # Print full traceback for debugging
+    
+    def _export_from_blocks(self, fmt, exporter_module):
+        """Export using block processing results."""
+        if fmt == "video":
+            out_path = str(Path(self.last_output_csv_path).parent / "block_waterfall.mp4")
+            msg = f"Exporting block video → {out_path}"
+        elif fmt == "kml":
+            out_path = str(Path(self.last_output_csv_path).parent / "block_overlay.kml")
+            msg = f"Exporting block KML → {out_path}"
+        else:  # mbtiles
+            out_path = str(Path(self.last_output_csv_path).parent / "block_tiles.mbtiles")
+            msg = f"Exporting block MBTiles → {out_path}"
+        
+        self._append(msg)
+        
+        def export_job(on_progress, check_cancel):
+            if fmt == "video":
+                on_progress(5, f"Phase 1: Preparing block video export")
+                
+                # Create temporary images from blocks with current colormap
+                temp_dir = Path(self.last_output_csv_path).parent / "temp_block_frames"
+                temp_dir.mkdir(exist_ok=True)
+                
+                frame_paths = []
+                total_blocks = len(self.current_block_images)
+                
+                for i, block_data in enumerate(self.current_block_images):
+                    if check_cancel():
+                        return
+                    
+                    img = block_data['image']
+                    
+                    # Apply current colormap
+                    if self.colormap_var.get() != 'gray':
+                        try:
+                            img = apply_colormap(img, self.colormap_var.get())
+                        except:
+                            pass  # Keep original if colormap fails
+                    
+                    # Save frame
+                    frame_path = temp_dir / f"block_{i:04d}.png"
+                    img.save(frame_path)
+                    frame_paths.append(str(frame_path))
+                    
+                    progress = 5 + (i + 1) * 30 // total_blocks
+                    on_progress(progress, f"Generating frame {i+1}/{total_blocks}")
+                
+                # Configure export
+                cfg = {
+                    'COLORMAP': self.colormap_var.get(),
+                    'SHOW_SEAM': self.show_seam.get(),
+                    'PREVIEW_MODE': self.block_preview_mode.get()
+                }
+                
+                on_progress(40, "Phase 2: Encoding video...")
+                
+                if frame_paths:
+                    arr0 = np.array(PIm.open(frame_paths[0]))
+                    row_h = int(arr0.shape[0])
+                    
+                    exporter_module.export_waterfall_mp4(
+                        frame_paths, cfg, out_path, row_h,
+                        int(self.vh.get()),
+                        int(self.vfps.get()),
+                        int(self.vmax.get()),
+                        log_func=lambda m: on_progress(None, f"[Video] {m}")
+                    )
+                    
+                    # Cleanup temp files
+                    import shutil
+                    shutil.rmtree(temp_dir, ignore_errors=True)
+                    
+                    on_progress(100, f"✓ Block video export complete: {Path(out_path).name}")
+                    self._q.put(("log", f"✓ Block video exported: {out_path}"))
+                    self._q.put(("log", f"  {total_blocks} blocks, Colormap: {self.colormap_var.get()}"))
+                else:
+                    raise RuntimeError("No block frames to export")
+            else:
+                on_progress(100, f"✓ {fmt.upper()} export not yet implemented for blocks")
+                self._q.put(("log", f"Note: {fmt.upper()} export for blocks not yet implemented"))
+        
+        self._create_progress_bar("export", msg)
+        self.process_mgr.start_process("export", export_job)
+    
+    def _export_legacy(self, fmt, exporter_module):
+        """Legacy export method using image files."""            
+        pdir, paths, cfg = self._paths_cfg()
+        if not paths:
+            return messagebox.showerror("No images", "No .png/.jpg found.")
+            
+        # Find CSV file
+        csv_files = list(pdir.glob("*.csv"))
+        if not csv_files and fmt != "video":
+            return messagebox.showerror("No CSV", "No CSV file found in output directory.")
+            
+        if fmt == "video":
+            out_path = str(pdir / "waterfall.mp4")
+            msg = f"Exporting video → {out_path}"
+        elif fmt == "kml":
+            out_path = str(pdir / "overlay.kml")
+            msg = f"Exporting KML → {out_path}"
+        else:  # mbtiles
+            out_path = str(pdir / "tiles.mbtiles")
+            msg = f"Exporting MBTiles → {out_path}"
+        
+        self._append(msg)
             
         pdir, paths, cfg = self._paths_cfg()
         if not paths:
             return messagebox.showerror("No images", "No .png/.jpg found.")
             
-        out_mp4 = str(pdir / "waterfall.mp4")
-        self._append(f"Exporting → {out_mp4}")
+        # Find CSV file
+        csv_files = list(pdir.glob("*.csv"))
+        if not csv_files and fmt != "video":
+            return messagebox.showerror("No CSV", "No CSV file found in output directory.")
+            
+        if fmt == "video":
+            out_path = str(pdir / "waterfall.mp4")
+            msg = f"Exporting video → {out_path}"
+        elif fmt == "kml":
+            out_path = str(pdir / "overlay.kml")
+            msg = f"Exporting KML → {out_path}"
+        else:  # mbtiles
+            out_path = str(pdir / "tiles.mbtiles")
+            msg = f"Exporting MBTiles → {out_path}"
         
-        arr0 = np.array(PIm.open(paths[0]))
-        row_h = int(arr0.shape[0])
+        self._append(msg)
         
-        def job():
-            try:
-                def log(m):
-                    self._q.put(("log", m))
-                    
-                vx.export_waterfall_mp4(
-                    paths, cfg, out_mp4, row_h,
+        def export_job(on_progress, check_cancel):
+            if fmt == "video":
+                on_progress(5, f"Phase 1: Preparing video export to {Path(out_path).name}")
+                arr0 = np.array(PIm.open(paths[0]))
+                row_h = int(arr0.shape[0])
+                
+                on_progress(10, "Phase 2: Starting video encoding...")
+                exporter_module.export_waterfall_mp4(
+                    paths, cfg, out_path, row_h,
                     int(self.vh.get()),
                     int(self.vfps.get()),
                     int(self.vmax.get()),
-                    log_func=log
+                    log_func=lambda m: on_progress(None, f"[Video] {m}")
                 )
-            except Exception as e:
-                self._q.put(("log", "ERROR (export): " + str(e)))
+                on_progress(100, f"✓ Video export complete: {Path(out_path).name}")
                 
-        self._run_bg(job)
+                # Add completion message
+                self._q.put(("log", f"✓ Video exported: {out_path}"))
+                self._q.put(("log", f"  Format: MP4, FPS: {self.vfps.get()}, Height: {self.vh.get()}px"))
+                
+            else:
+                on_progress(5, f"Phase 1: Preparing {fmt.upper()} export")
+                # Create tile manager for KML/MBTiles
+                tile_mgr = exporter_module.TileManager(str(pdir))
+                
+                export_params = {
+                    "images": paths,
+                    "csv_path": str(csv_files[0]),
+                    "colormap": cfg["COLORMAP"],
+                    "tile_size": self.tile_size.get(),
+                    "min_zoom": self.min_zoom.get(),
+                    "max_zoom": self.max_zoom.get(),
+                    "on_progress": lambda pct, msg: on_progress(pct, f"Phase 2: {msg}" if msg else None),
+                    "check_cancel": check_cancel
+                }
+                
+                on_progress(10, f"Phase 2: Generating {fmt.upper()} tiles...")
+                
+                if fmt == "kml":
+                    result_path = tile_mgr.create_kml_overlay(**export_params)
+                    self._q.put(("log", f"✓ KML super overlay exported: {result_path}"))
+                else:
+                    result_path = tile_mgr.create_mbtiles(**export_params)
+                    self._q.put(("log", f"✓ MBTiles database exported: {result_path}"))
+                    
+                on_progress(100, f"✓ {fmt.upper()} export complete")
+                
+            # Keep progress visible
+            import time
+            time.sleep(2)
+        
+        self._create_progress_bar("export", msg)
+        self.process_mgr.start_process("export", export_job)
+    
+    # === Block Processing Methods ===
+    
+    def _setup_custom_colormaps(self):
+        """Setup custom colormaps including amber tones"""
+        try:
+            import matplotlib.pyplot as plt
+            import matplotlib.colors as mcolors
+            
+            # Create custom amber colormap
+            amber_colors = ['#000000', '#1a0800', '#331100', '#4d1a00', '#662200', 
+                           '#802b00', '#993300', '#b33c00', '#cc4400', '#e64d00',
+                           '#ff5500', '#ff6619', '#ff7733', '#ff884d', '#ff9966',
+                           '#ffaa80', '#ffbb99', '#ffccb3', '#ffddcc', '#ffeee6']
+            
+            # Register custom colormap if matplotlib is available
+            try:
+                amber_cmap = mcolors.LinearSegmentedColormap.from_list('amber', amber_colors)
+                plt.cm.register_cmap(name='amber', cmap=amber_cmap)
+                
+                # Create sepia colormap  
+                sepia_colors = ['#000000', '#1a1400', '#332800', '#4d3c00', '#665000',
+                               '#806400', '#997800', '#b38c00', '#cca000', '#e6b400',
+                               '#ffc800', '#ffce19', '#ffd433', '#ffda4d', '#ffe066',
+                               '#ffe680', '#ffec99', '#fff2b3', '#fff8cc', '#fffee6']
+                
+                sepia_cmap = mcolors.LinearSegmentedColormap.from_list('sepia', sepia_colors)
+                plt.cm.register_cmap(name='sepia', cmap=sepia_cmap)
+                
+            except Exception:
+                pass  # If registration fails, matplotlib colormaps will still work
+                
+        except ImportError:
+            pass  # matplotlib not available, use built-in colormaps only
+
+    def _display_image_in_canvas(self, image_path):
+        """Display an image in the preview canvas"""
+        try:
+            from PIL import Image, ImageTk
+            
+            # Clear canvas
+            self.preview_canvas.delete("all")
+            
+            # Load and display image
+            img = Image.open(image_path)
+            
+            # Store original size for scrolling
+            img_width, img_height = img.size
+            
+            # Create PhotoImage
+            photo = ImageTk.PhotoImage(img)
+            
+            # Add image to canvas
+            self.preview_canvas.create_image(0, 0, anchor="nw", image=photo)
+            self.preview_canvas.image = photo  # Keep a reference
+            
+            # Update scroll region
+            self.preview_canvas.configure(scrollregion=(0, 0, img_width, img_height))
+            
+            self.log.insert(tk.END, f"✓ Preview displayed: {img_width}x{img_height}\n")
+            
+        except ImportError:
+            self.log.insert(tk.END, f"Preview available at: {image_path}\n(PIL not available for display)\n")
+        except Exception as e:
+            self.log.insert(tk.END, f"Error displaying preview: {str(e)}\n")
+    
+    def _display_numpy_array_in_canvas(self, img_array):
+        """Display a numpy array image in the preview canvas with proper scaling for channel blocks"""
+        try:
+            from PIL import Image, ImageTk
+            
+            # Clear canvas
+            self.preview_canvas.delete("all")
+            
+            # Get original dimensions
+            height, width = img_array.shape[:2]
+            
+            # Scale up for better visibility of water column detail
+            # For channel blocks, we want to see vertical structure clearly
+            min_display_height = 400
+            min_display_width = 600
+            
+            # Calculate scale to make preview large enough
+            scale_h = min_display_height / height if height > 0 else 1
+            scale_w = min_display_width / width if width > 0 else 1
+            scale = max(scale_h, scale_w, 2.0)  # At least 2x scale
+            
+            # Limit maximum size to prevent huge previews
+            max_display_size = 1000
+            if height * scale > max_display_size:
+                scale = max_display_size / height
+            if width * scale > max_display_size:
+                scale = min(scale, max_display_size / width)
+            
+            # Apply scaling
+            display_height = int(height * scale)
+            display_width = int(width * scale)
+            
+            # Convert numpy array to PIL Image
+            if len(img_array.shape) == 2:  # Grayscale
+                img = Image.fromarray(img_array, mode='L')
+            else:  # RGB
+                img = Image.fromarray(img_array, mode='RGB')
+            
+            # Resize with high quality resampling to preserve sonar detail
+            img = img.resize((display_width, display_height), Image.Resampling.LANCZOS)
+            
+            # Create PhotoImage
+            photo = ImageTk.PhotoImage(img)
+            
+            # Add image to canvas
+            self.preview_canvas.create_image(0, 0, anchor="nw", image=photo)
+            self.preview_canvas.image = photo  # Keep a reference
+            
+            # Update scroll region for the scaled image
+            self.preview_canvas.configure(scrollregion=(0, 0, display_width, display_height))
+            
+            # Log preview info
+            mode_text = "Grayscale" if len(img_array.shape) == 2 else "RGB"
+            self.log.insert(tk.END, f"✓ Channel block preview: {width}x{height} {mode_text} (displayed at {display_width}x{display_height}, scale: {scale:.1f}x)\n")
+            
+            # Auto-scroll to show the center/start
+            canvas_widget_width = self.preview_canvas.winfo_width()
+            canvas_widget_height = self.preview_canvas.winfo_height()
+            
+            if display_width > canvas_widget_width:
+                self.preview_canvas.xview_moveto(0.1)  # Show left side for sonar start
+            if display_height > canvas_widget_height:
+                self.preview_canvas.yview_moveto(0.0)  # Show top for latest pings
+
+        except Exception as e:
+            self.log.insert(tk.END, f"Error displaying numpy array: {str(e)}\n")
+
+    def _select_all_exports(self):
+        """Select all export formats"""
+        self.export_video_var.set(True)
+        self.export_kml_var.set(True)
+        self.export_tiles_var.set(True)
+    
+    def _clear_all_exports(self):
+        """Clear all export format selections"""
+        self.export_video_var.set(False)
+        self.export_kml_var.set(False)
+        self.export_tiles_var.set(False)
+    
+    def _process_selected_exports(self):
+        """Process all selected export formats"""
+        selected_formats = []
+        
+        if self.export_video_var.get():
+            selected_formats.append("video")
+        if self.export_kml_var.get():
+            selected_formats.append("kml")
+        if self.export_tiles_var.get():
+            selected_formats.append("mbtiles")
+        
+        if not selected_formats:
+            messagebox.showwarning("No Selection", "Please select at least one export format.")
+            return
+        
+        # Ask for confirmation
+        format_names = {"video": "Video (MP4)", "kml": "KML Overlay", "mbtiles": "MBTiles Map"}
+        selected_names = [format_names[fmt] for fmt in selected_formats]
+        
+        if not messagebox.askyesno("Confirm Export", 
+                                  f"Export {len(selected_formats)} format(s):\n\n" + 
+                                  "\n".join(f"• {name}" for name in selected_names) + 
+                                  "\n\nThis may take several minutes. Continue?"):
+            return
+        
+        # Process each selected format
+        for i, fmt in enumerate(selected_formats):
+            self.log.insert(tk.END, f"\n--- Exporting format {i+1}/{len(selected_formats)}: {format_names[fmt]} ---\n")
+            self.log.see("end")
+            self.update()  # Update UI
+            
+            try:
+                self.export_format.set(fmt)
+                self._export()
+                self.log.insert(tk.END, f"✓ {format_names[fmt]} export completed\n")
+            except Exception as e:
+                self.log.insert(tk.END, f"✗ {format_names[fmt]} export failed: {str(e)}\n")
+            
+            self.log.see("end")
+            self.update()
+        
+        self.log.insert(tk.END, f"\n🎉 All exports completed! ({len(selected_formats)} formats)\n")
+        self.log.see("end")
+
+    def _export_format(self, format_type):
+        """Export in a specific format"""
+        self.export_format.set(format_type)
+        self._export()
+    
+    def _export_all_formats(self):
+        """Export in all available formats"""
+        formats = ["video", "kml", "mbtiles"]
+        
+        # Ask for confirmation
+        if not messagebox.askyesno("Export All", 
+                                  f"This will export in all {len(formats)} formats. Continue?"):
+            return
+        
+        total_formats = len(formats)
+        for i, fmt in enumerate(formats):
+            self.log.insert(tk.END, f"\n--- Exporting format {i+1}/{total_formats}: {fmt.upper()} ---\n")
+            self.log.see("end")
+            self.update()
+            
+            self.export_format.set(fmt)
+            self._export()
+            
+            self.log.insert(tk.END, f"✓ Completed {fmt.upper()} export\n")
+            self.log.see("end")
+            self.update()
+        
+        self.log.insert(tk.END, f"\n🎉 All {total_formats} export formats completed!\n")
+        messagebox.showinfo("Export Complete", f"All {total_formats} formats exported successfully!")
+
+    def _auto_detect_channels(self):
+        """Auto-detect available channels after parsing."""
+        if not BLOCK_PROCESSING_AVAILABLE:
+            messagebox.showwarning("Not Available", "Block processing functionality not available")
+            return
+            
+        # Find the CSV file from last parse
+        input_path = self.input_path.get()
+        output_path = self.output_path.get()
+        
+        if not input_path:
+            messagebox.showerror("Error", "Please select an input RSD file first")
+            return
+            
+        if not output_path:
+            messagebox.showerror("Error", "Please set an output path first")
+            return
+            
+        try:
+            # Try multiple locations for the CSV file
+            csv_candidates = []
+            
+            # Method 1: Look in the output directory
+            if output_path:
+                output_dir = Path(output_path).parent if Path(output_path).is_file() else Path(output_path)
+                csv_candidates.extend(output_dir.glob("*.csv"))
+                
+            # Method 2: Look for files with the input filename stem
+            input_stem = Path(input_path).stem
+            if output_path:
+                output_dir = Path(output_path).parent if Path(output_path).is_file() else Path(output_path)
+                csv_candidates.extend(output_dir.glob(f"{input_stem}*.csv"))
+                
+            # Method 3: Look in the input file directory
+            input_dir = Path(input_path).parent
+            csv_candidates.extend(input_dir.glob(f"{input_stem}*.csv"))
+            
+            # Method 4: Look in outputs subdirectory
+            outputs_dir = Path(input_path).parent / "outputs"
+            if outputs_dir.exists():
+                csv_candidates.extend(outputs_dir.glob("*.csv"))
+                
+            # Remove duplicates and filter existing files
+            csv_files = []
+            seen_paths = set()
+            for candidate in csv_candidates:
+                if candidate.exists() and str(candidate) not in seen_paths:
+                    csv_files.append(candidate)
+                    seen_paths.add(str(candidate))
+            
+            self._append(f"Searching for CSV files:")
+            self._append(f"  Input: {input_path}")
+            self._append(f"  Output: {output_path}")
+            self._append(f"  Found {len(csv_files)} CSV candidates: {[str(f) for f in csv_files]}")
+            
+            if not csv_files:
+                messagebox.showerror("Error", 
+                    f"No CSV file found. Please parse the RSD file first.\n\n"
+                    f"Searched in:\n"
+                    f"- {output_dir if 'output_dir' in locals() else 'output directory'}\n"
+                    f"- {input_dir}\n"
+                    f"- {outputs_dir}")
+                return
+                
+            # Use the most recent CSV file
+            csv_path = max(csv_files, key=lambda p: p.stat().st_mtime)
+            rsd_path = input_path
+            
+            self._append(f"Using CSV: {csv_path}")
+            self._append(f"Using RSD: {rsd_path}")
+            
+            if not Path(rsd_path).exists():
+                messagebox.showerror("Error", f"Original RSD file not found: {rsd_path}")
+                return
+                
+            # Initialize block processor
+            try:
+                self.block_processor = BlockProcessor(str(csv_path), rsd_path, self.block_size.get())
+                self.current_csv_path = str(csv_path)
+                self.current_rsd_path = rsd_path
+                
+                # Get channel info
+                self.available_channels = self.block_processor.get_available_channels()
+                self.suggested_pairs = self.block_processor.config.get('suggested_pairs', [])
+                
+                self._append(f"Block processor initialized successfully")
+                self._append(f"Detected {len(self.available_channels)} channels: {self.available_channels}")
+                
+            except Exception as e:
+                self._append(f"Failed to initialize block processor: {str(e)}")
+                messagebox.showerror("Initialization Error", f"Failed to initialize block processor: {str(e)}")
+                return
+            
+            # Update UI
+            if self.available_channels:
+                channel_strings = [str(ch) for ch in self.available_channels]
+                self.left_ch_combo['values'] = channel_strings
+                self.right_ch_combo['values'] = channel_strings
+                
+                # Set default channels
+                if self.suggested_pairs:
+                    pair = self.suggested_pairs[0]
+                    self.left_channel.set(pair[0])
+                    self.right_channel.set(pair[1])
+                elif len(self.available_channels) >= 2:
+                    # Fallback: use first two channels
+                    self.left_channel.set(self.available_channels[0])
+                    self.right_channel.set(self.available_channels[1])
+                    
+                scan_type = self.block_processor.config.get('scan_type', 'unknown')
+                transducer = self.block_processor.config.get('transducer_serial', 'unknown')
+                
+                self._append(f"Scan type: {scan_type}")
+                self._append(f"Transducer: {transducer}")
+                if self.suggested_pairs:
+                    self._append(f"Suggested pairs: {self.suggested_pairs}")
+                else:
+                    self._append(f"No suggested pairs found, using manual selection")
+                    
+                messagebox.showinfo("Detection Complete", 
+                    f"Successfully detected {len(self.available_channels)} channels.\n"
+                    f"You can now generate block previews!")
+                
+                # Add next steps to log
+                self._append("")
+                self._append("=== CHANNEL DETECTION COMPLETE ===")
+                self._append(f"✓ Found {len(self.available_channels)} channels: {self.available_channels}")
+                if self.suggested_pairs:
+                    self._append(f"✓ Suggested channel pairs: {self.suggested_pairs}")
+                self._append("")
+                self._append("🔍 NEXT STEPS:")
+                self._append("1. Verify channel selection in the dropdowns above")
+                self._append("2. Adjust block size, alignment, and flip settings if needed")
+                self._append("3. Click 'Generate Block Preview' to see aligned sonar data")
+                self._append("4. Use ← Prev / Next → buttons to navigate through blocks")
+                self._append("")
+            else:
+                self._append("Warning: No channels found in CSV file")
+                messagebox.showwarning("No Channels", "No channels found in the CSV file")
+                
+        except Exception as e:
+            error_msg = f"Failed to detect channels: {str(e)}"
+            self._append(f"ERROR: {error_msg}")
+            messagebox.showerror("Detection Error", error_msg)
+    
+    def _block_preview(self):
+        """Generate block-based preview."""
+        if not BLOCK_PROCESSING_AVAILABLE:
+            messagebox.showerror("Error", "Block processing functionality not available")
+            return
+            
+        if not self.block_processor:
+            messagebox.showerror("Error", "Please auto-detect channels first")
+            return
+            
+        # Validate channel selection
+        left_ch = self.left_channel.get()
+        right_ch = self.right_channel.get()
+        
+        if left_ch not in self.available_channels or right_ch not in self.available_channels:
+            messagebox.showerror("Error", 
+                f"Invalid channel selection. Available channels: {self.available_channels}\n"
+                f"Selected: Left={left_ch}, Right={right_ch}")
+            return
+            
+        def block_preview_job(on_progress, check_cancel):
+            try:
+                on_progress(0, f"Starting block preview for Ch{left_ch}/Ch{right_ch}...")
+                
+                # Clear previous block images
+                self.current_block_images = []
+                self.current_block_index = 0
+                
+                # Get blocks for each channel first
+                on_progress(10, "Getting channel blocks...")
+                left_blocks = self.block_processor.get_channel_blocks(left_ch)
+                right_blocks = self.block_processor.get_channel_blocks(right_ch)
+                
+                on_progress(20, f"Left channel: {len(left_blocks)} blocks, Right channel: {len(right_blocks)} blocks")
+                
+                # Add more detailed diagnostics
+                if left_blocks:
+                    avg_left_records = sum(len(block) for block in left_blocks) / len(left_blocks)
+                    on_progress(None, f"Left channel avg records per block: {avg_left_records:.1f}")
+                if right_blocks:
+                    avg_right_records = sum(len(block) for block in right_blocks) / len(right_blocks)
+                    on_progress(None, f"Right channel avg records per block: {avg_right_records:.1f}")
+                
+                if not left_blocks and not right_blocks:
+                    # More specific error message
+                    available_channels = self.block_processor.get_available_channels()
+                    total_records = len(self.block_processor.records)
+                    raise RuntimeError(f"No blocks found for channels {left_ch} and {right_ch}. "
+                                     f"Available channels: {available_channels}, "
+                                     f"Total records loaded: {total_records}, "
+                                     f"Block size: {self.block_processor.block_size}")
+                elif not left_blocks:
+                    raise RuntimeError(f"No blocks found for left channel {left_ch}")
+                elif not right_blocks:
+                    raise RuntimeError(f"No blocks found for right channel {right_ch}")
+                
+                # Process blocks individually with new preview method
+                on_progress(30, "Creating proper channel block previews...")
+                
+                from block_pipeline import compose_channel_block_preview
+                
+                # Get preview settings
+                preview_mode = self.block_preview_mode.get()
+                remove_water = self.remove_water_column.get()
+                water_pixels = self.water_column_pixels.get()
+                flip_left_val = self.flip_left.get()
+                flip_right_val = self.flip_right.get()
+                
+                # Process blocks up to a reasonable limit for preview
+                max_preview_blocks = 20  # Limit for performance
+                total_blocks = min(len(left_blocks), len(right_blocks), max_preview_blocks)
+                
+                if total_blocks == 0:
+                    raise RuntimeError("No block pairs to process")
+                
+                on_progress(40, f"Processing {total_blocks} block pairs...")
+                
+                # Process each block pair
+                valid_blocks = 0
+                for i in range(total_blocks):
+                    if check_cancel():
+                        return
+                        
+                    left_block = left_blocks[i] if i < len(left_blocks) else []
+                    right_block = right_blocks[i] if i < len(right_blocks) else []
+                    
+                    try:
+                        # Create proper channel block preview
+                        block_image = compose_channel_block_preview(
+                            self.current_rsd_path,
+                            left_block,
+                            right_block,
+                            preview_mode=preview_mode,
+                            width=512,  # Reasonable width for preview
+                            flip_left=flip_left_val,
+                            flip_right=flip_right_val,
+                            remove_water_column=remove_water,
+                            water_column_pixels=water_pixels
+                        )
+                        
+                        if block_image is not None and block_image.size > 0:
+                            # Convert to PIL Image for display
+                            pil_image = PIm.fromarray(block_image, mode='L')
+                            
+                            block_data = {
+                                'image': pil_image,
+                                'metadata': {
+                                    'block_index': i,
+                                    'left_records': len(left_block),
+                                    'right_records': len(right_block),
+                                    'preview_mode': preview_mode,
+                                    'water_removed': remove_water,
+                                    'channels': f"Ch{left_ch:02d}/Ch{right_ch:02d}"
+                                }
+                            }
+                            
+                            self.current_block_images.append(block_data)
+                            valid_blocks += 1
+                        else:
+                            on_progress(None, f"Warning: Block {i} generated empty image")
+                            
+                    except Exception as e:
+                        on_progress(None, f"Warning: Block {i} failed: {str(e)}")
+                        continue
+                    
+                    progress = 50 + (i + 1) * 45 // total_blocks
+                    on_progress(progress, f"Processing block {i+1}/{total_blocks} (valid: {valid_blocks})")
+                
+                if valid_blocks == 0:
+                    raise RuntimeError("No valid blocks generated - all blocks were empty or invalid")
+                
+                on_progress(100, f"✓ Block preview complete - {valid_blocks} proper channel blocks ready")
+                
+                # Add completion message to log
+                self._q.put(("log", ""))
+                self._q.put(("log", "=== BLOCK PREVIEW COMPLETE ==="))
+                self._q.put(("log", f"✓ Generated {valid_blocks} valid image blocks"))
+                self._q.put(("log", f"✓ Channels: Ch{left_ch:02d} (left) + Ch{right_ch:02d} (right)"))
+                self._q.put(("log", f"✓ Auto-alignment: {'ON' if self.auto_align.get() else 'OFF'}"))
+                self._q.put(("log", f"✓ Manual shift: {self.manual_shift.get()} pixels"))
+                self._q.put(("log", ""))
+                self._q.put(("log", "🔍 NEXT STEPS:"))
+                self._q.put(("log", "1. Use ← Prev / Next → buttons to review all blocks"))
+                self._q.put(("log", "2. Check alignment quality and adjust settings if needed"))
+                self._q.put(("log", "3. Try different channel combinations if available"))
+                self._q.put(("log", "4. Export to video/KML when satisfied with results"))
+                self._q.put(("log", ""))
+                
+                # Display first block
+                if self.current_block_images:
+                    self._q.put(("block_display", 0))
+                    
+                # Keep progress visible for a moment
+                import time
+                time.sleep(1.5)
+                    
+            except Exception as e:
+                error_msg = f"Block preview failed: {str(e)}"
+                on_progress(None, f"ERROR: {error_msg}")
+                raise RuntimeError(error_msg)
+        
+        self._create_progress_bar("block_preview", "Generating block preview...")
+        self.process_mgr.start_process("block_preview", block_preview_job)
+    
+    def _display_block(self, block_index):
+        """Display a specific block with proper channel block scaling."""
+        if not self.current_block_images or block_index >= len(self.current_block_images):
+            return
+            
+        self.current_block_index = block_index
+        block_data = self.current_block_images[block_index]
+        
+        # Get the base image
+        img = block_data['image']
+        
+        # Apply colormap if available and selected
+        if BLOCK_PROCESSING_AVAILABLE and hasattr(self, 'colormap_var') and self.colormap_var.get() != 'grayscale':
+            try:
+                # Convert PIL image to apply colormap
+                img = apply_colormap(img, self.colormap_var.get())
+            except Exception as e:
+                print(f"Warning: Failed to apply colormap: {e}")
+        
+        # Convert PIL image to numpy array for display
+        img_array = np.array(img)
+        
+        # Display using our enhanced canvas display method
+        # This will automatically handle proper scaling for channel blocks
+        self._display_numpy_array_in_canvas(img_array)
+        
+        # Update block info
+        meta = block_data['metadata']
+        info_text = f"Block {meta['block_index']} | "
+        info_text += f"Records: {meta['left_records']}/{meta['right_records']} | "
+        info_text += f"{meta['channels']} | {block_index + 1}/{len(self.current_block_images)}"
+        info_text += f" | Mode: {meta['preview_mode']}"
+        
+        if meta.get('water_removed', False):
+            info_text += " | Water column removed"
+        
+        if hasattr(self, 'colormap_var'):
+            info_text += f" | Colormap: {self.colormap_var.get()}"
+        
+        self.block_info_label.config(text=info_text)
+        
+        # Update navigation buttons
+        self.prev_block_btn.config(state="normal" if block_index > 0 else "disabled")
+        self.next_block_btn.config(state="normal" if block_index < len(self.current_block_images) - 1 else "disabled")
+    
+    def _prev_block(self):
+        """Show previous block."""
+        if self.current_block_index > 0:
+            self._display_block(self.current_block_index - 1)
+    
+    def _next_block(self):
+        """Show next block."""
+        if self.current_block_index < len(self.current_block_images) - 1:
+            self._display_block(self.current_block_index + 1)
+    
+    def _on_colormap_change(self, *args):
+        """Called when colormap selection changes."""
+        if hasattr(self, 'current_block_images') and self.current_block_images:
+            self._display_block(self.current_block_index)
+    
+    def _refresh_block_display(self):
+        """Refresh the current block display with current settings."""
+        if hasattr(self, 'current_block_images') and self.current_block_images:
+            self._display_block(self.current_block_index)
     
     def _append(self, msg: str):
         """Add message to log."""
         try:
-            self._q.put(("log", msg))
+            # Only queue message if it's not already in the last line
+            last_line = self.log.get("end-2c linestart", "end-1c")
+            if msg.strip() != last_line.strip():
+                self._q.put(("log", msg))
         except Exception:
             pass
         print(msg)
@@ -261,20 +1944,106 @@ class App(tk.Tk):
         t = threading.Thread(target=fn, daemon=True)
         t.start()
     
+    def _toggle_export_settings(self, *args):
+        """Show/hide export settings based on format."""
+        fmt = self.export_format.get()
+        if fmt == "video":
+            self.tile_frame.pack_forget()
+            self.video_frame.pack(fill="x", padx=4)
+        else:
+            self.video_frame.pack_forget()
+            self.tile_frame.pack(fill="x", padx=4)
+
+    def _create_progress_bar(self, process_id: str, text: str) -> ttk.Frame:
+        """Create a progress bar frame for a process."""
+        if process_id in self.progress_vars:
+            return
+            
+        frame = ttk.Frame(self)
+        frame.pack(fill="x", padx=8, pady=2)
+        
+        label_var = tk.StringVar(value=text)
+        ttk.Label(frame, textvariable=label_var).pack(side="left", padx=4)
+        
+        progress = ttk.Progressbar(frame, mode="determinate", length=300)
+        progress.pack(side="left", fill="x", expand=True, padx=4)
+        # Initialize to 0
+        progress["value"] = 0
+        
+        cancel_btn = ttk.Button(
+            frame, 
+            text="Cancel",
+            command=lambda: self.process_mgr.cancel_process(process_id)
+        )
+        cancel_btn.pack(side="right", padx=4)
+        
+        self.progress_vars[process_id] = (label_var, progress, frame)
+        return frame
+
+    def _update_progress(self, process_id: str, percent: Optional[float], message: str):
+        """Update progress bar and message."""
+        if process_id not in self.progress_vars:
+            return
+            
+        label_var, progress, frame = self.progress_vars[process_id]
+        if percent is not None:
+            progress["value"] = percent
+        if message:
+            label_var.set(message)
+
+    def _cleanup_progress(self, process_id: str, delay_ms: int = 3000):
+        """Remove progress bar after process completion with optional delay."""
+        def delayed_cleanup():
+            if process_id in self.progress_vars:
+                _, _, frame = self.progress_vars[process_id]
+                frame.destroy()
+                del self.progress_vars[process_id]
+                self.update()  # Force UI update after cleanup
+        
+        # Schedule cleanup after delay to keep success message visible
+        self.after(delay_ms, delayed_cleanup)
+
     def _check_loop(self):
         """Process queue messages."""
         try:
             while True:
-                msg_type, data = self._q.get_nowait()
+                msg = self._q.get_nowait()
+                msg_type = msg[0]
+                
                 if msg_type == "log":
-                    self.log.insert("end", str(data) + "\n")
+                    self.log.insert("end", str(msg[1]) + "\n")
                     self.log.see("end")
+                    
                 elif msg_type == "preview":
-                    img = ImageTk.PhotoImage(PIm.fromarray(data))
-                    self.preview.configure(image=img)
-                    self.preview.image = img
+                    # Use canvas for display instead of label
+                    self._display_numpy_array_in_canvas(msg[1])
+                    
+                elif msg_type == "progress":
+                    process_id, percent, message = msg[1:]
+                    self._update_progress(process_id, percent, message)
+                    
+                elif msg_type == "error":
+                    process_id, error_msg = msg[1:]
+                    self._update_progress(process_id, None, f"Error: {error_msg}")
+                    messagebox.showerror("Error", error_msg)
+                    
+                elif msg_type == "done":
+                    process_id = msg[1]
+                    # Different delays for different processes
+                    if process_id == "parse":
+                        self._cleanup_progress(process_id, 4000)  # Keep parse results visible longer
+                    elif process_id == "block_preview":
+                        self._cleanup_progress(process_id, 3000)  # Keep block preview results visible
+                    else:
+                        self._cleanup_progress(process_id, 2000)  # Standard delay for other processes
+                    
+                elif msg_type == "block_display":
+                    block_index = msg[1]
+                    self._display_block(block_index)
+                    
         except queue.Empty:
             pass
+            
         self.after(100, self._check_loop)
 
 

@@ -2,9 +2,121 @@
 # video_exporter.py — preview builder + MP4 export (stitch/align + color maps)
 from __future__ import annotations
 from typing import Sequence, Dict, Any, List, Tuple, Optional, Callable
-import math, numpy as np
+import math
+import numpy as np
 from PIL import Image
 from render_accel import VideoWorker
+
+def _build_single_preview(
+    img_paths: Sequence[str],
+    cfg: Dict[str,Any],
+    row_h: int,
+    preview_h: int
+) -> tuple[np.ndarray, Optional[int], Optional[int], float]:
+    """Build preview frame for single-channel data (downscan/chirp)."""
+    if not img_paths:
+        return np.zeros((preview_h, 100, 3), dtype=np.uint8), None, None, 1.0
+
+    # Load last N rows that will fit in preview
+    rows_needed = math.ceil(preview_h / row_h)
+    preview_paths = img_paths[-rows_needed:] if rows_needed > 0 else []
+    
+    # Stack and scale rows
+    rows = [np.array(Image.open(p)) for p in preview_paths]
+    if not rows:
+        return np.zeros((preview_h, 100, 3), dtype=np.uint8), None, None, 1.0
+        
+    preview = np.vstack(rows)
+    if preview.shape[0] > preview_h:
+        preview = preview[-preview_h:]
+    
+    return preview, preview.shape[0], None, 1.0
+
+def _build_sidescan_preview(
+    img_paths: Sequence[str],
+    cfg: Dict[str,Any],
+    row_h: int,
+    preview_h: int
+) -> tuple[np.ndarray, Optional[int], Optional[int], float]:
+    """Build preview frame for sidescan data (dual channel)."""
+    if not img_paths:
+        return np.zeros((preview_h, 100, 3), dtype=np.uint8), None, None, 1.0
+
+    # Load last N rows that will fit in preview
+    rows_needed = math.ceil(preview_h / row_h)
+    preview_paths = img_paths[-rows_needed:] if rows_needed > 0 else []
+    
+    # Load and split channels
+    rows = [np.array(Image.open(p)) for p in preview_paths]
+    if not rows:
+        return np.zeros((preview_h, 100, 3), dtype=np.uint8), None, None, 1.0
+        
+    preview = np.vstack(rows)
+    if preview.shape[0] > preview_h:
+        preview = preview[-preview_h:]
+        
+    # Split channels if needed
+    if cfg.get('AUTO_SPLIT', True):
+        h = preview.shape[0]
+        mid = preview.shape[1] // 2
+        left = preview[:, :mid]
+        right = preview[:, mid:]
+        return preview, h, h, 1.0
+    
+    return preview, preview.shape[0], None, 1.0
+
+def detect_scan_type(img_path: str, cfg: Dict[str,Any]) -> str:
+    """Detect scan type from first image and config."""
+    if cfg.get('SCAN_TYPE', 'auto') != 'auto':
+        return cfg['SCAN_TYPE']
+        
+    # Load first image to analyze characteristics
+    img = np.array(Image.open(img_path))
+    h, w = img.shape[:2]
+    
+    if w >= h * 8:  # Very wide image suggests sidescan
+        return 'sidescan'
+    elif w <= h * 2:  # Narrower image suggests downscan
+        return 'downscan'
+    else:
+        return 'chirp'
+
+def build_preview_frame(
+    img_paths: Sequence[str],
+    cfg: Dict[str,Any],
+    row_h: int,
+    preview_h: int,
+) -> tuple[np.ndarray, Optional[int], Optional[int], float]:
+    """Build a preview frame showing recent data from provided image files.
+    Returns (preview frame, left channel height, right channel height, time scale)
+    """
+    # Detect scan type
+    scan_type = detect_scan_type(img_paths[0], cfg) if img_paths else 'sidescan'
+    
+    # Load and process images based on scan type
+    if scan_type == 'sidescan':
+        # Use existing sidescan preview logic
+        return _build_sidescan_preview(img_paths, cfg, row_h, preview_h)
+    else:
+        # Simplified preview for downscan/chirp
+        return _build_single_preview(img_paths, cfg, row_h, preview_h)
+
+def export_waterfall_mp4(img_paths: Sequence[str], cfg: Dict[str,Any], out_path: str, row_h: int, video_h: int, fps: int = 30, max_val: int = 255, log_func: Optional[Callable[[str],None]] = None) -> None:
+    """Export a waterfall video from a sequence of row images."""
+    # Detect scan type if not specified
+    scan_type = detect_scan_type(img_paths[0], cfg)
+    
+    # Modify output path based on scan type
+    base = out_path.rsplit('.', 1)[0]
+    if scan_type != 'sidescan':
+        out_path = f"{base}_{scan_type}.mp4"
+    
+    # Adjust configuration based on scan type
+    if scan_type == 'downscan' or scan_type == 'chirp':
+        cfg = cfg.copy()
+        cfg['ALIGN_CHANNELS'] = False
+        cfg['SHOW_SEAM'] = False
+        cfg['AUTO_SPLIT'] = False
 
 # ----------- Color maps -----------
 def _hex2rgb(h: str) -> tuple[int,int,int]:
