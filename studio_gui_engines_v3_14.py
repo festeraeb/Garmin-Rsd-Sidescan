@@ -20,6 +20,14 @@ from PIL import Image as PIm, ImageTk
 import time
 from typing import Optional, Dict, List
 
+# License system
+try:
+    from license_manager import check_license_on_startup, LicenseManager
+    LICENSE_SYSTEM_AVAILABLE = True
+except ImportError as e:
+    LICENSE_SYSTEM_AVAILABLE = False
+    print(f"Warning: License system not available: {e}")
+
 # Try to import block processing functionality
 try:
     from block_pipeline import BlockProcessor, get_suggested_channel_pairs, get_transducer_info
@@ -71,7 +79,32 @@ class ProcessManager:
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("RSD Studio - Enhanced Block Processing")
+        
+        # Check license first - before showing main UI
+        if LICENSE_SYSTEM_AVAILABLE:
+            if not check_license_on_startup():
+                # User chose to exit or license check failed
+                self.destroy()
+                return
+            
+            # Initialize license manager for ongoing checks
+            self.license_manager = LicenseManager()
+            license_info = self.license_manager.get_license_info()
+            
+            # Update title with license info
+            license_type = license_info['type']
+            if license_type == "TRIAL":
+                self.title("RSD Studio Professional - Trial Version")
+            elif license_type == "SAR":
+                self.title("RSD Studio Professional - SAR License")
+            elif license_type == "COMMERCIAL":
+                self.title("RSD Studio Professional - Commercial License")
+            else:
+                self.title("RSD Studio Professional")
+        else:
+            self.title("RSD Studio - Enhanced Block Processing")
+            self.license_manager = None
+        
         self.geometry("1400x900")
         self.minsize(1200, 800)
         
@@ -158,6 +191,9 @@ class App(tk.Tk):
     
     def _build_ui(self):
         """Build the complete user interface with tabbed interface."""
+        # Create menu bar first
+        self._create_menu_bar()
+        
         # Create main notebook for tabbed interface
         self.notebook = ttk.Notebook(self)
         self.notebook.pack(fill="both", expand=True, padx=4, pady=4)
@@ -191,6 +227,157 @@ class App(tk.Tk):
                  font=("Arial", 16, "bold")).pack(pady=20)
         ttk.Label(info_frame, text="Enhanced with target detection capabilities", 
                  font=("Arial", 10)).pack(pady=10)
+    
+    def _create_menu_bar(self):
+        """Create the application menu bar"""
+        menubar = tk.Menu(self)
+        self.config(menu=menubar)
+        
+        # File menu
+        file_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="Open RSD File...", command=self._browse_input)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.quit)
+        
+        # License menu
+        if LICENSE_SYSTEM_AVAILABLE and self.license_manager:
+            license_menu = tk.Menu(menubar, tearoff=0)
+            menubar.add_cascade(label="License", menu=license_menu)
+            license_menu.add_command(label="License Information", command=self._show_license_info)
+            license_menu.add_command(label="Activate License Key...", command=self._activate_license)
+            license_menu.add_separator()
+            license_menu.add_command(label="Request SAR License", command=self._request_sar_license)
+            license_menu.add_command(label="Purchase Commercial License", command=self._request_commercial_license)
+        
+        # Help menu
+        help_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(label="User Guide", command=self._show_user_guide)
+        help_menu.add_command(label="About RSD Studio", command=self._show_about)
+    
+    def _show_license_info(self):
+        """Show current license information"""
+        if self.license_manager:
+            self.license_manager.show_license_dialog()
+    
+    def _activate_license(self):
+        """Show license activation dialog"""
+        from tkinter import simpledialog
+        key = simpledialog.askstring("License Activation", 
+                                   "Enter your license key:", show='*')
+        if key:
+            organization = simpledialog.askstring("Organization", 
+                                                "Organization name (optional):")
+            email = simpledialog.askstring("Email", 
+                                         "Email address (optional):")
+            
+            success, message = self.license_manager.activate_license(key, organization or "", email or "")
+            
+            if success:
+                messagebox.showinfo("License Activated", message)
+                # Update window title
+                license_info = self.license_manager.get_license_info()
+                license_type = license_info['type']
+                if license_type == "SAR":
+                    self.title("RSD Studio Professional - SAR License")
+                elif license_type == "COMMERCIAL":
+                    self.title("RSD Studio Professional - Commercial License")
+                else:
+                    self.title("RSD Studio Professional")
+            else:
+                messagebox.showerror("Activation Failed", message)
+    
+    def _request_sar_license(self):
+        """Show SAR license request information"""
+        message = """To request a FREE Search & Rescue license:
+
+1. Email: festeraeb@gmail.com
+2. Subject: "SAR License Request"
+3. Include:
+   - SAR organization name
+   - Official email address
+   - Brief description of SAR operations
+   - Contact information
+
+You will receive a permanent license key within 24-48 hours.
+Emergency requests are processed immediately."""
+        
+        messagebox.showinfo("SAR License Request", message)
+    
+    def _request_commercial_license(self):
+        """Show commercial license request information"""
+        message = """For Commercial License pricing and purchase:
+
+Email: festeraeb@gmail.com
+Subject: "Commercial License Inquiry"
+
+Include:
+- Organization name
+- Intended use case
+- Number of users
+- Contact information
+
+We offer:
+• Individual licenses
+• Volume discounts
+• Enterprise solutions
+• Custom development services"""
+        
+        messagebox.showinfo("Commercial License", message)
+    
+    def _show_user_guide(self):
+        """Show user guide information"""
+        message = """RSD Studio Professional User Guide
+
+📁 File Processing Tab:
+1. Select RSD file using 'Browse Input'
+2. Choose parser (Classic or NextGen)
+3. Click 'Run Parser' to process
+4. View results in preview area
+
+🎯 Target Detection Tab:
+1. Process RSD file first
+2. Configure detection parameters
+3. Run AI analysis
+4. Review target classifications
+
+📊 Export Options:
+• Video (MP4) - Waterfall visualization
+• KML - GPS overlay for mapping
+• MBTiles - Web-ready tiles
+
+For detailed documentation, see:
+- README.md
+- GUI_USER_GUIDE.md
+- CESARops_TARGET_DETECTION_SYSTEM.md"""
+        
+        messagebox.showinfo("User Guide", message)
+    
+    def _show_about(self):
+        """Show about dialog"""
+        license_text = "Trial Version"
+        if LICENSE_SYSTEM_AVAILABLE and self.license_manager:
+            license_info = self.license_manager.get_license_info()
+            license_text = f"{license_info['type']} License"
+        
+        message = f"""🌊 RSD Studio Professional
+
+Version: 3.14 Enhanced
+License: {license_text}
+
+Advanced Maritime Analysis Platform
+• Target Detection & Classification
+• Search & Rescue Operations
+• Archaeological Research Tools
+• Professional Reporting
+
+© 2025 RSD Studio Professional
+Built for maritime safety and underwater exploration
+
+Contact: festeraeb@gmail.com"""
+        
+        messagebox.showinfo("About RSD Studio", message)
     
     def _create_original_ui(self, parent):
         """Create the original UI layout inside a parent frame"""
