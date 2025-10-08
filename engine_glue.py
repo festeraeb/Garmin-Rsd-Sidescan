@@ -25,29 +25,63 @@ def _run_one(engine_name: str, inp: str, out_dir: str, max_records=None, progres
 
     os.makedirs(out_dir, exist_ok=True)
     
+    # Generate CSV path
+    csv_path = os.path.join(out_dir, "records.csv")
+    
     # First parse the RSD file
     if verbose:
-        print(f"[engine_glue] Parsing {inp}...")
+        print(f"[engine_glue] Parsing {inp} to {csv_path}...")
         
-    n, csv_path, log_path = engine_parse(inp, out_dir, max_records=max_records)
+    result_csv = engine_parse(inp, csv_path, max_records=max_records)
+    
+    # Count records for compatibility
+    try:
+        with open(result_csv, 'r') as f:
+            n = sum(1 for line in f) - 1  # Subtract header
+    except:
+        n = 0
+    
+    # Create a simple log
+    log_path = os.path.join(out_dir, "records.log")
+    try:
+        with open(log_path, 'w') as f:
+            f.write(f"Parsed {n} records from {inp}\n")
+            f.write(f"Output: {result_csv}\n")
+    except:
+        log_path = None
     
     # Now generate PNGs from sonar data
     if verbose:
-        print(f"[engine_glue] Generating images from {csv_path}...")
+        print(f"[engine_glue] Generating images from {result_csv}...")
     
     try:
         from render_accel import process_record_images
         img_dir = os.path.join(out_dir, 'images')
         os.makedirs(img_dir, exist_ok=True)
-        process_record_images(csv_path, img_dir, scan_type=scan_type, channel=channel)
+        process_record_images(result_csv, img_dir, scan_type=scan_type, channel=channel)
     except Exception as e:
         print(f"[engine_glue] Warning: Image generation failed: {str(e)}")
     
-    return n, csv_path, log_path
+    return n, result_csv, log_path
 
 
-def run_engine(engine: str, rsd_path: str, out_dir: str, limit_rows: int | None = None) -> Tuple[int,str,str]:
-    return _run_one(engine, rsd_path, out_dir, max_records=limit_rows)
+def run_engine(engine: str, rsd_path: str, csv_out: str, limit_rows: int | None = None) -> list[str]:
+    """Run engine and return list of output file paths for GUI compatibility."""
+    # Extract output directory from csv_out path
+    import os
+    out_dir = os.path.dirname(csv_out)
+    if not out_dir:
+        out_dir = '.'
+    
+    # Run the engine
+    n, csv_path, log_path = _run_one(engine, rsd_path, out_dir, max_records=limit_rows)
+    
+    # Return list of paths for GUI compatibility
+    result_paths = [csv_path]
+    if log_path and os.path.exists(log_path):
+        result_paths.append(log_path)
+    
+    return result_paths
 
 
 def main():

@@ -373,7 +373,7 @@ Features Available:
     def request_sar_license(self):
         message = """To request a FREE Search & Rescue license:
 
-1. Email: festeraeb@gmail.com
+1. Email: festeraeb@yahoo.com
 2. Subject: "SAR License Request"
 3. Include:
    - SAR organization name
@@ -389,7 +389,7 @@ Emergency requests are processed immediately."""
     def request_commercial_license(self):
         message = """For Commercial License pricing and purchase:
 
-Email: festeraeb@gmail.com
+Email: festeraeb@yahoo.com
 Subject: "Commercial License Inquiry"
 
 Include:

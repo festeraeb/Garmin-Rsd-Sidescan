@@ -1,27 +1,11 @@
 #!/usr/bin/env python3
-"""Next-gen engine - tolerant CRC checking with heuristic resync.
+# engine_nextgen_syncfirst.py — tolerant (warn CRC) + stall watchdog
 
-This implementation is more tolerant            # Extract required header fields with defaults
-            seq = struct.unpack('<I', hdr.get(2,b'\x00'*4)[:4])[0]
-            time_ms = struct.unpack('<I', hdr.get(5,b'\x00'*4)[:4])[0]
-            # Extract and validate data size
-            # Handle known record size pattern from CRC offsets
-            static_rec_size = 0x1073 # Fixed record size seen in CRC pattern
-            # Use static record size for resync
-            data_sz = static_rec_size - 64 # Account for header/trailer size
-            pos = pos_magic + static_rec_size # Jump to next record positionrecords and missing CRCs.
-It synchronizes on record headers, extracts content, then resumes scanning.
-"""
-import os
-import mmap
-import struct
+import os, mmap, struct, csv
 from dataclasses import dataclass
-from typing import Iterator, Optional, Tuple, Dict, Any
-from core_shared import (
-    MAGIC_REC_HDR, MAGIC_REC_TRL,
-    _parse_varstruct, _mapunit_to_deg, _read_varint_from,
-    find_magic, _emit, _decode_body_fields, _read_varuint_from
-)
+from typing import Optional, Iterable, Callable, Tuple, Dict, Any
+from core_shared import MAGIC_REC_HDR, MAGIC_REC_TRL, _parse_varstruct, _mapunit_to_deg, _read_varint_from, find_magic, set_progress_hook, _emit
+
 @dataclass
 class RSDRecord:
     """Record data from a Garmin RSD file."""
@@ -43,182 +27,175 @@ class RSDRecord:
     rx_ofs_m: Optional[float]   # Receiver offset in meters 
     color_id: Optional[int]     # Color scheme ID
     extras: Dict[str,Any]  # Additional decoded fields
+
+def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[float,str],None]=None) -> Iterable[RSDRecord]:
+    if progress: set_progress_hook(progress)
+    size=os.path.getsize(path)
+    with open(path,'rb') as f:
+        mm=mmap.mmap(f.fileno(),0,access=mmap.ACCESS_READ)
+        limit = size
+        mbytes = MAGIC_REC_HDR.to_bytes(4,'little')
+
+        _emit(0.0, "Finding first sync…")
+        j = find_magic(mm, mbytes, 0, limit)
+        if j < 0:
+            _emit(0.0, "No sync found."); mm.close(); return
+        pos = j - 1
+        _emit((pos/limit)*100.0, f"First sync at 0x{j:X}")
+
+        count=0
+        last_magic=None; stuck_hits=0; MAX_STUCK=2
+
+        while pos + 12 < limit:
+            k = find_magic(mm, mbytes, max(pos,0), min(limit, pos+16*1024*1024))
+            if k < 0: break
+            pos_magic = k
+            _emit((pos_magic/limit)*100.0, f"Header @ 0x{pos_magic:X}")
+
+            if pos_magic == last_magic:
+                stuck_hits += 1
+                if stuck_hits > MAX_STUCK:
+                    pos = pos_magic + 8
+                    _emit((pos/limit)*100.0, f"Skipping corrupt header @ 0x{pos_magic:X}")
+                    last_magic = None; stuck_hits = 0
+                    continue
+            else:
+                last_magic = pos_magic; stuck_hits = 0
+
+            hdr_block=None
+            for back in range(1,65):
+                try:
+                    start = pos_magic - back
+                    if start < 0: break
+                    hdr, body_start = _parse_varstruct(mm, start, limit, crc_mode='warn')
+                    if struct.unpack('<I', hdr.get(0,b'\x00'*4)[:4])[0] == MAGIC_REC_HDR:
+                        hdr_block=(hdr,start,body_start); break
+                except Exception: pass
+            if not hdr_block:
+                pos = pos_magic + 4
+                _emit((pos/limit)*100.0, f"Advancing after header parse fail @ 0x{pos_magic:X}")
+                continue
+
+            hdr,hdr_start,body_start = hdr_block
+            seq     = struct.unpack('<I', hdr.get(2,b'\x00'*4)[:4])[0]
+            time_ms = struct.unpack('<I', hdr.get(5,b'\x00'*4)[:4])[0]
+            data_sz = struct.unpack('<H', (hdr.get(4,b'\x00\x00')[:2] or b'\x00\x00'))[0]
+
+            lat=lon=depth=None; sample=None; ch=None; used=0
+            try:
+                body, body_end = _parse_varstruct(mm, body_start, limit, crc_mode='warn')
+                used = max(0, body_end-body_start)
+                if 0 in body: ch = int.from_bytes(body[0][:4].ljust(4,b'\x00'),'little')
+                if 9 in body and len(body[9])>=4:  lat = _mapunit_to_deg(int.from_bytes(body[9][:4],'little',signed=True))
+                if 10 in body and len(body[10])>=4: lon = _mapunit_to_deg(int.from_bytes(body[10][:4],'little',signed=True))
+                if 1 in body:
+                    try:
+                        v,_ = _read_varint_from(mm[body_start:body_start+len(body[1])],0,len(body[1])); depth = v/1000.0
+                    except Exception: pass
+                if 7 in body: sample = int.from_bytes(body[7][:4].ljust(4,b'\x00'),'little')
+            except Exception:
+                used = 0
+                _emit((body_start/limit)*100.0, f"Body parse warn @ 0x{body_start:X}")
+
+            sonar_ofs = body_start + used
+            sonar_len = max(0, data_sz - used) if data_sz > 0 else 0
+
+            hop=None; trailer_pos = body_start + data_sz
+            if trailer_pos + 12 <= limit:
+                try:
+                    tr_magic, chunk_size, tr_crc = struct.unpack('<III', mm[trailer_pos:trailer_pos+12])
+                    if tr_magic == MAGIC_REC_TRL and chunk_size > 0:
+                        hop = chunk_size
+                except Exception: pass
+
+            yield RSDRecord(
+                ofs=hdr_start, 
+                channel_id=ch if ch is not None else 0, 
+                seq=seq, 
+                time_ms=time_ms, 
+                lat=lat if lat is not None else 0.0, 
+                lon=lon if lon is not None else 0.0, 
+                depth_m=depth if depth is not None else 0.0,
+                sample_cnt=sample if sample is not None else 0, 
+                sonar_ofs=sonar_ofs if sonar_len > 0 else 0, 
+                sonar_size=sonar_len if sonar_len > 0 else 0,
+                beam_deg=0.0,  # Not in original data
+                pitch_deg=0.0,  # Not in original data  
+                roll_deg=0.0,   # Not in original data
+                heave_m=None,   # Not in original data
+                tx_ofs_m=None,  # Not in original data
+                rx_ofs_m=None,  # Not in original data
+                color_id=None,  # Not in original data
+                extras={}       # Not in original data
+            )
+            count += 1
+            if count % 250 == 0:
+                _emit((trailer_pos/limit)*100.0, f"Records: {count}")
+            if limit_records and count >= limit_records: break
+
+            if hop:
+                pos = hdr_start + hop
+            else:
+                nxt = find_magic(mm, mbytes, min(limit, trailer_pos+2), min(limit, hdr_start+4*1024*1024))
+                if nxt < 0: break
+                pos = nxt - 1
+
+        _emit(100.0, f"Done (next-gen). Records: {count}")
+        mm.close()
+
+
 def parse_rsd(rsd_path: str, out_dir: str, max_records: Optional[int] = None) -> Tuple[int, str, str]:
     """Parse RSD file and write records to CSV.
     Returns (record_count, csv_path, log_path).
     """
     # Setup output paths
-    csv_path = os.path.join(out_dir, os.path.basename(rsd_path) + '.csv')
-    log_path = os.path.join(out_dir, os.path.basename(rsd_path) + '.log')
+    os.makedirs(out_dir, exist_ok=True)
+    base_name = os.path.splitext(os.path.basename(rsd_path))[0]
+    csv_path = os.path.join(out_dir, f"{base_name}.csv")
+    log_path = os.path.join(out_dir, f"{base_name}.log")
     
-    # Open input file and log
-    count = 0
-    with open(rsd_path, 'rb') as f, \
-         open(csv_path, 'w') as csv_f, \
-         open(log_path, 'w') as log_f:
+    # CSV header - must match what GUI expects
+    header = [
+        "ofs", "channel_id", "seq", "time_ms", "lat", "lon", "depth_m", 
+        "sample_cnt", "sonar_ofs", "sonar_size", "beam_deg", "pitch_deg", 
+        "roll_deg", "heave_m", "tx_ofs_m", "rx_ofs_m", "color_id", "extras_json"
+    ]
+    
+    record_count = 0
+    
+    # Parse records and write to CSV
+    with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(header)
         
-        # Memory map the RSD file
-        mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
-        
-        # Write CSV header
-        fields = ['ofs', 'channel_id', 'seq', 'time_ms', 'data_size', 'lat', 'lon', 'depth_m',
-                 'sample_cnt', 'sonar_ofs', 'sonar_size', 'beam_deg', 'pitch_deg', 'roll_deg',
-                 'heave_m', 'tx_ofs_m', 'rx_ofs_m', 'color_id', 'extras']
-        csv_f.write(','.join(fields) + '\n')
-        
-        # Parse and write records
         try:
-            for rec in _iter_records(mm, 0, mm.size(), log_f, max_records):
-                count += 1
-                values = [str(getattr(rec, f, '')) for f in fields]
-                csv_f.write(','.join(values) + '\n')
+            for record in parse_rsd_records_nextgen(rsd_path, limit_records=max_records):
+                writer.writerow([
+                    record.ofs,
+                    record.channel_id,
+                    record.seq,
+                    record.time_ms,
+                    record.lat,
+                    record.lon,
+                    record.depth_m,
+                    record.sample_cnt,
+                    record.sonar_ofs,
+                    record.sonar_size,
+                    record.beam_deg,
+                    record.pitch_deg,
+                    record.roll_deg,
+                    record.heave_m,
+                    record.tx_ofs_m,
+                    record.rx_ofs_m,
+                    record.color_id,
+                    "{}"  # Empty JSON for extras
+                ])
+                record_count += 1
                 
-                if count % 250 == 0:
-                    _emit(count, f"Parsed {count} records")
         except Exception as e:
-            log_f.write(f"Error during parsing: {str(e)}\n")
+            # Write error to log
+            with open(log_path, 'w') as log_file:
+                log_file.write(f"Parse error: {str(e)}\n")
             raise
-            
-    return count, csv_path, log_path
-
-def _iter_records(mm: mmap.mmap, start: int, limit: int, log_file, limit_records: Optional[int]=None) -> Iterator[RSDRecord]:
-    """Iterator for tolerant record parsing (skip failed records)."""
-    count = 0
-    pos = start
-    errors = 0
-    max_errors = 10  # Allow some errors before giving up
     
-    while pos < limit:
-        try:
-            # Find next record header magic
-            pos_magic = find_magic(mm, struct.pack('<I', MAGIC_REC_HDR), pos, limit)
-            if pos_magic < 0:
-                log_file.write(f'No more header magic found after 0x{pos:X}\n')
-                break
-                
-            if count % 250 == 0:
-                _emit(count / max(1, limit) * 100, f"Parsed {count} records")
-                log_file.write(f'Processing record at 0x{pos_magic:X} (count={count})\n')
-                log_file.flush()
-                
-            # Check for excessive errors
-            if errors > max_errors:
-                msg = f'Too many parse errors ({errors}), stopping at 0x{pos:X}'
-                log_file.write(msg + '\n')
-                _emit(None, msg)
-                break
-                
-        except Exception as e:
-            errors += 1
-            log_file.write(f'Error at 0x{pos:X}: {str(e)}\n')
-            log_file.flush()
-            pos += 1  # Skip this byte and try again
-            continue
-        
-        # Parse the rest of the header
-        pos = pos_magic + 4
-        try:
-            # Check next magic in case this was a false positive
-            next_magic = mm[pos:pos+4]
-            if len(next_magic) == 4 and struct.unpack('<I', next_magic)[0] == MAGIC_REC_HDR:
-                log_file.write(f'Skipping false header at 0x{pos_magic:X}\n')
-                continue
-        except:
-            # If we can't read the next magic, just continue with parsing
-            pass
-
-        # Handle known record size pattern from CRC offsets
-        record_size = 0x1073  # Fixed record size seen in CRC pattern
-        try:
-            # Try to parse header even with CRC issues
-            log_file.write(f'Found header magic at 0x{pos_magic:X}, fixed record size\n')
-            # Skip magic and try to extract just the sequence and time
-            pos = pos_magic + 4
-            try:
-                # Basic length check
-                if pos + 12 > limit:
-                    raise ValueError('Not enough space for header')
-                # Read minimal header directly 
-                seq = struct.unpack('<I', mm[pos+8:pos+12])[0]  # Field 2
-                time_ms = struct.unpack('<I', mm[pos+20:pos+24])[0]  # Field 5
-            except Exception as e:
-                log_file.write(f'Minimal header read failed at 0x{pos_magic:X}: {str(e)}\n')
-                pos = pos_magic + record_size  # Advance by fixed size
-                _emit((pos/limit)*100.0, f"Minimal header error @ 0x{pos_magic:X}")
-                continue
-            # Calculate body position based on fixed record size
-            body_start = pos_magic + 64  # Header size
-            data_sz = record_size - 64   # Rest is data
-            log_file.write(f'Header OK at 0x{pos_magic:X} (seq={seq}, time={time_ms}, size={data_sz})\n')
-        except Exception as e:
-            log_file.write(f'Header parse failed at 0x{pos_magic:X}: {str(e)}\n')
-            _emit((pos/limit)*100.0, f"Advancing after header parse error @ 0x{pos_magic:X}")
-            continue
-
-        # Parse body if header got decoded
-        try:
-            # Fixed size validation
-            if body_start + data_sz > limit:
-                log_file.write(f'Record would exceed limit at 0x{pos_magic:X}, skipping\n')
-                pos = pos_magic + record_size
-                continue
-            
-            # Skip varstruct parsing and read fields directly
-            try:
-                # Channel/color/sample count at known offsets
-                channel_id = struct.unpack('<H', mm[body_start+24:body_start+26])[0]
-                color_id = struct.unpack('<H', mm[body_start+26:body_start+28])[0]
-                sample_cnt = struct.unpack('<H', mm[body_start+28:body_start+30])[0]
-                
-                # GPS/depth/attitude fields
-                lat = struct.unpack('<f', mm[body_start+8:body_start+12])[0]
-                lon = struct.unpack('<f', mm[body_start+12:body_start+16])[0]
-                depth_m = struct.unpack('<f', mm[body_start+16:body_start+20])[0]
-                tx_ofs_m = struct.unpack('<f', mm[body_start+20:body_start+24])[0]
-                rx_ofs_m = struct.unpack('<f', mm[body_start+24:body_start+28])[0]
-                beam_deg = struct.unpack('<f', mm[body_start+28:body_start+32])[0]
-                pitch_deg = struct.unpack('<f', mm[body_start+32:body_start+36])[0]
-                roll_deg = struct.unpack('<f', mm[body_start+36:body_start+40])[0]
-                heave_m = struct.unpack('<f', mm[body_start+40:body_start+44])[0]
-            except Exception as e:
-                log_file.write(f'Fixed field decode failed at 0x{body_start:X}: {str(e)}\n')
-                pos = pos_magic + record_size
-                continue
-                
-            # Calculate sonar data position
-            sonar_ofs = body_start + data_sz - sample_cnt*2
-            sonar_size = sample_cnt*2
-            # Since we're not parsing the varstruct, we'll just report minimal extras
-            extras = {'raw_pos': pos_magic}
-            count += 1
-            if limit_records and count > limit_records:
-                break
-
-            # Create record with all extracted fields
-            record = RSDRecord(
-                ofs=pos_magic,
-                channel_id=channel_id,
-                seq=seq,
-                time_ms=time_ms,
-                lat=lat,
-                lon=lon,
-                depth_m=depth_m,
-                sample_cnt=sample_cnt,
-                sonar_ofs=sonar_ofs,
-                sonar_size=sonar_size,
-                beam_deg=beam_deg,
-                pitch_deg=pitch_deg,
-                roll_deg=roll_deg,
-                heave_m=heave_m,
-                tx_ofs_m=tx_ofs_m,
-                rx_ofs_m=rx_ofs_m,
-                color_id=color_id,
-                extras=extras)
-            yield record
-            _emit((pos/limit)*100.0, f"Record {count}")
-            pos = body_start + data_sz
-        except Exception as e:
-            log_file.write(f'Body decode failed at 0x{body_start:X}: {str(e)}\n')
-            _emit((pos/limit)*100.0, f"Advancing after body decode error @ 0x{body_start:X}")
-            pos = body_start + data_sz
-            continue
+    return record_count, csv_path, log_path

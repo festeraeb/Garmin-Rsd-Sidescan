@@ -257,131 +257,112 @@ def compose_channel_block_preview(rsd_path: str, left_block: List[RSDRecord],
                                 flip_left: bool = False, flip_right: bool = False,
                                 remove_water_column: bool = False,
                                 water_column_pixels: int = 50) -> np.ndarray:
-    """Create proper channel block preview showing full water columns as vertical blocks
+    """Create proper sidescan preview with left and right channels stitched horizontally
     
-    Each record becomes a horizontal row, stacked vertically to show the water column
-    over time (multiple pings). This creates the proper sonar waterfall display.
+    This creates a traditional sidescan sonar waterfall view where:
+    - Each ping (row) shows: [LEFT CHANNEL | CENTER GAP | RIGHT CHANNEL]
+    - Multiple pings are stacked vertically to show the sonar track over time
+    - This produces the classic "waterfall" view with seafloor on both sides
     """
     
-    def create_channel_waterfall(block: List[RSDRecord], flip: bool) -> np.ndarray:
-        """Create a waterfall image from a block of records"""
-        if not block:
-            return np.zeros((50, width), dtype=np.uint8)  # Default size
-        
-        # We'll create an image where each row is one ping (record)
-        # Height = number of records, Width = sonar range samples
-        block_height = len(block)
-        waterfall = np.zeros((block_height, width), dtype=np.uint8)
-        
-        print(f"Creating waterfall: {block_height} pings x {width} samples")
-        
-        for row_idx, record in enumerate(block):
-            try:
-                # Extract sonar data for this ping
-                sonar_data = extract_sonar_data(rsd_path, record)
+    def extract_channel_ping_data(record: RSDRecord, target_width: int, flip: bool) -> np.ndarray:
+        """Extract and process sonar data for a single ping from one channel"""
+        try:
+            sonar_data = extract_sonar_data(rsd_path, record)
+            
+            if sonar_data and len(sonar_data) > 0:
+                # Convert bytes to numpy array
+                raw_array = np.frombuffer(sonar_data, dtype=np.uint8)
                 
-                if sonar_data and len(sonar_data) > 0:
-                    # Convert to intensity values (0-255)
-                    intensity_data = (sonar_data * 255).astype(np.uint8)
-                    
-                    # Resize to target width if needed
-                    if len(intensity_data) != width:
-                        # Simple interpolation to target width
-                        x_old = np.linspace(0, 1, len(intensity_data))
-                        x_new = np.linspace(0, 1, width)
-                        intensity_data = np.interp(x_new, x_old, intensity_data).astype(np.uint8)
-                    
-                    # Apply flipping if requested
-                    if flip:
-                        intensity_data = np.fliplr(intensity_data.reshape(1, -1))[0]
-                    
-                    # Set this row in the waterfall
-                    waterfall[row_idx, :] = intensity_data
-                    
+                # Scale to 0-255 range 
+                if raw_array.max() > 0:
+                    intensity_data = (raw_array.astype(np.float32) * 255.0 / raw_array.max()).astype(np.uint8)
                 else:
-                    # No data - leave as zeros (black)
-                    print(f"No sonar data for record {row_idx}")
-                    
-            except Exception as e:
-                print(f"Error processing record {row_idx}: {e}")
-                # Leave as zeros
-                continue
-        
-        # Remove water column if requested (crop horizontally from left)
-        if remove_water_column and water_column_pixels > 0:
-            if waterfall.shape[1] > water_column_pixels:
-                waterfall = waterfall[:, water_column_pixels:]
-        
+                    intensity_data = raw_array.astype(np.uint8)
+                
+                # Resize to target width if needed
+                if len(intensity_data) != target_width:
+                    x_old = np.linspace(0, 1, len(intensity_data))
+                    x_new = np.linspace(0, 1, target_width)
+                    intensity_data = np.interp(x_new, x_old, intensity_data).astype(np.uint8)
+                
+                # Apply flipping if requested
+                if flip:
+                    intensity_data = intensity_data[::-1]
+                
+                return intensity_data
+            else:
+                # No data - return zeros
+                return np.zeros(target_width, dtype=np.uint8)
+                
+        except Exception as e:
+            print(f"Error extracting ping data: {e}")
+            return np.zeros(target_width, dtype=np.uint8)
+    
+    # Determine how many pings we have
+    num_pings = min(len(left_block), len(right_block)) if left_block and right_block else 0
+    if num_pings == 0:
+        print("No valid ping pairs found")
+        return np.zeros((50, width), dtype=np.uint8)
+    
+    print(f"Creating sidescan waterfall: {num_pings} pings")
+    
+    # For sidescan, each channel gets half the width
+    channel_width = width // 2
+    gap_width = 4  # Small gap between channels
+    
+    # Calculate final dimensions
+    total_width = channel_width * 2 + gap_width
+    waterfall_height = num_pings
+    
+    # Create the waterfall image
+    waterfall = np.zeros((waterfall_height, total_width), dtype=np.uint8)
+    
+    print(f"Waterfall dimensions: {waterfall_height} x {total_width}")
+    print(f"Channel width: {channel_width}, Gap: {gap_width}")
+    
+    # Process each ping pair
+    for ping_idx in range(num_pings):
+        if ping_idx < len(left_block) and ping_idx < len(right_block):
+            left_record = left_block[ping_idx]
+            right_record = right_block[ping_idx]
+            
+            # Extract data for each channel
+            left_data = extract_channel_ping_data(left_record, channel_width, flip_left)
+            right_data = extract_channel_ping_data(right_record, channel_width, flip_right)
+            
+            # Remove water column from left channel (crop from right side - boat side)
+            if remove_water_column and water_column_pixels > 0:
+                if len(left_data) > water_column_pixels:
+                    left_data = left_data[:-water_column_pixels]
+                    # Pad back to channel_width
+                    left_data = np.pad(left_data, (0, channel_width - len(left_data)), 'constant')
+            
+            # Remove water column from right channel (crop from left side - boat side)  
+            if remove_water_column and water_column_pixels > 0:
+                if len(right_data) > water_column_pixels:
+                    right_data = right_data[water_column_pixels:]
+                    # Pad back to channel_width
+                    right_data = np.pad(right_data, (channel_width - len(right_data), 0), 'constant')
+            
+            # Compose the ping row: [LEFT | GAP | RIGHT]
+            ping_row = np.zeros(total_width, dtype=np.uint8)
+            ping_row[0:channel_width] = left_data[:channel_width]  # Left channel
+            # Gap stays black (zeros)
+            ping_row[channel_width + gap_width:] = right_data[:channel_width]  # Right channel
+            
+            # Set this row in the waterfall
+            waterfall[ping_idx, :] = ping_row
+    
+    print(f"Completed waterfall: {waterfall.shape}, range: {waterfall.min()}-{waterfall.max()}")
+    
+    # Handle different preview modes
+    if preview_mode == "left":
+        return waterfall[:, :channel_width]
+    elif preview_mode == "right": 
+        return waterfall[:, channel_width + gap_width:]
+    else:  # "both" or any other mode
         return waterfall
-    
-    # Create waterfalls for each channel
-    left_waterfall = None
-    right_waterfall = None
-    
-    if left_block:
-        print(f"Processing left channel: {len(left_block)} records")
-        left_waterfall = create_channel_waterfall(left_block, flip_left)
-        
-    if right_block:
-        print(f"Processing right channel: {len(right_block)} records")
-        right_waterfall = create_channel_waterfall(right_block, flip_right)
-    
-    # Combine based on preview mode
-    if preview_mode == "left" and left_waterfall is not None:
-        return left_waterfall
-        
-    elif preview_mode == "right" and right_waterfall is not None:
-        return right_waterfall
-        
-    elif preview_mode == "both" and left_waterfall is not None and right_waterfall is not None:
-        # Side by side display
-        gap_width = 20  # Gap between channels
-        left_height, left_width = left_waterfall.shape
-        right_height, right_width = right_waterfall.shape
-        
-        # Make heights match
-        max_height = max(left_height, right_height)
-        
-        # Create combined image
-        total_width = left_width + gap_width + right_width
-        combined = np.zeros((max_height, total_width), dtype=np.uint8)
-        
-        # Copy left channel
-        combined[:left_height, :left_width] = left_waterfall
-        
-        # Add separator (gray line)
-        combined[:, left_width:left_width + gap_width] = 128
-        
-        # Copy right channel  
-        combined[:right_height, left_width + gap_width:left_width + gap_width + right_width] = right_waterfall
-        
-        return combined
-        
-    elif preview_mode == "overlay" and left_waterfall is not None and right_waterfall is not None:
-        # Overlay channels for alignment checking
-        left_height, left_width = left_waterfall.shape
-        right_height, right_width = right_waterfall.shape
-        
-        # Make dimensions match
-        max_height = max(left_height, right_height)
-        min_width = min(left_width, right_width)
-        
-        # Resize both to same size
-        overlay = np.zeros((max_height, min_width), dtype=np.uint8)
-        
-        # Blend the channels
-        left_resized = left_waterfall[:max_height, :min_width] if left_height >= max_height else np.pad(left_waterfall[:, :min_width], ((0, max_height - left_height), (0, 0)))
-        right_resized = right_waterfall[:max_height, :min_width] if right_height >= max_height else np.pad(right_waterfall[:, :min_width], ((0, max_height - right_height), (0, 0)))
-        
-        # Average the two channels
-        overlay = ((left_resized.astype(np.float32) + right_resized.astype(np.float32)) / 2).astype(np.uint8)
-        
-        return overlay
-    
-    else:
-        # Fallback - create a sample pattern
-        print("Fallback: creating sample pattern")
-        return np.random.randint(0, 128, (50, width), dtype=np.uint8)
 
 def compose_aligned_block(rsd_path: str, left_block: List[RSDRecord], 
                          right_block: List[RSDRecord], shift: int = 0,

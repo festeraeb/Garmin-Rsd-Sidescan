@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # core_shared.py — shared helpers (varstruct, CRC, magic scan, progress)
+
 import struct
 
 MAGIC_REC_HDR = 0xB7E9DA86  # header magic (LE)
@@ -28,28 +29,18 @@ def _crc32_custom(data: bytes) -> int:
     return (rev ^ 0xFFFFFFFF) & 0xFFFFFFFF
 
 def _read_varuint_from(mm,pos,limit):
-    """Read variable-length unsigned int with validation."""
-    res = 0; shift = 0; max_shift = 35  # Allow up to 5 bytes
-    while pos < limit and shift < max_shift:
-        b = mm[pos]; pos += 1
-        # Handle each byte safely
-        if (shift >= 28) and (b & ~0x80) > 0x0F:
-            raise ValueError('VarUInt overflow in final byte')
-        new_bits = (b & 0x7F) << shift
-        res |= new_bits
-        if res < 0 or res > 0xFFFFFFFF:
-            raise ValueError(f'VarUInt exceeds 32 bits: {res}')
-        if not(b & 0x80):  # MSB clear = last byte
-            return res, pos
-        shift += 7
-    raise ValueError('VarUInt too long or truncated')
+    res=0; shift=0
+    while pos<limit:
+        b=mm[pos]; pos+=1; res|=(b&0x7F)<<shift
+        if not(b&0x80): return res,pos
+        shift+=7
+        if shift>35: break
+    raise ValueError('VarUInt overflow')
 
 def _read_varint_from(buf,pos,limit):
-    # buf can be a memoryview/bytes segment starting at original pos
     res=0; shift=0; i=pos
     while i<limit:
-        b=buf[i-pos]
-        i+=1
+        b=buf[i-pos]; i+=1
         res|=(b&0x7F)<<shift
         if not(b&0x80):
             u=res
@@ -61,20 +52,9 @@ def _read_varint_from(buf,pos,limit):
 
 def _parse_varstruct(mm,pos,limit,crc_mode='warn'):
     start = pos
-    # Skip magic if it's present
-    magic_present = (pos + 4 <= limit) and struct.unpack('<I', mm[pos:pos+4])[0] == MAGIC_REC_HDR
-    if magic_present:
-        pos += 4
-    # Read field count
-    try:
-        n, pos = _read_varuint_from(mm, pos, limit)
-        if n < 0 or n > 50:  # More reasonable max field count for RSD files
-            raise ValueError(f'Unreasonable field count: {n}')
-    except ValueError as ve:
-        if crc_mode == 'warn':
-            import logging
-            logging.warning(f'Field count error at 0x{start:X}: {str(ve)}')
-            raise
+    n, pos = _read_varuint_from(mm, pos, limit)
+    if n < 0 or n > 10000:
+        raise ValueError(f'Unreasonable field count: {n}')
     fields = {}
     for _ in range(n):
         key, pos = _read_varuint_from(mm, pos, limit)
@@ -98,8 +78,7 @@ def _parse_varstruct(mm,pos,limit,crc_mode='warn'):
         import logging; logging.warning('CRC mismatch at 0x%X', start)
     return fields, pos
 
-def _mapunit_to_deg(x:int)->float:
-    return x*(360.0/float(1<<32))
+def _mapunit_to_deg(x:int)->float: return x*(360.0/float(1<<32))
 
 def find_magic(mm, magic_bytes, start, end, chunk=32*1024*1024):
     """Chunked .find with progress updates."""
@@ -117,26 +96,3 @@ def find_magic(mm, magic_bytes, start, end, chunk=32*1024*1024):
         if idx != -1: return idx
         s = e
     return -1
-
-def _decode_body_fields(body):
-    """Decode heuristic extra fields from a record body.
-    Returns a dict of field values.
-    """
-    extras = {}
-    try:
-        # Handle standard fields we always expect
-        for k,v in body.items():
-            if k >= 20:  # Custom fields start at 20
-                if len(v) == 4:  # Try as float32
-                    try:
-                        f = struct.unpack('<f', v)[0]
-                        if -1e6 <= f <= 1e6:  # Reasonable range
-                            extras[f'field_{k}'] = f
-                            continue
-                    except:
-                        pass
-                # Fall back to hex
-                extras[f'field_{k}'] = v.hex()
-    except Exception:
-        pass
-    return extras

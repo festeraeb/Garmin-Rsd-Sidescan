@@ -155,6 +155,10 @@ class App(tk.Tk):
         self.target_max_blocks = tk.IntVar(value=100)
         self.target_confidence_threshold = tk.DoubleVar(value=0.4)
         
+        # Parser limit controls (default to unlimited for full video length)
+        self.limit_enabled = tk.BooleanVar(value=False)  # Default: no limit
+        self.limit_entry = tk.StringVar(value="1000")    # Default limit if enabled
+        
         # Runtime state for block processing
         self.block_processor = None
         self.current_csv_path = None
@@ -205,18 +209,12 @@ class App(tk.Tk):
         # Use the original UI layout inside the main tab
         self._create_original_ui(main_frame)
         
-        # Target Detection Tab (only if available) - placeholder for now
+        # Target Detection Tab (only if available)
         if TARGET_DETECTION_AVAILABLE:
             target_frame = ttk.Frame(self.notebook)
             self.notebook.add(target_frame, text="🎯 Target Detection (Advanced)")
             
-            # Simple placeholder for target detection tab
-            ttk.Label(target_frame, text="🎯 Advanced Target Detection", 
-                     font=("Arial", 14, "bold")).pack(pady=20)
-            ttk.Label(target_frame, text="Target detection features will be implemented here.", 
-                     font=("Arial", 10)).pack(pady=10)
-            ttk.Label(target_frame, text="Use the File Processing tab to parse RSD files first.", 
-                     font=("Arial", 10)).pack(pady=5)
+            self._create_target_detection_ui(target_frame)
         
         # Info/About Tab
         info_frame = ttk.Frame(self.notebook)
@@ -292,7 +290,7 @@ class App(tk.Tk):
         """Show SAR license request information"""
         message = """To request a FREE Search & Rescue license:
 
-1. Email: festeraeb@gmail.com
+1. Email: festeraeb@yahoo.com
 2. Subject: "SAR License Request"
 3. Include:
    - SAR organization name
@@ -309,7 +307,7 @@ Emergency requests are processed immediately."""
         """Show commercial license request information"""
         message = """For Commercial License pricing and purchase:
 
-Email: festeraeb@gmail.com
+Email: festeraeb@yahoo.com
 Subject: "Commercial License Inquiry"
 
 Include:
@@ -375,7 +373,7 @@ Advanced Maritime Analysis Platform
 © 2025 RSD Studio Professional
 Built for maritime safety and underwater exploration
 
-Contact: festeraeb@gmail.com"""
+Contact: festeraeb@yahoo.com"""
         
         messagebox.showinfo("About RSD Studio", message)
     
@@ -422,6 +420,13 @@ Contact: festeraeb@gmail.com"""
         ttk.OptionMenu(f3b, self.scan_type, "auto", "auto", "sidescan", "downscan", "chirp").pack(side="left", padx=4)
         ttk.Label(f3b, text="Channel:").pack(side="left", padx=4)
         ttk.OptionMenu(f3b, self.channel_id, "all", "all", "auto").pack(side="left", padx=4)
+        
+        # Add row limit controls for video length control
+        f3c = ttk.Frame(ff)
+        f3c.pack(fill="x", padx=4, pady=2)
+        ttk.Checkbutton(f3c, text="Limit rows:", variable=self.limit_enabled).pack(side="left")
+        ttk.Entry(f3c, textvariable=self.limit_entry, width=8).pack(side="left", padx=4)
+        ttk.Label(f3c, text="(uncheck for full video length)", foreground="gray").pack(side="left", padx=4)
         
         parse_btn = ttk.Button(ff, text="Parse RSD File", command=self._parse)
         parse_btn.pack(pady=4)
@@ -1360,33 +1365,105 @@ Contact: festeraeb@gmail.com"""
             if fmt == "video":
                 on_progress(5, f"Phase 1: Preparing block video export")
                 
-                # Create temporary images from blocks with current colormap
+                # For video export, we need to process ALL blocks from CSV, not just preview blocks
+                # Get all blocks from the processor
+                left_ch = self.left_channel.get()
+                right_ch = self.right_channel.get()
+                
+                if not self.block_processor:
+                    raise RuntimeError("Block processor not available - please run channel detection first")
+                
+                left_blocks = self.block_processor.get_channel_blocks(left_ch)
+                right_blocks = self.block_processor.get_channel_blocks(right_ch)
+                
+                if not left_blocks or not right_blocks:
+                    raise RuntimeError(f"No blocks found for channels {left_ch} and {right_ch}")
+                
+                # Pair all blocks (not limited like preview)
+                from block_pipeline import pair_channel_blocks
+                all_paired_blocks = pair_channel_blocks(left_blocks, right_blocks)
+                
+                if not all_paired_blocks:
+                    raise RuntimeError("No paired blocks available for export")
+                
+                # Create temporary images from ALL blocks with current colormap
                 temp_dir = Path(self.last_output_csv_path).parent / "temp_block_frames"
                 temp_dir.mkdir(exist_ok=True)
                 
                 frame_paths = []
-                total_blocks = len(self.current_block_images)
+                total_blocks = len(all_paired_blocks)
                 
-                for i, block_data in enumerate(self.current_block_images):
+                for i, (left_block, right_block) in enumerate(all_paired_blocks):
                     if check_cancel():
                         return
                     
-                    img = block_data['image']
+                    # Create block image using the same method as preview
+                    from block_pipeline import compose_channel_block_preview
+                    block_image = compose_channel_block_preview(
+                        self.current_rsd_path,
+                        left_block,
+                        right_block,
+                        preview_mode=self.block_preview_mode.get(),
+                        width=512,
+                        flip_left=self.flip_left.get(),
+                        flip_right=self.flip_right.get(),
+                        remove_water_column=self.remove_water_column.get(),
+                        water_column_pixels=self.water_column_pixels.get()
+                    )
                     
-                    # Apply current colormap
-                    if self.colormap_var.get() != 'gray':
-                        try:
-                            img = apply_colormap(img, self.colormap_var.get())
-                        except:
-                            pass  # Keep original if colormap fails
+                    # Ensure we have a valid 2D grayscale image
+                    if len(block_image.shape) != 2:
+                        print(f"WARNING: Block {i} has wrong dimensions: {block_image.shape}")
+                        continue
+                        
+                    if block_image.shape[0] == 0 or block_image.shape[1] == 0:
+                        print(f"ERROR: Block {i} has zero dimensions: {block_image.shape}")
+                        continue
                     
-                    # Save frame
-                    frame_path = temp_dir / f"block_{i:04d}.png"
-                    img.save(frame_path)
-                    frame_paths.append(str(frame_path))
+                    # Convert to PIL Image - ensure uint8 format
+                    if block_image.dtype != np.uint8:
+                        block_image = block_image.astype(np.uint8)
+                    
+                    # For video export, we need to split the block into individual rows
+                    # Each row represents one ping/frame in the waterfall
+                    block_height, block_width = block_image.shape
+                    
+                    # Split the block into individual ping rows
+                    for row_idx in range(block_height):
+                        ping_row = block_image[row_idx:row_idx+1, :]  # Single row
+                        
+                        # Create PIL image from this single row
+                        img = PIm.fromarray(ping_row.squeeze(), mode='L')
+                        
+                        # Apply current colormap
+                        if self.colormap_var.get() != 'gray':
+                            try:
+                                # Convert to RGB for colormap
+                                import matplotlib.pyplot as plt
+                                import matplotlib.cm as cm
+                                
+                                # Normalize to 0-1 range
+                                normalized = ping_row.squeeze().astype(np.float32) / 255.0
+                                
+                                # Apply colormap
+                                colormap = cm.get_cmap(self.colormap_var.get())
+                                colored = colormap(normalized)
+                                
+                                # Convert back to uint8 RGB
+                                rgb_image = (colored[:, :3] * 255).astype(np.uint8)
+                                img = PIm.fromarray(rgb_image, mode='RGB')
+                            except:
+                                # Keep as grayscale if colormap fails
+                                pass
+                        
+                        # Save individual ping frame
+                        frame_num = i * block_height + row_idx
+                        frame_path = temp_dir / f"frame_{frame_num:06d}.png"
+                        img.save(frame_path)
+                        frame_paths.append(str(frame_path))
                     
                     progress = 5 + (i + 1) * 30 // total_blocks
-                    on_progress(progress, f"Generating frame {i+1}/{total_blocks}")
+                    on_progress(progress, f"Generating frames from block {i+1}/{total_blocks}")
                 
                 # Configure export
                 cfg = {
@@ -1398,6 +1475,7 @@ Contact: festeraeb@gmail.com"""
                 on_progress(40, "Phase 2: Encoding video...")
                 
                 if frame_paths:
+                    # Use the first frame to determine row height
                     arr0 = np.array(PIm.open(frame_paths[0]))
                     row_h = int(arr0.shape[0])
                     
@@ -1413,41 +1491,156 @@ Contact: festeraeb@gmail.com"""
                     import shutil
                     shutil.rmtree(temp_dir, ignore_errors=True)
                     
+                    total_frames = len(frame_paths)
+                    video_length_seconds = total_frames / int(self.vfps.get())
+                    
                     on_progress(100, f"✓ Block video export complete: {Path(out_path).name}")
                     self._q.put(("log", f"✓ Block video exported: {out_path}"))
-                    self._q.put(("log", f"  {total_blocks} blocks, Colormap: {self.colormap_var.get()}"))
+                    self._q.put(("log", f"  {total_blocks} blocks → {total_frames} frames"))
+                    self._q.put(("log", f"  Video length: {video_length_seconds:.1f} seconds @ {self.vfps.get()} FPS"))
+                    self._q.put(("log", f"  Colormap: {self.colormap_var.get()}"))
                 else:
                     raise RuntimeError("No block frames to export")
             else:
-                on_progress(100, f"✓ {fmt.upper()} export not yet implemented for blocks")
-                self._q.put(("log", f"Note: {fmt.upper()} export for blocks not yet implemented"))
+                on_progress(5, f"Phase 1: Preparing {fmt.upper()} export from blocks")
+                
+                # For KML/MBTiles export, process ALL blocks from CSV
+                left_ch = self.left_channel.get()
+                right_ch = self.right_channel.get()
+                
+                if not self.block_processor:
+                    raise RuntimeError("Block processor not available - please run channel detection first")
+                
+                left_blocks = self.block_processor.get_channel_blocks(left_ch)
+                right_blocks = self.block_processor.get_channel_blocks(right_ch)
+                
+                if not left_blocks or not right_blocks:
+                    raise RuntimeError(f"No blocks found for channels {left_ch} and {right_ch}")
+                
+                # Pair all blocks
+                from block_pipeline import pair_channel_blocks
+                all_paired_blocks = pair_channel_blocks(left_blocks, right_blocks)
+                
+                if not all_paired_blocks:
+                    raise RuntimeError("No paired blocks available for export")
+                
+                # Create temporary images from ALL blocks with current colormap
+                temp_dir = Path(self.last_output_csv_path).parent / f"temp_{fmt}_frames"
+                temp_dir.mkdir(exist_ok=True)
+                
+                block_image_paths = []
+                total_blocks = len(all_paired_blocks)
+                
+                for i, (left_block, right_block) in enumerate(all_paired_blocks):
+                    if check_cancel():
+                        return
+                    
+                    # Create block image using the same method as preview
+                    from block_pipeline import compose_channel_block_preview
+                    block_image = compose_channel_block_preview(
+                        self.current_rsd_path,
+                        left_block,
+                        right_block,
+                        preview_mode=self.block_preview_mode.get(),
+                        width=512,
+                        flip_left=self.flip_left.get(),
+                        flip_right=self.flip_right.get(),
+                        remove_water_column=self.remove_water_column.get(),
+                        water_column_pixels=self.water_column_pixels.get()
+                    )
+                    
+                    # Ensure we have a valid 2D grayscale image
+                    if len(block_image.shape) != 2:
+                        print(f"WARNING: Block {i} has wrong dimensions: {block_image.shape}")
+                        continue
+                        
+                    if block_image.shape[0] == 0 or block_image.shape[1] == 0:
+                        print(f"ERROR: Block {i} has zero dimensions: {block_image.shape}")
+                        continue
+                    
+                    # Convert to PIL Image - ensure uint8 format
+                    if block_image.dtype != np.uint8:
+                        block_image = block_image.astype(np.uint8)
+                    
+                    img = PIm.fromarray(block_image, mode='L')
+                    
+                    # Apply current colormap
+                    if self.colormap_var.get() != 'gray':
+                        try:
+                            # Convert to RGB for colormap
+                            import matplotlib.pyplot as plt
+                            import matplotlib.cm as cm
+                            
+                            # Normalize to 0-1 range
+                            normalized = block_image.astype(np.float32) / 255.0
+                            
+                            # Apply colormap
+                            colormap = cm.get_cmap(self.colormap_var.get())
+                            colored = colormap(normalized)
+                            
+                            # Convert back to uint8 RGB
+                            rgb_image = (colored[:, :, :3] * 255).astype(np.uint8)
+                            img = PIm.fromarray(rgb_image, mode='RGB')
+                        except:
+                            # Keep as grayscale if colormap fails
+                            pass
+                    
+                    # Save block image
+                    block_path = temp_dir / f"block_{i:04d}.png"
+                    img.save(block_path)
+                    block_image_paths.append(str(block_path))
+                    
+                    progress = 5 + (i + 1) * 40 // total_blocks
+                    on_progress(progress, f"Processing block {i+1}/{total_blocks}")
+                
+                on_progress(50, f"Phase 2: Generating {fmt.upper()} tiles...")
+                
+                # Create tile manager and export
+                tile_mgr = exporter_module.TileManager(str(temp_dir))
+                
+                export_params = {
+                    "images": block_image_paths,
+                    "csv_path": self.last_output_csv_path,
+                    "colormap": self.colormap_var.get(),
+                    "tile_size": self.tile_size.get(),
+                    "min_zoom": self.min_zoom.get(),
+                    "max_zoom": self.max_zoom.get(),
+                    "on_progress": lambda pct, msg: on_progress(50 + pct * 0.4, f"Phase 2: {msg}" if msg else None),
+                    "check_cancel": check_cancel
+                }
+                
+                if fmt == "kml":
+                    result_path = tile_mgr.create_kml_overlay(**export_params)
+                    on_progress(95, f"Phase 3: Finalizing KML...")
+                    # Move result to output directory
+                    final_path = Path(self.last_output_csv_path).parent / "block_overlay.kml"
+                    if Path(result_path).exists():
+                        import shutil
+                        shutil.move(result_path, final_path)
+                        result_path = str(final_path)
+                    self._q.put(("log", f"✓ Block KML super overlay exported: {result_path}"))
+                else:  # mbtiles
+                    result_path = tile_mgr.create_mbtiles(**export_params)
+                    on_progress(95, f"Phase 3: Finalizing MBTiles...")
+                    # Move result to output directory
+                    final_path = Path(self.last_output_csv_path).parent / "block_tiles.mbtiles"
+                    if Path(result_path).exists():
+                        import shutil
+                        shutil.move(result_path, final_path)
+                        result_path = str(final_path)
+                    self._q.put(("log", f"✓ Block MBTiles database exported: {result_path}"))
+                
+                on_progress(100, f"✓ {fmt.upper()} export complete")
+                
+                # Cleanup temp files
+                import shutil
+                shutil.rmtree(temp_dir, ignore_errors=True)
         
         self._create_progress_bar("export", msg)
         self.process_mgr.start_process("export", export_job)
     
     def _export_legacy(self, fmt, exporter_module):
         """Legacy export method using image files."""            
-        pdir, paths, cfg = self._paths_cfg()
-        if not paths:
-            return messagebox.showerror("No images", "No .png/.jpg found.")
-            
-        # Find CSV file
-        csv_files = list(pdir.glob("*.csv"))
-        if not csv_files and fmt != "video":
-            return messagebox.showerror("No CSV", "No CSV file found in output directory.")
-            
-        if fmt == "video":
-            out_path = str(pdir / "waterfall.mp4")
-            msg = f"Exporting video → {out_path}"
-        elif fmt == "kml":
-            out_path = str(pdir / "overlay.kml")
-            msg = f"Exporting KML → {out_path}"
-        else:  # mbtiles
-            out_path = str(pdir / "tiles.mbtiles")
-            msg = f"Exporting MBTiles → {out_path}"
-        
-        self._append(msg)
-            
         pdir, paths, cfg = self._paths_cfg()
         if not paths:
             return messagebox.showerror("No images", "No .png/.jpg found.")
@@ -1718,6 +1911,7 @@ Contact: festeraeb@gmail.com"""
     
     def _export_all_formats(self):
         """Export in all available formats"""
+
         formats = ["video", "kml", "mbtiles"]
         
         # Ask for confirmation
@@ -1821,6 +2015,7 @@ Contact: festeraeb@gmail.com"""
                 self.block_processor = BlockProcessor(str(csv_path), rsd_path, self.block_size.get())
                 self.current_csv_path = str(csv_path)
                 self.current_rsd_path = rsd_path
+                self.last_output_csv_path = str(csv_path)  # Set for export functionality
                 
                 # Get channel info
                 self.available_channels = self.block_processor.get_available_channels()
@@ -2232,6 +2427,116 @@ Contact: festeraeb@gmail.com"""
             pass
             
         self.after(100, self._check_loop)
+    
+    def _create_target_detection_ui(self, parent):
+        """Create the target detection user interface."""
+        # CSV File Selection
+        csv_frame = ttk.LabelFrame(parent, text="Data Source")
+        csv_frame.pack(fill="x", padx=4, pady=4)
+        
+        csv_select_frame = ttk.Frame(csv_frame)
+        csv_select_frame.pack(fill="x", padx=4, pady=4)
+        ttk.Label(csv_select_frame, text="CSV Records File:").pack(side="left")
+        self.target_csv_entry = ttk.Entry(csv_select_frame, width=50)
+        self.target_csv_entry.pack(side="left", fill="x", expand=True, padx=4)
+        ttk.Button(csv_select_frame, text="Browse", command=self.on_target_csv_browse).pack(side="right")
+        
+        # Analysis Parameters
+        params_frame = ttk.LabelFrame(parent, text="Analysis Parameters")
+        params_frame.pack(fill="x", padx=4, pady=4)
+        
+        params_grid = ttk.Frame(params_frame)
+        params_grid.pack(fill="x", padx=4, pady=4)
+        
+        # Detection mode
+        ttk.Label(params_grid, text="Detection Mode:").grid(row=0, column=0, sticky="w", pady=2)
+        self.detection_mode_var = tk.StringVar(value="General Purpose")
+        mode_combo = ttk.Combobox(params_grid, textvariable=self.detection_mode_var, 
+                                 values=["General Purpose", "Wreck Hunting", "Pipeline Detection", "Cable Detection"],
+                                 state="readonly", width=20)
+        mode_combo.grid(row=0, column=1, sticky="w", pady=2, padx=(10,0))
+        
+        # Sensitivity
+        ttk.Label(params_grid, text="Sensitivity:").grid(row=1, column=0, sticky="w", pady=2)
+        self.sensitivity_var = tk.DoubleVar(value=0.5)
+        sensitivity_scale = ttk.Scale(params_grid, from_=0.1, to=1.0, variable=self.sensitivity_var, 
+                                     orient="horizontal")
+        sensitivity_scale.grid(row=1, column=1, sticky="ew", pady=2, padx=(10,0))
+        ttk.Label(params_grid, textvariable=self.sensitivity_var, width=4).grid(row=1, column=2, sticky="w", padx=(5,0))
+        
+        # Max blocks
+        ttk.Label(params_grid, text="Max Blocks:").grid(row=2, column=0, sticky="w", pady=2)
+        ttk.Spinbox(params_grid, from_=10, to=1000, textvariable=self.target_max_blocks, 
+                   width=8).grid(row=2, column=1, sticky="w", pady=2, padx=(10,0))
+        
+        # Confidence threshold
+        ttk.Label(params_grid, text="Confidence Threshold:").grid(row=3, column=0, sticky="w", pady=2)
+        ttk.Scale(params_grid, from_=0.1, to=1.0, variable=self.target_confidence_threshold, 
+                 orient="horizontal").grid(row=3, column=1, sticky="ew", pady=2, padx=(10,0))
+        ttk.Label(params_grid, textvariable=self.target_confidence_threshold, width=4).grid(row=3, column=2, sticky="w", padx=(5,0))
+        
+        params_grid.columnconfigure(1, weight=1)
+        
+        # Control buttons
+        control_frame = ttk.Frame(parent)
+        control_frame.pack(fill="x", padx=4, pady=4)
+        
+        self.analyze_btn = ttk.Button(control_frame, text="🔍 Run Target Analysis", 
+                                     command=self.on_run_target_analysis)
+        self.analyze_btn.pack(side="left", padx=2)
+        
+        ttk.Button(control_frame, text="📊 Generate SAR Report", 
+                  command=self.on_generate_sar_report).pack(side="left", padx=2)
+        
+        ttk.Button(control_frame, text="🏴‍☠️ Generate Wreck Report", 
+                  command=self.on_generate_wreck_report).pack(side="left", padx=2)
+        
+        # Progress bar
+        progress_frame = ttk.Frame(parent)
+        progress_frame.pack(fill="x", padx=4, pady=2)
+        
+        self.target_progress_var = tk.StringVar(value="Ready")
+        self.target_progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate")
+        self.target_progress_bar.pack(fill="x", padx=4, pady=2)
+        ttk.Label(progress_frame, textvariable=self.target_progress_var).pack(pady=2)
+        
+        # Results display
+        results_frame = ttk.LabelFrame(parent, text="Analysis Results")
+        results_frame.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        # Create notebook for results tabs
+        self.target_notebook = ttk.Notebook(results_frame)
+        self.target_notebook.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        # Targets list tab
+        targets_tab = ttk.Frame(self.target_notebook)
+        self.target_notebook.add(targets_tab, text="📋 Targets")
+        
+        # Targets listbox with scrollbar
+        targets_list_frame = ttk.Frame(targets_tab)
+        targets_list_frame.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        targets_scrollbar = ttk.Scrollbar(targets_list_frame)
+        targets_scrollbar.pack(side="right", fill="y")
+        
+        self.targets_listbox = tk.Listbox(targets_list_frame, yscrollcommand=targets_scrollbar.set, height=10)
+        self.targets_listbox.pack(fill="both", expand=True)
+        targets_scrollbar.config(command=self.targets_listbox.yview)
+        
+        # Report viewer tab
+        report_tab = ttk.Frame(self.target_notebook)
+        self.target_notebook.add(report_tab, text="📄 Report")
+        
+        # Report text area with scrollbar
+        report_frame = ttk.Frame(report_tab)
+        report_frame.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        report_scrollbar = ttk.Scrollbar(report_frame)
+        report_scrollbar.pack(side="right", fill="y")
+        
+        self.report_text = tk.Text(report_frame, wrap="word", yscrollcommand=report_scrollbar.set)
+        self.report_text.pack(fill="both", expand=True)
+        report_scrollbar.config(command=self.report_text.yview)
 
 
 if __name__ == "__main__":

@@ -87,18 +87,18 @@ requirements.txt              # Python package dependencies
 
 ### 🚁 **Search & Rescue License** 
 - **FREE for SAR Operations**: Complimentary permanent licenses for verified SAR teams
-- **Email Request**: Contact `festeraeb@gmail.com` with SAR organization verification
+- **Email Request**: Contact `festeraeb@yahoo.com` with SAR organization verification
 - **Emergency Priority**: Expedited license processing for active missions
 
 ### 💼 **Professional License**
 - **Commercial Use**: Full commercial rights and support
 - **Extended Features**: Priority updates and advanced algorithms
-- **Contact Sales**: Email `festeraeb@gmail.com` for pricing and volume discounts
+- **Contact Sales**: Email `festeraeb@yahoo.com` for pricing and volume discounts
 
 ### 🎓 **Academic License**
 - **Research Institutions**: Special pricing for universities and research organizations
 - **Student Access**: Discounted rates for academic projects
-- **Contact**: `festeraeb@gmail.com` with institutional verification
+- **Contact**: `festeraeb@yahoo.com` with institutional verification
 
 ## 📖 **Documentation**
 
@@ -157,9 +157,9 @@ requirements.txt              # Python package dependencies
 - **Training Services**: On-site and remote training available
 
 ### Contact Information
-- **Technical Support**: `festeraeb@gmail.com`
-- **SAR License Requests**: `festeraeb@gmail.com` (subject: SAR License Request)
-- **Commercial Inquiries**: `festeraeb@gmail.com` (subject: Commercial License)
+- **Technical Support**: `festeraeb@yahoo.com`
+- **SAR License Requests**: `festeraeb@yahoo.com` (subject: SAR License Request)
+- **Commercial Inquiries**: `festeraeb@yahoo.com` (subject: Commercial License)
 
 ## 📊 **System Performance**
 
