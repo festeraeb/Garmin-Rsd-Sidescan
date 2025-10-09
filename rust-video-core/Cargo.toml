@@ -1,0 +1,40 @@
+[package]
+name = "rsd-video-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rsd_video_core"
+crate-type = ["cdylib"]
+
+[dependencies]
+# Python bindings
+pyo3 = { version = "0.20", features = ["extension-module"] }
+numpy = "0.20"
+
+# Performance
+rayon = "1.7"           # Parallel processing
+bytemuck = "1.14"       # Zero-copy casting
+memmap2 = "0.7"         # Memory mapping
+
+# SIMD and math
+simba = "0.8"           # SIMD abstractions
+ndarray = "0.15"        # N-dimensional arrays
+
+# Video processing (future)
+# ffmpeg-next = "6.0"   # FFmpeg bindings
+# opencv = "0.88"       # Computer vision
+
+[features]
+default = ["simd"]
+simd = []
+gpu = []               # Future GPU acceleration
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[build-dependencies]
+pyo3-build-config = "0.20"
