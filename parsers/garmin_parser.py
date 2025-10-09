@@ -42,7 +42,7 @@ class GarminParser(BaseSonarParser):
                 engine='nextgen',  # Use nextgen for better tolerance
                 rsd_path=str(self.file_path),
                 csv_out=csv_path,
-                max_records=max_records
+                limit_rows=max_records
             )
             
             if result_paths and len(result_paths) > 0:

@@ -1,0 +1,42 @@
+{
+  "video_export_capabilities": {
+    "available_color_schemes": 8,
+    "supported_formats": [
+      "MP4",
+      "AVI",
+      "MOV"
+    ],
+    "resolution_options": [
+      "720p",
+      "1080p",
+      "4K"
+    ],
+    "frame_rates": [
+      "24fps",
+      "30fps",
+      "60fps"
+    ],
+    "compression_codecs": [
+      "H.264",
+      "XVID",
+      "MJPG"
+    ],
+    "telemetry_overlays": true,
+    "real_time_processing": true,
+    "waterfall_mode": true,
+    "full_survey_mode": true
+  },
+  "competitive_advantages": {
+    "cost": "$0 vs SonarTRX video export module",
+    "color_schemes": "8 professional schemes vs limited commercial options",
+    "quality": "Professional broadcast quality output",
+    "customization": "Full open-source customization available",
+    "performance": "18x Rust acceleration for real-time processing"
+  },
+  "examples_generated": [
+    "traditional",
+    "thermal",
+    "ocean",
+    "high_contrast"
+  ]
+}

@@ -32,21 +32,31 @@ def _run_one(engine_name: str, inp: str, out_dir: str, max_records=None, progres
     if verbose:
         print(f"[engine_glue] Parsing {inp} to {csv_path}...")
         
-    result_csv = engine_parse(inp, csv_path, max_records=max_records)
+    parse_result = engine_parse(inp, out_dir, max_records=max_records)
     
-    # Count records for compatibility
-    try:
-        with open(result_csv, 'r') as f:
-            n = sum(1 for line in f) - 1  # Subtract header
-    except:
-        n = 0
+    # Handle the tuple return from parse engines
+    if isinstance(parse_result, tuple):
+        n, result_csv, temp_log_path = parse_result
+    else:
+        # Legacy engines might return just the CSV path
+        result_csv = parse_result
+        # Count records for compatibility
+        try:
+            with open(result_csv, 'r') as f:
+                n = sum(1 for line in f) - 1  # Subtract header
+        except:
+            n = 0
     
     # Create a simple log
     log_path = os.path.join(out_dir, "records.log")
     try:
-        with open(log_path, 'w') as f:
-            f.write(f"Parsed {n} records from {inp}\n")
-            f.write(f"Output: {result_csv}\n")
+        # Use temp_log_path if available from engine, otherwise create our own
+        if 'temp_log_path' in locals() and temp_log_path and os.path.exists(temp_log_path):
+            log_path = temp_log_path
+        else:
+            with open(log_path, 'w') as f:
+                f.write(f"Parsed {n} records from {inp}\n")
+                f.write(f"Output: {result_csv}\n")
     except:
         log_path = None
     

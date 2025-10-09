@@ -38,12 +38,12 @@ except ImportError as e:
 
 # Import Rust acceleration if available
 try:
-    from rust_video_core import generate_sidescan_waterfall
+    from rsd_video_core import generate_sidescan_waterfall
     RUST_AVAILABLE = True
-    print("🦀 Rust acceleration available - 18x speedup enabled!")
+    print("*** Rust acceleration available - 18x speedup enabled!")
 except ImportError:
     RUST_AVAILABLE = False
-    print("⚠️ Rust acceleration not available - using Python fallback")
+    print("*** Rust acceleration not available - using Python fallback")
 
 class Competitive3DViewer:
     """
@@ -60,7 +60,7 @@ class Competitive3DViewer:
     
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("🌊 Advanced Sonar Studio - 3D Bathymetric Viewer")
+        self.root.title("*** Advanced Sonar Studio - 3D Bathymetric Viewer")
         self.root.geometry("1400x900")
         
         # Core data
@@ -140,7 +140,8 @@ class Competitive3DViewer:
         self.view_mode.bind('<<ComboboxSelected>>', self.update_view)
         
         ttk.Label(control_frame, text="Depth Range (m):").pack()
-        self.depth_range = tk.Scale(control_frame, from_=0, to=100, orient=tk.HORIZONTAL)
+        self.depth_range = tk.Scale(control_frame, from_=0, to=100, orient=tk.HORIZONTAL,
+                                   command=self.on_depth_range_change)
         self.depth_range.set(50)
         self.depth_range.pack(pady=2)
         
@@ -450,8 +451,11 @@ class Competitive3DViewer:
         lons = np.array(self.sonar_data['lon']) 
         depths = np.array(self.sonar_data['depth'])
         
-        # Filter out zero coordinates
-        valid_mask = (lats != 0) & (lons != 0) & (depths > 0)
+        # Get depth range from slider
+        max_depth = self.depth_range.get()
+        
+        # Filter out zero coordinates and apply depth range
+        valid_mask = (lats != 0) & (lons != 0) & (depths > 0) & (depths <= max_depth)
         
         if np.any(valid_mask):
             lats_valid = lats[valid_mask]
@@ -465,19 +469,26 @@ class Competitive3DViewer:
             ax.set_xlabel('Longitude')
             ax.set_ylabel('Latitude') 
             ax.set_zlabel('Depth (m, inverted)')
-            ax.set_title('🏔️ 3D Bathymetric Map - Advanced Visualization')
+            ax.set_title(f'🏔️ 3D Bathymetric Map - Depth Range: 0-{max_depth}m')
             
             self.bathymetry_fig.colorbar(scatter, ax=ax, label='Depth (m)')
             
+            # Add depth range info
+            filtered_count = np.sum(valid_mask)
+            total_count = len(depths[depths > 0])
+            ax.text2D(0.02, 0.98, f'Showing {filtered_count:,} of {total_count:,} depth points', 
+                     transform=ax.transAxes, fontsize=10, verticalalignment='top',
+                     bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            
         else:
-            # Create demo 3D surface
+            # Create demo 3D surface when no data matches range
             x = np.linspace(0, 10, 50)
             y = np.linspace(0, 10, 50)
             X, Y = np.meshgrid(x, y)
             Z = np.sin(X) * np.cos(Y) * 5  # Simulated bathymetry
             
             surf = ax.plot_surface(X, Y, Z, cmap='terrain', alpha=0.8)
-            ax.set_title('🏔️ 3D Bathymetric Map - Demo Data')
+            ax.set_title(f'🏔️ No data in depth range 0-{max_depth}m - Demo View')
             
         self.bathymetry_canvas.draw()
         
@@ -551,7 +562,7 @@ class Competitive3DViewer:
         ax.set_ylim(0, max(times) * 1.2)
         
         # Add competitive advantage text
-        advantage_text = f"🚀 Our Rust implementation is {times[0]//times[3]}x faster than traditional tools!"
+        advantage_text = f"*** Our Rust implementation is {times[0]//times[3]}x faster than traditional tools!"
         ax.text(0.5, 0.95, advantage_text, transform=ax.transAxes, 
                ha='center', va='top', fontsize=12, fontweight='bold',
                bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgreen", alpha=0.8))
@@ -737,6 +748,12 @@ class Competitive3DViewer:
             self.generate_waterfall_display()
             self.generate_3d_bathymetry()
             self.run_target_detection()
+            
+    def on_depth_range_change(self, value):
+        """Update 3D view when depth range slider changes"""
+        if hasattr(self, 'sonar_data') and self.sonar_data:
+            self.generate_3d_bathymetry()
+            self.bathymetry_canvas.draw()
             
     def update_processing_results(self, record_count, processing_time):
         """Update display with processing results"""

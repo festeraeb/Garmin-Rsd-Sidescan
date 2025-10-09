@@ -1,9 +1,13 @@
-# License generation tools (keep private - for internal use only)
+# License files and tools (KEEP PRIVATE - DO NOT COMMIT)
+license_manager.py
 license_generator.py
 license_admin_gui.py
-
-# License files (user-generated)
+LICENSING_GUIDE_LOCAL.txt
 rsd_studio_license.json
+*.license
+*license*.json
+customer_data/
+license_keys/
 
 # Python bytecode
 __pycache__/
@@ -17,6 +21,35 @@ temp_*/
 *.csv
 *.log
 *.mp4
+*.kml
+*.mbtiles
+*_results.json
 
 # Raw data files
 *.RSD
+*.rsd
+
+# Environment and secrets
+.env
+.venv
+env/
+venv/
+*.key
+*.pem
+api_keys.txt
+secrets.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# User data
+user_data/
+projects/
+surveys/

@@ -18,7 +18,7 @@ import json
 
 # Try to import Rust acceleration
 try:
-    from rust_video_core import generate_sidescan_waterfall
+    from rsd_video_core import generate_sidescan_waterfall
     RUST_AVAILABLE = True
 except ImportError:
     RUST_AVAILABLE = False
