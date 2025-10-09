@@ -1,0 +1,71 @@
+\n&\n7\n
+O/O?O
+O/O?O208
+C/OWX
+3.7/s-2.&/c-1.
+/S-0.
+/C-0,
+0-0x"'
+'w' 0
+v/e/T/C/2/!/
+'"'3'D'U'f'w'
+@	Q	b	s	
+\n+\n;\nw#
+O/O?OOO_OoO
+G)T5H\n
+H'[:G
+.//+I
+N/O+I
+@/A+B+C+	
+T/d/t/
+@]W@`@p@
+@ @0@+
+DRZOoO
+O/O?O
+H/I+J+K+
+(_?O\n
+E+F+G+
+!\n!	!
+U$D$3$"$
+!;/J/
+!P0@R/S+1
+R/S+i
+{/\n.`/
+$f$w$H
+	 @0@
+.".3.D.U.
+@ @0@	
+R\nb\nu\n
+3.2*	
+O__Od
+/_?O`
+!p&+.`
+OT-I/g
+D-9/%-
+O/O?O
+I/8/%-
+O__OU
+N!@0@
+,_?OZ
+O!@0@1
+@ @0@Y
+	"	3	
+&36J	
+/C.U$:
+d.w$d
+L,U$@
+@/A+B+
+GWS10 Ver 2.90
+GWS10
+MS5607B
+	,\n4\n@
+VTI SCP1000
+MODE=
+TEMPMULT=
+TEMPOFFSET=
+PRESMULT=
+PRESOFFSET=
+ANGLEOFFSET=
+ANGLEFILTER=
+SPEEDFILTER=
+SPEEDMULT=

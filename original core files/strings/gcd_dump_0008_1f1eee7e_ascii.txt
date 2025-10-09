@@ -1,0 +1,683 @@
+@FYFRFKF
+ """LA
+TH*,8
+GH^)'
+"``SI 
+pGpGpGpG
+pG&HpG8
+pkFhF\p
+pGpGpG
+pGpGpGpGpG
+'p&afa
+"-! 0
+ x!i*
+`D`Ai
+pGpGpG8
+!(0kF
+ xah3
+BICH4"
+x(p>H
+ i`ha`h
+ ,!ACN
+%s %s %s
+ 0pkF
+` pSH
+&timers_smphr
+pGpGpGpGpGpG
+8\dKR
+%6H4N
+#!i i@
+ i!i	
+!i"iR
+(i)i	
+(i)i	
+(i)i	
+(i)i	
+(i)i	
+(i)i	
+(i)i	
+(i)i	
+(i)i	
+iI\niiK
+\n p0iaM1i	
+p0i1i	
+\n q0i1i	
+(i)i	
+(i)i	
+(i)i	
+4M(i4N)i	
+(i)i	
+)i(i@
+!jFC\STC
+L	M i!i	
+JahP\@
+  a`a
+IXCkF@
+`uisi[
+eJkKBC
+VKXC@
+qh0)\r
+J`C<%
+ HaH`
+"\naHa
+"zahi
+IHaH`
+nKqLCC
+>H?I@
+ X`NI
+b1HBaB`*K
+\n`\nb@
+;H<IH`
+&tx_buff_smphr
+&tx_owner_smphr
+&tx_owner_evnt
+pGpGpG
+GpGlz1
+XAbpG
+L&`&b
+xGKA	
+pGpGp
+x,JA	
+x I@	
+?!A`Aj "
+LL"jC
+ML"bC
+L"JCF
+&(iic_intf_info[ i ].hwm_iic_lock_smphr)
+`QH`b
+`4H`b
+CpG,I@
+bpG*I@
+HbpG'I@
+bpG%I@
+@1C)`
+J\n`pG
+rIsJAC
+G 4`t
+XCjIsCB
+hO 0A|mL
+G<I=N@
+9\n7s(
+]L^MtC`
+XCTID
+GpG=K=IXC@
+8N8InC
+x!qAxaq
+8t#JI
+ kF8t
+Ethernet not setup correctly.
+modules\hwm\network\hwm_network.c
+&network_interface_var[i].network_queue_smphr
+JqC x
+\n!r`r 
+tHuIpC
+LKLJXC
+?N?HfC1
+GqAH	
+$+MeCpY
+hH`pG
+ pGpGpGpG
+pG=HpGpGpG
+c.IAc.I
+dAd-I
+e-IAe-I
+fEf,I
+ 1\rrLr
+c"IAc"I
+dAd!I
+N`fFv
+ah h@
+`ih!`
+ha`)xJ
+&my_nor_chip_smphr_tbl[i]
+9L9MhF
+ i!i	
+H@xpG
+)H%IH`pG
+CEbEj
+cB`\rIK`\rI
+i@iQ@H@pG
+ pGpG
+`p`h@
+y!rAyar
+LpLhd
+  r$ 
+` z)h
+ 9PP z
+`ph@Y
+phGQ1x	
+g` i\r
+ `swQ
+yY`{ch
+Y`{ch
+!kFYV
+&my_swap_smphr
+ ,ph`^H
+&status_led_smphr
+HWM STATUS LED DRIVER
+p	\nAp)\n
+pAp)\n
+pAp)\n
+Cf` ` 
+Failure aborting on sock: %u
+Nagles set failure: %u
+Socket config get failure: %u
+(n("iF
+p	\nAp
+p	\nAp
+p	\nAp
+Attempting to connect to unreachable remote host: 0x%X:%u
+I h\nh
+ n(",1
+I h\nh
+I h\nh
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+ %b`s
+I`h\nh
+u*}!y
+u!ykF
+AuaykF
+ pGpG
+-L@! h\n
+Failure looking up tap: %u
+Unsupported tap message: %u
+&tap_table_smphr
+ pGpG
+GRMN TCP
+p	\nAp
+at9\n'vav9
+(hP(/
+C`x!x
+@@B 0
+@IB 1
+@@B 0
+``8hv
+  `kF``
+ `` `
+(!!`)
+Could not malloc ARP cache
+modules\iop\net\grmn\iop_net_arp.c
+A`pG8
+ b8z`r i\n
+@IB 1
+\n tat
+\n sas
+@IB 1
+IH`pG
+CH`vH
+}HiF\r
+sHiF\r
+eHD`cH
+%u.%u.%u.%u
+@@B 0
+@@B 0
+@IB 1
+@@B 0
+@IB 1
+rAxYr
+@IB 1
+@@B 0
+\n"t`t
+@IB 1
+@IB 1
+@IB 1
+&intf_ip_settings_smphr
+\n\n!sbs\n
+\n\n!tbt\n
+@1!p x
+L#CC@
+L!aCiX
+L!aChP0`
+(S4@JT`h
+bi!i$
+Socket out of the TCP and UDP range.
+modules\iop\net\grmn\iop_net_sock.c
+Index outside of TCP range %u
+Index outside of UDP range %u
+Invalid sock_type = %u
+TCP index incorrect %u
+UDP index incorrect %u
+Invalid socket_type = %u
+(` h@
+ak j@
+  p`p
+\n qaq
+\n rar
+	\n\nC\r
+\n"papi
+\n qaq
+\n rar
+t t`t
+YCmJSX
+&&`f`
+Reducing sstresh to: %u on TCB: %u
+Reducing cwnd to: %u, on TCB: %u
+4fk#j
+!j`k@
+Destination unreachable: 0x%X:%u
+4 ```8
+Restarting cwnd to: %u on TCB: %u
+aCiXI
+aChPp
+`xy`q8
+U	 )h
+ACAJSX[
+J	K h
+bHc	!
+R"h	y
+` h!y
+` hF`p
+  ```
+`C9XI
+0Ei	 
+@@B 0
+!	Y\nh
+\n""q\n
+=K	!kD
+(kDXd%
+KkDXl
+KkDXl
+@mB 5
+J{kF	
+@IB 1
+@mB 5
+@mB 5
+@IB 1
+@@B 0
+ik(j@
+Growing cwnd by: %u to: %u on TCB: %u
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+"\n#iF
+x!pAxap
+y)pAyip
+@IB 1
+Pa y&
+@IB 1
+@@B 0
+@IB 1
+@IB 1
+!rc!q
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+@@B 0
+@IB 1
+q@xXq
+@@B 0
+@@B 0
+@IB 1
+@IB 1
+@@B 0
+@@B 0
+@@B 0
+  q({
+@@B 0
+2jqi 
+@@B 0
+C"`!q
+`hx)x
+`hx)x
+@@B 0
+@@B 0
+hx)x:
+@@B 0
+@@B 0
+@IB 1
+@@B 0
+\n!p`p
+@@B 0
+\n qaq
+@@B 0
+\n rar
+^J_K h
+CpGpGpGpG@`0
+@IB 1
+@vB 6
+\n)php
+\n)qhq
+No interface to communicate with %u
+!aCiXI
+!aChPp
+ `C9XI
+Dropped packet to %u
+  ```
+@IB 1
+@@B 0
+Chy)y3
+@IB 1
+@IB 1
+hx)xkF
+pAxYp
+K("iF
+hhkF`a 
+C)p	\nip
+C)q	\niq
+`A`sH
+80`NH
+EL@! h
+ >M@N
+ XsB 
+&my_net_taps_smphr
+IOP udp
+`L`%q8
+Task %08X unable to get packet (%u, %u)
+Packet (%u, %u) read by %08X %08X
+Removing packet (%u, %u)
+  q&a
+iri1i
+\n pa0i
+aJM4`
+pGpGpG
+Invalid pipe entry for thread %08X
+No pipe queue with id %u found
+Dropping packet (%u, %u)
+Creating packet (%u, %u) for thread %08X, %08X
+Unable to put entry into pipe queue %u
+&pipe_queues_smphr
+&packet_list_smphr
+pMw\r%\rw
+!AChH
+`f1x 
+wqxAw
+Unable to send message to socket task: %u
+  v`v
+C%`b`
+GiIeH
+ (p]H
+2h`h!h
+ h1h@
+ ``h1h@
+%``$H
+  ``` 
+0h (D
+&signal
+  ``` 
+hB`\nh
+t( Xt4 
+&my_sock_create_del_smphr
+&my_sock_smphr
+&my_task_msg_queue_smphr
+&my_tap_del_sgnl
+IOP sock
+&blocker->signal
+&event->smphr
+HxJppG
+ci"i(
+p? \p
+a]HDaD`
+"FHih
+rXr`F
+IOP Stack
+&stat_smphr
+&sgnl
+s c0"
+s c`c;H
+h(xkh"
+  qph
+p`y!h	
+pxy9h	
+modules\iop\iop_stack_trans.c
+&my_tap_smphr
+&my_trans_smphr
+pGpGpG
+UUUU3333
+GCV 20
+N!h5h
+IH`pG8
+@IB 1
+@@B 0
+"\npJx
+pHp	H
+TSK bkgd
+`BhE`
+ChbH"
+`HhJ`
+hh`a*{
+({ rh{
+d`f(i
+a}H b
+pHpdhiw`4d
+ pGeI
+hpGpGRI
+ppG`K0
+]n&p_tcb->tcb_smphr
+&p_tcb->que_smphr
+ 0`&H
+`o0` 
+C*J+H&#
+]nTask cannot join itself return: 0x%08x
+modules\os\garmin-os\tsk_delete.c
+]n&join_smphr
+Ch|H"
+`HhJ`
+`BhE`
+ @4 p!H1
+!AgpGpGpGp
+%M%Nih
+!agA`
+ H`	h
+00HcPh@
+`H`pG
+kAk\n`Ak
+Active task list not locked
+modules\os\garmin-os\tsk_list.c
+~(mActive task list already locked
+CH@ a
+`QhA`
+`P`pG
+ 0CB[
+gH@o@
+!bFRB
+(1QKXo@
+]nDw1
+O`hyo
+ 0p(h!
+ *hih
+hh``hh
+`hh``h,
+aH@o@
+]nCannot reallocate aligned pointer
+modules\os\garmin-os\tsk_mem.c
+xoch@
+ 0p0i
+.ghf.pih
+9PPih@
+UIUHVK
+"SIQHSK
+JPaH`
+PiC`3K
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+TSK mem
+"zaiPCA
+TSK_mem
+hg` `
+modules\os\tsk_ntfctn.c
+]nget_semaphore(p_list)
+!AapG
+8AapG
+H`pGBh
+@hH`pG
+fh h1
+!AapG
+pGpGp
+!kF(`
+TSK timr
+$hnHd
+!T jF
+"B`.H
+"J"I#H#K
+]n0x1
+&tls_smphr
+\n`pG0
+@P@``
+7@?\n8C
+7@?\n8C
+ P`"h
+` h@h
+` h@hH` h
+` hBh
+ (`h`
+`AhQ`B`
+`LhT`Lh"`J`
+  ! `
+ai iY@P@
+ai iy@P@
+iY@P@
+&p_list->smphr
+@5C\rpI
+@\nx @
+F\rx&x
+5@fx.Cfpd
+C%p\rxv
+#5@&x
+  a`a
+GpG5b
+&state->smphr
+h@hQC
+ahPC	
+hchQC
+hahPCA
+hchPC
+hahPC@
+Failed to allocate queue buffer
+modules\utl\utl_queue.c
+ahA``h
+``` `
+`A`pG
+`f`&`fa 
+&queue->smphr
+!o`nHC
+f g`g`f
+ddd8dLd_
+"o`nPC
+ gan\n
+f g`g`f
+&queue->smphr
+&queue->cond
+Kh\nh 1(
+ hAiI
+"h`h!
+ah hHC
+MCQCo
+]nInvalid varray
+modules\utl\utl_varray.c
+Varray not locked
+Varray locked by other thread
+Varray lock count zero
+h.hhhFC
+ 1)`p
+ 1!`p
+h.hhhFC
+ hah@
+"09\n)
+\n#IkYC
+!0:\n*
+ iFXp
+pGpGpGx6
+iaj  
+HxDZ8
+00HUp
+019Ud
+jF	IyD
+(  R"
+aB@02
+iaj0 
+iaj@]
+\n`pGKh\nh
+ppG:(
+i xijd
+#CRU#
+#CRU#
+7I\nh7I
+C6I\nh
+SU'GS '
+0O>h0O=h5C0O>h5C$
+SU'GS '
+2GZFZw@
+#CRU#
+CpGpG
+]n?P-
+3333UUUU
+A0113-XX
+A0108-XX
+localhost
+Fatal condition '!(packet->in_use)' Trying to free packet %u that was already freed
+Software Version
+Can't destroy notification. List not empty. p_list = 0x%08x, p_first = 0x%08x
+0123456789abcdef
+0123456789ABCDEF
+CNS Workhorse
+HWM iic main
+HWM Marine Network
+FIN-WAIT-1
+FIN-WAIT-2
+ESTABLISHED
+CLOSED
+SYN-RECEIVED
+CLOSING
+LAST-ACK
+LISTEN
+TIME-WAIT
+CLOSE-WAIT
+SYN-SENT
+rtl_libspace.c: 181
+Out of gfx resource, r0=task ID, r1=file name ptr, r2=line #
+Out of file descriptors, r0=task ID, r1=p_fdp, r2=fil usr tsk 1, r3=tsk 1 hndl cnt, r4=fil usr tsk 2, r5=tsk 2 hndl cnt, etc.
+Task not active, r0=calling task ID, r1=inactive task ID
+Deleting cond var with waiters, r0=task ID, r1=cond, r2=waiting task ID
+Deleting cnt smphr with waiters, r0=task ID, r1=smphr, r2=waiting task ID
+Out of NV memory, r0=task ID
+Out of stack pool memory, r0=task ID
+TLS array index overflowed, r0=task ID, r1=tls idx, r2=MAX TLS INDICES
+Stack overflow, r0=task ID, r1=sp, r2=pc
+Out of memory, r0=not useful, r1=rtrn, r2=blk sz requested
+Cond var already initialized, r0=task ID, r1=cond
+Uninitialized cond var, r0=task ID, r1=cond
+ADS call to __rt_raise(), r0=task ID, r1=sig, r2=type, see RTL_pub_lib.h
+Deleting spinlock that is currently owned, r0=task ID, r1=spin lock
+Uninitialized spinlock, r0=task ID, r1=spin lock
+Bad memory block pointers, r0=task ID, r1=rtrn, r2=first blk, r3=prev blk, r4=prev blk's next, r5=this blk, r6=next blk's prev, r7=next blk, r8=last blk
+Smphr deadlock, r0=smphr 1 owner, r1=smphr 1, r2=smphr n owner, r3=smphr n
+Memory handle pointer missing, r0=task ID, r1=rtrn
+Not allowed in interrupt, r0=not useful, r1=rtrn
+Message queue overrun not allowed, r0=task ID, r1=target task ID, r2=rtrn
+Can't join detached task, r0=task ID, r1=target task ID, r2=rtrn
+Can't delete joinable task, r0=task ID, r1=target task ID, r2=rtrn
+Memory allocation exceeded, r0=task ID, r1=handle, r2=rtrn
+Bad memory handle, r0=task ID, r1=handle, r2=rtrn
+Realloc or xfer of locked memory, r0=task ID, r1=handle, r2=rtrn
+Task msg size not multiple of 4, r0=task ID, r1=msg_size, r2=rtrn
+Semaphore already released, r0=task ID, r1=smphr, r2=rtrn
+Out of memory handles, r0=task ID, r1=limit, r2=rtrn
+Detached event already initialized, r0=task ID, r1=detached event, r2=rtrn
+Uninitialized detached event, r0=task ID, r1=detached event, r2=rtrn
+Deleting detached event with tasks waiting, r0=task ID, r1=detached event, r2=waiting task ID, r3=rtrn
+Bad memory lock count, r0=task ID, r1=handle, r2=oldcnt, r3=newcnt, r4=rtrn
+Cnt smphr already initialized, r0=task ID, r1=smphr
+Uninitialized cnt smphr, r0=task ID, r1=smphr
+Bad use of recursively reserved smphr, r0=task ID, r2=smphr
+Cond var used with unowned smphr, r0=task ID, r1=cond, r2=smphr
+Unknown RTL error
+Undefined instruction, system r0-15 + cpsr
+Unhandled software interrupt, system r0-15 + cpsr
+Data abort, system r0-15 + cpsr
+Prefetch abort, system r0-15 + cpsr
+Can't free memory that includes handle, r0=task ID, r1=rtrn, r2=ptr
+%s %u, %s
+TLS key is invalid, r0=task ID, r1=address of tls key, r2=tls idx
+rtl_stubs.s
+Unsupported function, R4=caller
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

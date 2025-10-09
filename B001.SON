@@ -1,0 +1,3 @@
+2025-10-09 02:04:47,319 - INFO - Completed Humminbird parsing: 0 records
+2025-10-09 02:04:47,369 - INFO - Completed EdgeTech parsing: 0 records
+y,temperature,water_speed,gain,pulse_power,range_setting,extras_json

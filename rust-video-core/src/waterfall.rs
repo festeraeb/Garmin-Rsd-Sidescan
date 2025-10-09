@@ -1,4 +1,4 @@
-use ndarray::{Array2, ArrayView2, Axis};
+use ndarray::{Array2, ArrayView2, Axis, s};
 use rayon::prelude::*;
 
 /// Fast waterfall generation with SIMD optimizations
@@ -13,29 +13,25 @@ pub fn generate_waterfall_fast(
     
     let mut waterfall = Array2::<u8>::zeros((height, total_width));
     
-    // Parallel processing for each row
-    waterfall.axis_iter_mut(Axis(0))
-        .into_par_iter()
-        .enumerate()
-        .for_each(|(row_idx, mut waterfall_row)| {
-            if row_idx < height {
-                // Left channel
-                if let Some(left_row) = left.row(row_idx).get(..channel_width) {
-                    waterfall_row.slice_mut(s![..channel_width])
-                        .assign(&ArrayView2::from_shape((1, channel_width), left_row).unwrap().row(0));
-                }
-                
-                // Gap (filled with background)
-                waterfall_row.slice_mut(s![channel_width..channel_width + gap_pixels])
-                    .fill(128); // Mid-gray background
-                
-                // Right channel  
-                if let Some(right_row) = right.row(row_idx).get(..channel_width) {
-                    waterfall_row.slice_mut(s![channel_width + gap_pixels..])
-                        .assign(&ArrayView2::from_shape((1, channel_width), right_row).unwrap().row(0));
-                }
+    // Sequential processing for now (parallel iteration not working with ndarray)
+    for row_idx in 0..height {
+        if row_idx < left.nrows() && row_idx < right.nrows() {
+            // Left channel
+            if channel_width <= left.ncols() {
+                let left_slice = left.slice(s![row_idx, ..channel_width]);
+                waterfall.slice_mut(s![row_idx, ..channel_width]).assign(&left_slice);
             }
-        });
+            
+            // Gap (filled with background)
+            waterfall.slice_mut(s![row_idx, channel_width..channel_width + gap_pixels]).fill(128);
+            
+            // Right channel  
+            if channel_width <= right.ncols() {
+                let right_slice = right.slice(s![row_idx, ..channel_width]);
+                waterfall.slice_mut(s![row_idx, channel_width + gap_pixels..channel_width + gap_pixels + channel_width]).assign(&right_slice);
+            }
+        }
+    }
     
     waterfall
 }
@@ -58,31 +54,31 @@ pub fn generate_waterfall_with_scaling(
         ((value as f32 * intensity_scale).min(255.0).max(0.0)) as u8
     };
     
-    waterfall.axis_iter_mut(Axis(0))
-        .into_par_iter()
-        .enumerate()
-        .for_each(|(row_idx, mut waterfall_row)| {
-            if row_idx < height {
-                // Process left channel with scaling
-                if let Some(left_row) = left.row(row_idx).get(..channel_width) {
-                    for (i, &pixel) in left_row.iter().enumerate() {
-                        waterfall_row[i] = scale_intensity(pixel);
-                    }
-                }
-                
-                // Gap
-                for i in channel_width..channel_width + gap_pixels {
-                    waterfall_row[i] = 128;
-                }
-                
-                // Process right channel with scaling
-                if let Some(right_row) = right.row(row_idx).get(..channel_width) {
-                    for (i, &pixel) in right_row.iter().enumerate() {
-                        waterfall_row[channel_width + gap_pixels + i] = scale_intensity(pixel);
-                    }
+    // Sequential processing with intensity scaling
+    for row_idx in 0..height {
+        if row_idx < left.nrows() && row_idx < right.nrows() {
+            // Process left channel with scaling
+            if channel_width <= left.ncols() {
+                let left_row = left.slice(s![row_idx, ..channel_width]);
+                for (i, &pixel) in left_row.iter().enumerate() {
+                    waterfall[[row_idx, i]] = scale_intensity(pixel);
                 }
             }
-        });
+            
+            // Gap
+            for i in channel_width..channel_width + gap_pixels {
+                waterfall[[row_idx, i]] = 128;
+            }
+            
+            // Process right channel with scaling
+            if channel_width <= right.ncols() {
+                let right_row = right.slice(s![row_idx, ..channel_width]);
+                for (i, &pixel) in right_row.iter().enumerate() {
+                    waterfall[[row_idx, channel_width + gap_pixels + i]] = scale_intensity(pixel);
+                }
+            }
+        }
+    }
     
     waterfall
 }

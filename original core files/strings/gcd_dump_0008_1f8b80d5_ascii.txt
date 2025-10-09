@@ -1,0 +1,438 @@
+@FYFRFKF
+@h\nI\n
+No Steering Controller
+pGpGpG
+Bootblock
+System
+\pG\rK
+@4H@i
+HWM_CAN_MCP2515_MAIN
+&my_stop_thread_flag_smphr
+&result.sgnl
+/J0I\n`0J
+"(#|1H0\n
+zXshz
+t({TMd5Xt(
+&my_tx_queue_smphr[0]
+&my_tx_queue_smphr[1]
+&my_rx_queue_smphr
+CXt`\r
+t@ 8C
+I8U.U
+	 pG	!
+I\n{C#
+@*C}M
+"*C\nswN
+wI\n{C#
+@*CmM
+"*C\nsgN
+iI\n{C#
+@*C\M
+"*C\nsVN
+2TXUP
+(/N-O!
+&H@0@\
+9{!C9s
+1{!C1s
+H@0@\
+)y!C)q
+x{M(p
+)y!C)q
+xvM(p
+)y!C)q
+"\nshK
+x@%/C
+sfO=p
+r\ns[M)h
+C)`\J
+$#C+q+z
+sOL&x@'>C&p'sMN7p
+s=M+h,
+%+C#q#
+s5I\rx=C\rp
+s3M/p
+ +K,J
+'I(M)`
+pGpGpGpGpG
+\ncpKQ
+cpGmJ\n 
+c<H,0
+`H`pG
+IL#XCIh
+  `L 	
+!`L#YC	
+``L pCahD
+`hh `
+h``(xA
+AXab)xK
+5IL#XCIh
+tAxYt
+&nor_partition->nor_smphr
+AIL#XCIh
+aZavK
+bZbrbhK
+b%`rK
+`eN5`
+pGUI0
+aPJ\nbHbPJ
+bNJ\ncNJJc
+`IMU`
+`H`EH
+"\nCCI
+cAcBH
+cBc?H
+cBc;H
+cBc8H
+JP`" 
+JP`" 
+K|Lcb~L
+##`~K
+awKcN
+a0bvKsbxL
+##`wKxM
+a(bvKkbvL
+##`pK
+a bgKcbqO
+#;`pK
+a8bnHxbnI
+CXJQb\r
+1k1c\r
+)k)c\r
+!k!c\r
+9k9c\r
+8LajI
+7NqjI
+'9Cab\r
+!k!c\r
+qj9Cqb\r
+1k1c\r
+ pGpG
+0`p`h
+\nx"rJxbr
+  r$ 
+C	X@8
+@9Hb!z
+`ph@Y
+phGQ1x	
+g` i\n
+ `swQ
+YsbQZ`
+&my_swap_smphr
+&my_bus_smphr
+bJj  
+!hAc !
+C/JRx
+CAb-I
+!Ac !
+&spi_smphr
+CMJRx
+CAbKI
+!hAc !
+ pGkI
+ pG`HAj
+9XHh	j
+JIHx	x
+ pGFI
+9XHhIj
+9XHhIi
+%ep%p
+qXpphiF
+C2\n\n@
+rbFZr
+r`FXr\n
+kI(18
+IOP_APP_MAIN
+&my_stop_thread_flag_smphr
+&iop_app_main_msg_queue_smphr
+&my_timers_smphr
+ai i	h
+ai i	h
+=Xrai iLh3
+c d p`d8
+&waiter->sgnl
+`A`pG8
+w"ahR
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpGpGpG
+ pGpG
+$oF"I`
+Xy]IC
+Xx IC
+pGpGpGpG
+M4"(1(
+ pGpGpGpG
+YI4"(1 
+(5K)pi
+ paq``h
+pGpGpG
+%s %s %s
+yPppG
+x:ImF
+pXy q
+yYqAy
+zYrAz
+xiFtK
+xdKiF
+=T0x 1
+1P0bx
+ 06J6I
+phx`p 
+8x+IC
+u!`hI
+zXt z
+ x(r(
+~XrX~
+HiF\rK
+pGpGpGpGpG
+r`FXr
+phzXp
+uKhC`Hi
+MIXw@
+pGpGpGpGpG
+yLL4 
+nLd4 
+;LL4 
+0Ld4 
+ pp3H
+ ad5(
+IOP_N2K_APP_MAIN
+&my_stop_thread_flag_smphr
+&my_timer_smphr
+&my_clbk_smphr
+`pGEI
+9X219Phh
+(X``YI
+ppGpG0
+sAxYs
+0=JcUdq
+k@kYC
+`8kyk
+&my_pipe_list_smphr
+CBy\nC
+h@X@h
+`8X``
+ XsZ}X
+\nzIh(\
+uL 4 
+ihFnF
+"Bq\n"
+IOP_SOCK_MAIN
+&my_stop_thread_flag_smphr
+hpxWi
+ P4 s
+X! f0h`e
+ P4 s
+]yeE,
+p`FXp
+!P0As
+  v`v
+\n\n\n\n\n\n\n
+\n\n\n\n\n\n\n
+!i`,`
+d%EC0
+&my_sock_smphr
+&my_task_msg_queue_smphr
+ jFoF
+ h1h@
+ ``h1h@
+  ``` 
+  ``` 
+IOP_STACK_MAIN
+&my_stop_thread_flag_smphr
+&event->smphr
+H`8@xpG
+lpnH,a
+8DaD`
+h"ici
+&stat_smphr
+`\naJa
+%xa7I
+Stack Overflow: r0=task(%s), r%d=limit, r13=sp, r15=pc
+\rH@xpG
+"\npJx
+pHp	H
+CM$5(
+ 'I}"
+\rL$4 
+SYC_MAIN_LDR
+&my_stop_thread_flag_smphr
+`ahA`ah
+`e` k
+`a!c0
+#3`s`
+!1`q`
+ pG&wksp->smphr
+@=C\rp
+@7@/C<
+@5@&x5C%p
+@>C&p
+@>@gx>Cfp
+@=C%p
+hBi@hQC
+hbichQC
+hbiahPCA
+hbichPC
+hbiahPC@
+manHC!o@
+Gan n
+e f`f
+``` g`g 
+|Hx1|K
+mbnPC"o
+ean n
+HC!o@
+HC!oA
+e f`f
+``` g`g
+&queue->smphr
+&queue->cond
+`%a`i
+b~H,0
+HW Expired
+Expired Handle: %d \n
+Expiration Time: %d \n
+Enabled: TRUE\n
+Enabled: FALSE\n
+ILD< 
+&my_task_smphr
+&my_data_smphr
+&my_log_smphr
+ &Jpp
+`pGQ`pG
+h aHhO`
+" aHhJ`
+&sgnl->wait_tsk_smphr
+$4=,`l`
+`hhDt
+&p_list->smphr
+&sgnl->smphr
+I(1Oo
+ `Aha`
+{I49Jh
+lI49Hh
+KH48@o
+BH48@i
+0(aii
+H48@o
+J(:Qh	
+$C`Sh
+$S`Ch
+AH(8@hpG
+H 948
+PWH48
+TJ{h4:
+;H48@
+&~f>p
+;;aS`
+FI\9H`
+\nXza\nX
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+-JRorE
+ (p	Ihm(9Ih
+0P!pG
+G G(G0G8G
+&HiFxD
+"x1x2p!p
+*x1x2p)p
+*x!x"p)p
+x"x#p
+*x!x"p)p
+(  R"
+`BA02
+?v<y5
+=UUUUUU
+RBL@;x
+0;\n+\r
+(`\np'
+h@h0c
+h@h0c
+h@h0c
+h@h0c
+aq`ra
+`!a!!	
+0123456789ABCDEF
+0123456789abcdef
+2\n`pG
+#CRU#
+#CRU#
+5I\nhKh
+SU'GS '
+.O>h}h
+SU'GS '
+2GZFZw@
+#CRU#
+\pGPX
+{(tht
+u#H(`
+`\nIB|
+!M-h.|(
+I	h8 @
+I	hHh
+I\nhPh
+I\nhPh
+t"}SC
+h+`j`
+`2h\n`5`
+HP!pG
+GpGe*
+1h)`wh1{
+I	hA`
+Cy`ci
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAA
+/1 0c
+Volvo OEM
+GHP20
+GHP20 SBW
+GHP20 SBW V
+ERROR: Undefined Product
+Version
+HWM CAN
+A0038-XX
+A0062-XX
+32Khz Bravo 2 Watchdog
+IOPAppMain
+CAN Single Frame
+NMEA 2000 Address Claim
+NMEA 2000 Fast Packet
+NMEA 2000 Transport
+NMEA 2000 Garmin Transport Layer
+IOPN2KMain
+CAN Frame Layer
+IOP sock
+IOPstack
+:\nHandle: %u Owner: %u Timeout: %u NextTimeout: %u LastKick: %u 
+WDT main
+Out of memory handles
+Bad memory handle
+Out of file descriptors
+Memory allocation exceeded
+Realloc or xfer of locked memory
+Out of NV memory
+Memory handle pointer missing
+Bad use of recursively reserved smphr
+Bad memory lock count
+Semaphore already released
+ADS call to __rt_raise()
+Task msg size not multiple of 4
+Bad memory block pointers
+Out of memory
+Deleting cnt smphr with waiters
+Cnt smphr already initialized
+Uninitialized cnt smphr
+Deleting cond var with waiters
+Cond var already initialized
+Uninitialized cond var
+Cond var used with unowned smphr
+%s %u, %s
+Unknown RTL error
+UUUUU
+     
+     	  

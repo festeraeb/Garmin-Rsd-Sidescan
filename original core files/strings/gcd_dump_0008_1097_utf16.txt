@@ -1,0 +1,118 @@
+mnand%u
+eGarmin
+%s/%s/%S%S
+MNAND DRIVER %d
+AUTO
+%S/%s
+/mnt/cards
+%s/%s%d
+sd%c
+sd%c%u
+cache
+none
+erase_empty
+fast_mount
+clamp_data_size
+full_block
+journal
+default
+rgn%u
+=/M>0N
+"#$-KPbc
+*?<>|":/\
+[];,+=
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ 0@P`p
+ "$$$$$$$$$$$$&(*,............024
+8::<>@BDFHJLNPRTVVVVVVVVVVVXVVVZ\\\\\\\\\\\^\\\`bbbbbbbbbbbbbbbbbbbbbbbbdbbbfhhhhhhhjbbbbbbbbbbbbbbbbbbbbbbblhhjnbbprtvxzr|~b
+hhhhhhh
+bbbbbbbbb
+bbbb
+bbbbbbbbb
+VVVVVVVV
+VVVV
+\\\\\\\\
+\\\\
+bbbbbbbbbbbb
+VVVVVVVVVVVVVVVV\\\\\\\\\\\\\\\\
+bbbbbbbbbbb
+hhhhhh
+bbbbbbbbbbbbbbbbbbb
+bbbbbbbb
+<<<<<<<<<<<<<<<<
+bbbbbbbbbbb
+bbbbbbbbbbbbb
+:::::::::
+RRRRRR
+<<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<
+<<<<
+<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<
+<<<<<<<
+<<<<<<<<<
+<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<
+<<<<<<<
+<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<<
+<<<<<<
+RRRRRRR
+<<<<<<<<
+ ,............02
+yABC
+y/mnt/cards/sd0
+/mnt/cards/sd1
+/data
+/cfg
+/tmp
+/usr
+/maps
+/mnt
+/dev
+devfs
+null
+random
+zero
+Access Denied
+Lock Failed
+Volume Already Mounted
+Already Initialized
+File Not Found
+Bad Mount Device
+Invalid Handle
+End Of File
+Invalid Name
+Wrong File Type
+No Volume Mounted Here
+File In Use
+Name too Long
+Invalid Path
+Device full
+Unsupported Operation
+I/O Error
+Internal Error
+Unknown Error
+Insufficent Resources
+Cannot Cross Volume Boundries
+Too Many Symlinks
+Bad Parameters
+Success
+File Already Exists
+Bad Alignment
+End Of Directory
+Directory Not Empty
+ramfs
+rufs

@@ -1,0 +1,523 @@
+@FYFRFKF
+HpGpG
+LCSCa
+pGIBA
+SC~CZ
+LCSCa
+&&dfd
+e&f'p
+ pGJHKK
+\rIF10
+{hrX{
+ pGHU0
+pGpGpG
+Bootblock
+System
+\pG\rK
+pGpGpG8
+ pGyI.9	\
+&result.sgnl
+"(#D1
+zXshz
+t({TM,5Xt(
+&my_tx_queue_smphr[0]
+&my_tx_queue_smphr[1]
+&my_rx_queue_smphr
+CXt`\r
+t@ 8C
+I8U.U
+spGL!AC
+@:PP`
+@:UP 
+L!ACEJ
+#CLz$
+#CL{$
+#CL|#CC
+#CL}$
+#CL~#C
+&chnl_smphr[ lch ]
+ HpGpGpGpGpGpG
+pGpGpGpGpGpGpGpG
+9X1P 
+C `!h
+ppGdS0
+&light_smphr
+&light_smphr
+`4 hCcID
+`ph `
+h``0xA
+ b9i2
+>IXC>N
+sAxYs
+&my_nor_smphr
+  a`a
+&state->smphr
+M)k)c
+ij1Cib
+c6M7N
+pGpGpG
+aZaxK
+bZbrbjK
+b%`tK
+`gN5`
+aUJ\nb\n
+bTJ\ncTJJc
+aHa!"R
+`NLT`
+`H`JH
+"\nCHI
+cAcGH
+cBc@H
+cBc<H
+cpGpGpG
+ Ha`I
+JHKIH`" 
+`JHJIH`" 
+HLajI
+a%bBH`bBI
+@LajI
+a%b<H`b<I
+:LajI
+a%b1H`b3I
+1LajI
+a%b!H`b*I
+ H`pG
+x%q]xeq
+ pGpG
+  r$ 
+C	X@8
+@9Hb!z
+`ph@Y
+phGQ1x	
+&my_bus_smphr
+bJj  
+!hAc !
+CAb-I
+!Ac !
+&spi_smphr
+CAbKI
+!hAc !
+%ep%p	
+qXpphiF
+C2\n\n@
+rbFZr
+r`FXr\n
+&iop_app_main_msg_queue_smphr
+&my_timers_smphr
+ai i	h
+ai i	h
+=Xrai iLh3
+c d p`d8
+&waiter->sgnl
+`A`pG8
+w"ahR
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpGpGpG
+p3\nSp
+$oF;I`
+pG(HpGC
+pGpGpG
+ pGpGpG8
+\I8"(1 
+&my_rx_rgn_state_smphr
+pGpGpG
+%s %s %s
+ pep8
+&my_comm_smphr
+pqxAp
+qAxYq
+pJxBp
+!" `J
+!. ^J
+XKUIVH
+ <K,0
+                 
+!1 XJ
+TIUH\n
+QKOIOH\n
+@[B 3
+@[B 3
+@[B 3
+@[B 3
+yH@Xq
+yH@Xq
+bIcH	x@
+x2x\n@
+0x9I@
+BICH\n
+?K=I=H\n
+\nx"C\np\r
+C\np\nx
+H@xpG
+  pfp
+ 0r(h
+ HpMH
+x x?K*
+pG`Ep
+` a`a
+``i a
+hH48\n
+xbLcI
+p^H48\n
+WL4< 
+pPHRK
+$H("1
+hRhl8
+ ah< 
+bcH40
+ aYHYI
+$DqTJ
+`8axaxv8v@I@Hx1
+6Ab0x8p
+x8r9H
+&my_srvc_rec_smphr
+&rqst_msg_smphr
+&my_rspns_cnfrm_cond
+&my_rspns_cnfrm_smphr
+&force_pend_sgnl
+N(>0x
+M(=(x
+ (=(p
+8iyi@
+ (=(p
+SI(9Lp
+hH`\na
+qAxYq
+pAxYp
++O(?8x
+"I$90
+ 8p$$$
+zApYz
+!4 FJ
+!6 EJ
+!7 CJ
+zXpXz
+&my_dl_smphr
+ xp1h
+ !x		
+p !	\
+pbdx"
+$XpL `C
+DIL"BCR
+L#XCD
+pgp0h !``
+ `q`d
+apGpG
+&L `C<T
+yPppG
+x:ImF
+pXy q
+yYqAy
+zYrAz
+xiFtK
+xdKiF
+=T0x 1
+1P0bx
+ 06J6I
+phx`p 
+8x+IC
+u!`hI
+zXt z
+ x(r(
+~XrX~
+HiF\rK
+pGpGpGpGpG
+r`FXr
+phzXp
+uKhC`Hi
+MIXw@
+pGpGpGpGpG
+pGpGpG
+[N[L,>
+!I,9H`pG
+&my_timer_smphr
+&my_clbk_smphr
+9X219Phh
+ X*IH`'I
+ppGpG0
+sAxYs
+1>KdVer
+k@kYC
+`8kyk
+&my_pipe_list_smphr
+CBy\nC
+h@X@h
+`8X``
+ XsZ}X
+\nzIh(\
+xpGmH
+xpGlI
+ppGjI
+  pe`
+(I)KHp*I+H(J
+0pG (
+ihFnF
+"Bq\n"
+hpxWi
+ P4 s:H
+X! f0h`e
+ P4 s
+]yeE,
+p`FXp
+!P0As
+  v`v
+\n\n\n\n\n\n\n
+							
+!i`,`
+(M(h\n
+d%EC0
+&my_sock_smphr
+&my_task_msg_queue_smphr
+ jFoF
+ h1h@
+ ``h1h@
+  ``` 
+  ``` 
+L@< i
+&event->smphr
+Nh`@60
+H(0DaD`
+h"ici
+bHAh(
+`\naJa
+d#XC\n
+&stat_smphr
+lFiF\rH
+Ld! iAC`i
+h@=-hm
+]EI@9
+2@0Ah
+<a}ap]
+F8ibK
+^I8azi
+=Np>0
+ `p@B
+yNp60
+wO(78
+d"bCH
+` a`a
+NNMILJ
+` a`a
+  `4H!
+jpG)H(I
+0@hIj
+ pGpG8
+#HmFiF
+%(7p4
+ Hp{H
+auH(0
+aqHX0
+amHp0
+c`IKHL
+Z`2KbF
+X ;bC
+0ZP.I
+$I#K\n
+&dfrg_smphr
+&del_smphr
+&get_smphr
+&put_smphr
+0]8Jq]
+hah@1
+H@xpG
+"\npJx
+ pGpGpG
+`ahA`ah
+`e` k
+`a!c0
+#3`s`
+!1`q`
+ pG&wksp->smphr
+@=C\rp
+@7@/C<
+@5@&x5C%p
+@>C&p
+@>@gx>Cfp
+@=C%p
+hBi@hQC
+hbichQC
+hbiahPCA
+hbichPC
+hbiahPC@
+manHC!o@
+Gan n
+e f`f
+``` g`g 
+|Hx1|K
+mbnPC"o
+ean n
+HC!o@
+HC!oA
+e f`f
+``` g`g
+&queue->smphr
+&queue->cond
+pGpGpGpGpGpG
+`pGQ`pG
+h aHhO`
+" aHhJ`
+&sgnl->wait_tsk_smphr
+$4=,`l`
+`hhDt
+&p_list->smphr
+&sgnl->smphr
+I(1Oo
+ `Aha`
+{I49Jh
+lI49Hh
+KH48@o
+BH48@i
+0(aii
+H48@o
+J(:Qh	
+$C`Sh
+$S`Ch
+AH(8@hpG
+H 948
+PWH48
+TJ{h4:
+;H48@
+&~f>p
+;;aS`
+FI\9H`
+\nXza\nX
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+-JRorE
+ (p	Ihm(9Ih
+0P!pG
+G G(G0G8G
+&HiFxD
+"x1x2p!p
+*x1x2p)p
+*x!x"p)p
+x"x#p
+*x!x"p)p
+`6!Q`#L$J
+`6 H`
+9Ih6"
+(  R"
+`BA02
+RBL@;x
+0;\n+\r
+(`\np'
+h@h0c
+h@h0c
+h@h0c
+h@h0c
+aq`ra
+`!a!!	
+0123456789ABCDEF
+0123456789abcdef
+2\n`pG
+DFMFVF_F
+FYB 1
+AYF\r`
+DFMFVF_F
+FLF:x
+SB 3UF
+C~h0@)h
+FLF:xaB
+SB 3UF
+C~h0@)h
+C(`XF@B
+D`F@B
+DFMFVF_F
+DFMFVF_F
+F[B 3
+F[B 3;
+;ipF(@
+DFMFVF_F
+F[B 3;
+F[B 3;
+F9zRF
+#CRU#
+#CRU#
+5I\nhKh
+SU'GS '
+/O>h}h
+SU'GS '
+2GZFZw@
+#CRU#
+{(tht
+u#H(`
+`\nIB|
+!M-h.|(
+I	h8 @
+I	hHh
+I\nhPh
+I\nhPh
+Cy`ci
+t"}SC
+h+`j`
+`2h\n`5`
+HP!pG
+GpGE{
+1h)`wh1{
+I	hA`
+/1 0c
+Volvo AP Display
+ERROR: Undefined Product
+22665873P01
+00000000P00
+Software Version
+HWM CAN
+A0038-XX
+IOPAppMain
+CAN Single Frame
+TEA2+
+14229 Dispatch
+NMEA 2000 Address Claim
+NMEA 2000 Fast Packet
+NMEA 2000 Transport
+NMEA 2000 Garmin Transport Layer
+IOPN2KMain
+CAN Frame Layer
+IOP sock
+IOPstack
+GARMIN BITMAP 01
+GBITMAP       01
+GDEMO         01
+Out of memory handles
+Bad memory handle
+Out of file descriptors
+Memory allocation exceeded
+Realloc or xfer of locked memory
+Out of NV memory
+Memory handle pointer missing
+Bad use of recursively reserved smphr
+Bad memory lock count
+Semaphore already released
+ADS call to __rt_raise()
+Task msg size not multiple of 4
+Bad memory block pointers
+Out of memory
+Deleting cnt smphr with waiters
+Cnt smphr already initialized
+Uninitialized cnt smphr
+Deleting cond var with waiters
+Cond var already initialized
+Uninitialized cond var
+Cond var used with unowned smphr
+%s %u, %s
+Unknown RTL error
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          
+     
+     	  
+b$C4 
+P%@Fpg`
+RwbVr
+ftGd$T
+uJTZ7j
+ld\EL
+n6~UNt^
+Qkkbal
+wn>Jj

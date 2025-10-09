@@ -745,12 +745,59 @@ Contact: festeraeb@yahoo.com"""
             messagebox.showerror("Error", f"Failed to generate wreck report: {str(e)}")
 
     def on_input_browse(self):
-        """Browse for input RSD file"""
-        filetypes = [("RSD files", "*.RSD"), ("All files", "*.*")]
-        filename = filedialog.askopenfilename(title="Select RSD File", filetypes=filetypes)
+        """Browse for input sonar file (supports multiple formats)"""
+        try:
+            # Import multi-format support
+            from parsers import format_file_filter
+            
+            # Get comprehensive file filter for all supported formats
+            file_filter = format_file_filter()
+            
+            # Convert to tkinter format
+            filetypes = []
+            for filter_item in file_filter.split('|'):
+                if '(' in filter_item and ')' in filter_item:
+                    name = filter_item.split('(')[0].strip()
+                    pattern = filter_item.split('(')[1].split(')')[0]
+                    filetypes.append((name, pattern))
+            
+            # Add fallback if format detection fails
+            if not filetypes:
+                filetypes = [
+                    ("All Sonar Files", "*.rsd;*.sl2;*.sl3;*.dat;*.jsf;*.svlog"),
+                    ("Garmin RSD", "*.rsd"),
+                    ("Lowrance", "*.sl2;*.sl3"),
+                    ("Humminbird", "*.dat"),
+                    ("All files", "*.*")
+                ]
+            
+        except ImportError:
+            # Fallback to Garmin-only if multi-format not available
+            filetypes = [("RSD files", "*.RSD"), ("All files", "*.*")]
+        
+        filename = filedialog.askopenfilename(title="Select Sonar File", filetypes=filetypes)
         if filename:
             self.input_entry.delete(0, tk.END)
             self.input_entry.insert(0, filename)
+            
+            # Display detected format
+            try:
+                from parsers import detect_sonar_format
+                detected_format = detect_sonar_format(filename)
+                if detected_format:
+                    # Update status or show info about detected format
+                    format_names = {
+                        'garmin': 'Garmin RSD',
+                        'lowrance_sl2': 'Lowrance SL2',
+                        'lowrance_sl3': 'Lowrance SL3',
+                        'humminbird': 'Humminbird',
+                        'edgetech': 'EdgeTech',
+                        'cerulean': 'Cerulean'
+                    }
+                    format_name = format_names.get(detected_format, detected_format)
+                    print(f"Detected format: {format_name}")
+            except ImportError:
+                pass
     
     def on_output_browse(self):
         """Browse for output directory"""

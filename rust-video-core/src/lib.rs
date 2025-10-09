@@ -1,6 +1,6 @@
 use pyo3::prelude::*;
 use numpy::{IntoPyArray, PyArray2, PyReadonlyArray2};
-use ndarray::{Array2, ArrayView2};
+use ndarray::Array2;
 
 mod waterfall;
 mod alignment; 
@@ -10,13 +10,13 @@ use alignment::phase_correlate;
 
 /// Generate waterfall visualization from dual sidescan channels
 #[pyfunction]
-fn generate_sidescan_waterfall(
-    py: Python,
+fn generate_sidescan_waterfall<'py>(
+    py: Python<'py>,
     left_data: PyReadonlyArray2<u8>,
     right_data: PyReadonlyArray2<u8>,
     width: usize,
     gap_pixels: Option<usize>,
-) -> PyResult<&PyArray2<u8>> {
+) -> PyResult<&'py PyArray2<u8>> {
     let left = left_data.as_array();
     let right = right_data.as_array();
     let gap = gap_pixels.unwrap_or(4);
@@ -28,7 +28,7 @@ fn generate_sidescan_waterfall(
 /// Fast phase correlation for waterfall alignment
 #[pyfunction]
 fn align_waterfall_frames(
-    py: Python,
+    _py: Python,
     frame1: PyReadonlyArray2<u8>,
     frame2: PyReadonlyArray2<u8>,
 ) -> PyResult<i32> {
@@ -42,7 +42,7 @@ fn align_waterfall_frames(
 /// Benchmark function to compare with Python implementation
 #[pyfunction]
 fn benchmark_waterfall_generation(
-    py: Python,
+    _py: Python,
     iterations: usize,
     height: usize,
     width: usize,

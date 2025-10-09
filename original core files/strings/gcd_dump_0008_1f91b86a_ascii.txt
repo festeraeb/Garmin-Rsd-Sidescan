@@ -1,0 +1,368 @@
+\n/@ \n#
+pGpG 0R
+"09\n)
+\n#IkYC
+!0:\n*
+ iFXp
+pGpGpG
+iaj  
+HxDZ8
+00HUp
+019Ud
+jF	IyD
+"\n`6"J`
+\rL\rM`h!h
+(  R"
+aB@02
+G G(G0G8G
+iaj0 
+iaj@]
+\n`pGKh\nh
+ppG:(
+i xijd
+DFMFVF_F
+FYB 1
+AYF\r`
+DFMFVF_F
+FLF:x
+SB 3UF
+C~h0@)h
+FLF:xaB
+SB 3UF
+C~h0@)h
+C(`XF@B
+D`F@B
+DFMFVF_F
+DFMFVF_F
+F[B 3
+F[B 3;
+;ipF(@
+DFMFVF_F
+F[B 3
+F[B 3
+F9{RF
+h8!HC
+@pG("#
+pG("#
+DFMFVF_F
+uF!i		
+ai)b&h
+{(tht
+u$H(`
+`\nIB|
+I	h4 @
+/M-h.|(
+I	hHh
+I	hHhpG
+ I\nhPh
+	I\nhPh
+]np##
+]nt##
+]nx##
+Cy`ci
+aAapG
+h+`j`
+`2h\n`5`
+`B`pG
+1h)`wh1{
+h	L$h	K
+I	hA`
+;F2F)F F
+ d`d`p
+e f'p
+L#pcp
+&my_tx_smphr[plug_id]
+Ih\ni)F
+Ih;F2F
+CF:F1FPF
+F\rF+F"F
+HpG$< 
+HpG0#
+(x pO
+(x pO
+(x pO
+ h	h@
+SFZFAF
+3F:FHF
+;F2F)F F
+F;F2F)F F
+F;F2F)F F
+F;F2F)F F
+F\rF F
+(y phy`pO
+@h2F)F
+*F1FPF
+#BF1F(F
+"\n! F
+%s %s %s
+,H;H@h
+2F)F F
+[FRFIF
+SFJFAF
+`\n`pG
+(HD`3
+4`u`0F
+3F:F)F@F
+(` i@
+;F2F)F F
+;F2F)F F
+!AH	8
+\n1H48
+h)FXF
+\nH48@
+;F2F)F F
+\nH48@
+&p_list->smphr
+z` gO
+")F F
+&sgnl->wait_tsk_smphr
+"1F(F
+&tls_smphr
+#2F)F F
+*FYF F
+*FYF F
+3F*F!FhF
+1F(Fbi
+F\rF!i
+)F0Fbi
+;F2F)F F
+32F)F F	
+e f`f
+``` g`g
+&queue->smphr
+&queue->cond
+F\rF+F"F
+BF)F F
+;F2F)F F
+&sgnl
+F\rF x
+F!FHF
+F\rF.F'F
+5F<Fph
+F,F y
+e f`f
+``` g`g
+ pG	H
+h8DH`
+s3F*F!FhF
+Fff@F
+F\rFd-
+AFHF*h
+*F!F0F
+AFHF2i
+F\rFWH
+0r2zO
+`(h2z
+Dh h@
+ ` h@
+ ` h 
+ ` h@
+ hFh`h
+(hGhhh
+K$3:F
+&(can_module[ i ].smphr)
+#;F2F)F F
+"9F(F
+:F1F@F\n
+pGpGpGpGpG
+@h@jH
+h;F2F)F
+hCF2F)F
+F:F1F
+IH` F
+IH` F
+IHa F
+IHa F
+pGpGpGpGpGpGpGpGpGpGpGpG
+H@hpG
+H@hpG
+H@ipG
+H@ipG
+HEhD`0F
+HEhD`0F
+HEiDa0F
+`ph(`
+hh`0x
+I)ahi
+HAj F
+&pmic_smphr
+LH@h 
+&buf_swap_smphr
+&eof_cmplt_smphr
+d\rHHd
+&my_nor_chip_smphr_tbl[i]
+bHc!H
+2F9F(F
+:F1F(F
+G:FXF
+F1F F
+ d l)F
+2F)F8F
+`f` g`g
+2F!F(F
+:F1F(F
+F;F2F)F F
+;F2F)F F
+&iop_app_main_msg_queue_smphr
+&my_timers_smphr
+F\rF\n,
+pGpG|
+4"EIEH
+h8H@i
+FE``h
+$H@i8
+<#QJ|:S
+8#KJ|:
+1#FJ|:J
+0#BJ|:H
+(#=J|:E
+ #6J|:
+##1J|:
+#-J|:7
+F!J|:
+pHp\rI
+!\nHX8
+F3F*F!F
+:F1FhF
+F7xpxG
+0H4A 
+3FjF)F
+\n'F<F
+x`FF0F
+,I`hIi
+*I`h	i
+I hIi
+I h	i
+SH48@mSI	h
+H48@m
+ `1F(F
+ph``ph
+`hp``h
+`4F,`8F
+`ShC`O
+`P`pG
+FRJ!FO
+=J2!O
+F,J!FO
+<#DJG
+1#:J?
+0#6J=
+(#2J;
+7xpxG
+ YI	x
+F3F*F
+@hqy@
+F3F*F
+F3F*F
+Jx:Rh
+Jx:Rh
+h\rK@;S
+!H@hO
+O*F1F
+"iF&H
+pGpG-
+F\rF)F F
+;FJF1F
+F!F(F
+:F1F(F
+;F2F)
+F%F,F\nH
+&grmn_nmea2k_rx_buf_pool_smphr
+D0`@F
+2F)F F
+F\rFiF F
+,F1I(h
+F2F)F F
+IHd F
+JQd\rI	h
+	I	h	J
+H@l\rI
+0H<A 
+xxx#F
+xxx#F
+pGpG-
+J1F F
+jH48@h
+rqIrH
+\nWF.H
+@i8`T
+F@ix`O
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+I	hHt
+I 1\nH
+`*F1F
+F'F<F
+PCF"F
+0 `@F
+K:FQF
+"2I	h
+!0H\r8
+F1F F
+*FAF F
+/1 0c
+Software Version
+Copyright 2024
+Garmin Ltd. or its\nsubsidiaries
+Software Version\n3.70\n\nCopyright 2024\nGarmin Ltd. or its\nsubsidiaries
+A0125-01
+GARMIN BITMAP 01
+GBITMAP       01
+GDEMO         01
+0123456789abcdef
+0123456789ABCDEF
+GHC20
+GMI20
+VOLVO_AP
+VOLVO_INST
+ERROR: Undefined Product
+HWM CAN
+IOPAppMain
+IOPNMEA2Knet
+Out of gfx resource, r0=task ID, r1=file name ptr, r2=line #
+Deleting cond var with waiters, r0=task ID, r1=cond, r2=waiting task ID
+Deleting cnt smphr with waiters, r0=task ID, r1=smphr, r2=waiting task ID
+Out of NV memory, r0=task ID
+Out of stack pool memory, r0=task ID
+TLS array index overflowed, r0=task ID, r1=tls idx, r2=MAX TLS INDICES
+Stack Overflow, r0=task ID, r11=limit, r13=sp, r15=pc
+Out of memory, r0=not useful, r1=rtrn, r2=blk sz requested
+Cond var already initialized, r0=task ID, r1=cond
+Uninitialized cond var, r0=task ID, r1=cond
+ADS call to __rt_raise(), r0=task ID, r1=sig, r2=type, see RTL_pub_lib.h
+Bad memory block pointers, r0=task ID, r1=rtrn, r2=first blk, r3=prev blk, r4=prev blk's next, r5=this blk, r6=next blk's prev, r7=next blk, r8=last blk
+Smphr deadlock, r0=smphr 1 owner, r1=smphr 1, r2=smphr n owner, r3=smphr n
+Memory handle pointer missing, r0=task ID, r1=rtrn
+Not allowed in interrupt, r0=not useful, r1=rtrn
+Message queue overrun not allowed, r0=task ID, r1=target task ID, r2=rtrn
+Can't join detached task, r0=task ID, r1=target task ID, r2=rtrn
+Can't delete joinable task, r0=task ID, r1=target task ID, r2=rtrn
+Memory allocation exceeded, r0=task ID, r1=handle, r2=rtrn
+Bad memory handle, r0=task ID, r1=handle, r2=rtrn
+Realloc or xfer of locked memory, r0=task ID, r1=handle, r2=rtrn
+Task msg size not multiple of 4, r0=task ID, r1=msg_size, r2=rtrn
+Semaphore already released, r0=task ID, r1=smphr, r2=rtrn
+Out of memory handles, r0=task ID, r1=limit, r2=rtrn
+Detached event already initialized, r0=task ID, r1=detached event, r2=rtrn
+Uninitialized detached event, r0=task ID, r1=detached event, r2=rtrn
+Deleting detached event with tasks waiting, r0=task ID, r1=detached event, r2=waiting task ID, r3=rtrn
+Bad memory lock count, r0=task ID, r1=handle, r2=oldcnt, r3=newcnt, r4=rtrn
+Out of file descriptors, r0=task ID, r1=p_fdp
+Cnt smphr already initialized, r0=task ID, r1=smphr
+Uninitialized cnt smphr, r0=task ID, r1=smphr
+Bad use of recursively reserved smphr, r0=task ID, r2=smphr
+Cond var used with unowned smphr, r0=task ID, r1=cond, r2=smphr
+Unknown RTL error
+Undefined instruction, system r0-15 + cpsr
+Unhandled software interrupt, system r0-15 + cpsr
+Data abort, system r0-15 + cpsr
+Prefetch abort, system r0-15 + cpsr
+Can't free memory that includes handle, r0=task ID, r1=rtrn, r2=ptr
+%s %u, %s
+TLS key is invalid, r0=task ID, r1=address of tls key, r2=tls idx
+rtl_stubs.s
+Unsupported function, pc=0x%08x
+join_smphr
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

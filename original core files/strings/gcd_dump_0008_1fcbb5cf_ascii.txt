@@ -1,0 +1,530 @@
+F!F	H
+"09\n)
+\n#IkYC
+!0:\n*
+ iFXp
+pGpGpGD
+iaj  
+HxDZ8
+00HUp
+019Ud
+jF	IyD
+"\n`6"J`
+\rL\rM`h!h
+(  R"
+aB@02
+iaj0 
+iaj@]
+\n`pGKh\nh
+ppG:(
+i xijd
+%s %s %s
+pGpGpGpGpGpGpGpG-
+;F2F)F F
+ d`d`p
+e f'p
+Ih;F2F
+F\rF+F"F
+(x pO
+(x pO
+(x pO
+ h	h@
+SFZFAF
+F\rF(x
+F;F2F)F F
+F;F2F)F F
+F\rF F
+*F1FXF
+FiF F
+2F9FXF
+:F1F(F
+F\rF&x
+0#*F 
+F\rFiF F
+SFJFAF\r
+F\rFiF F
+F\rFiF F
+xJpBx
+Task %08X unable to get packet (%u, %u)
+Packet (%u, %u) read by %08X %08X
+Removing packet (%u, %u)
+:F)F F
+Preallocated packets are not supported
+F\rF F
+IhJj)F
+FD!hF
+&signal
+FAF F
+FAF F
+GHC20
+R\n`pG
+modules\os\garmin-os\rtl_stubs.c
+)F F\n
+)F F\n
+)F F\n
+)F F\n
+4`u`0F
+3F:F)F@F
+(` i@
+F\rF6,0
+&SYC_loading_smphr
+b%h/H
+ {8r`{
+d i8b
+Hpd`i
+`u`7dph
+]n&p_tcb->que_smphr
+ h0`O
+:z1F F
+4a*FO
+F\rF	H
+2F9F F
+F\rF+FjF
+;F2F)F F
+;F2F)F F
+1F(h\r
+1F(F\r
+QF F\r
+)F F\r
+;F2F)F F
+#2F)F F
+;F2F)F F
+9F F\r
+get_semaphore(p_list)
+")F F
+F\rF)F F
+F\rF	H
+ h8@!h
+"1F(F
+h D\rI
+h	I	h
+&tls_smphr
+)F F\r
+#2F)F F
+`(h@h
+`(h@h
+(h@h8
+!hH`!h
+`hHD``
+*FYF F
+*FYF F
+&p_list->smphr
+3F*F!FhF
+` tea
+```h(
+Failed to allocate queue buffer
+modules\utl\utl_queue.c
+F\rFai
+`h`(`
+#RF)F F
+`A`pG
+&queue->smphr
+kH`oi
+`h`(`ha
+F)F F
+;F2F)F F
+32F)F F
+;F2F)F F
+f g`g`f
+&queue->smphr
+&queue->cond
+F\rF+F"F
+:F1F(F
+Bootblock
+System
+h[yDy
+:F)F F	
+:F)F F
+(F1FO
+F&F4Fu`
+F0x2F
+2F)F F
+E!aC\nJ
+FD!hF
+E!iC J
+&evnt
+E!iC"J
+E!iC\nJ
+f g`g
+"1F h
+`` h8D `
+pGpGpGpG|
+4"PIOH
+FE``h
+F\rF$,	
+!aC\rJ
+&timers_smphr
+CNS Workhorse
+F!FHF
+Tried to create too many CAN busses
+pstack-can-mngr
+Callback error
+2FQF F
+#ax xUJ
+8bxb4I
+F\rF.F'F
+5F<Fph
+%F*xix,F
+Callback error
+pstack-can-mngr
+F,F y
+F,F x 
+f g`g`f
+ i@i0
+h8DH`
+F\rFd-
+AFHF*h
+*F!F0F
+AFHF2i
+F\rFWH
+0r2zO
+`(h2z
+Eh(h@
+(`(h@
+(`(h 
+(`(h@
+E!aC\rJR
+ hFh`h
+(hGhhh
+K$3:F
+E `CAIQ
+$"CiE `CQ
+E!aC7J
+#E"bC1M
+" SiE"bCU
+hE"bC
+E!aC*FR
+HWM CAN
+&(can_module[ i ].smphr)
+#;F2F)F F
+0i@i0
+"9F(F
+:F1F@F
+@h;F2F)F
+&bus_smphr[ i ]
+	 x\rIQ
+@hCF2F)F
+F:F1F F
+KF2F9F F
+IH` F
+IH` F
+IHa F
+IHa F
+pGpGpGpGpGpGpGpGpGpGpGpG
+H@hpG
+H@hpG
+H@ipG
+H@ipG
+HEhD`0F
+HEhD`0F
+HEiDa0F
+`ph(`
+hh`0x
+HAj F
+&pmic_smphr
+LH@h 
+&buf_swap_smphr
+&eof_cmplt_smphr
+&my_nor_chip_smphr_tbl[i]
+bHc!H
+2F9F(F
+h1F(F
+GRFHF
+F1F F
+ d l)F
+2F)F8F
+FX! F
+2F!F(F
+:F1F(F
+F;F2F)F F
+;F2F)F F
+")FhF
+CF:FiF
+F\rF%p
+FiF(F
+"1F F
+FL! F
+&waiter->sgnl
+Instance %u is not enabled
+pstack-can-mngr
+No CAN plug for bus %u
+Invalid instance index for instance %u
+Instance %u is already in use
+b\nqHq
+"\n`\nh
+`2F9F\n
+`2F9F\r
+Insufficent space to buffer frame for instance %u
+pstack-can-mngr
+Invalid instance %u
+pstack-can-mngr
+Invalid instance %u
+pstack-can-mngr
+F\rF*FO
+3F*F!F8
+2F)F F
+;F*F!F0
+\n#Ihh
+JF)F F
+JF)F F
+2F)F F{h
+2F)F F
+Fc `C
+n2k_fast_pkt
+8y@EE
+8q;FOJ@
+xBFIFJH
+ppxxpO
+n2k_fast_pkt
+Out of memory
+Out of RX slots
+Bad frame size or no state found: sz=%u
+kF*F1FO
+n2k_fast_pkt
+No state found
+Bad packet size or unknown PGN. Size=%u, PGN=%u
+"DI0F
++F2FHhiF
+F\rF F
+F\rF F
+F\rF F
+QKH3Q
+Dropping packet (%u, %u)
+No unused packets were found
+Creating packet (%u, %u) for thread %08X, %08X
+Unable to put entry into pipe queue %u
+&pipe_queues_smphr
+&packet_list_smphr
+&my_sock_create_del_smphr
+&my_sock_smphr
+&my_task_msg_queue_smphr
+&my_tap_del_sgnl
+&my_intf_status_cond
+IOP sock
+;F2F)F F
+F2F)FXF
+&event->smphr
+"#I81+H
+IOP Stack
+&stat_smphr
+&sgnl
+modules\iop\iop_stack_trans.c
+F\rF F
+modules\iop\iop_stack_trans.c
+&my_tap_smphr
+&my_trans_smphr
+F:F1FHF
+;F)F F
+:F1FhF
+F\rF F
+Unknown PGN %u. Assuming it is single frame
+@hQI	o
+h6HT0
+za3HT0
+,I`hIi
+*I`h	i
+I hIi
+I h	i
+&H88@l
+ `1F(F
+xh``xh
+`hx``h
+`<F,`0F
+`ShC`O
+`P`pG
+F0xhppx
+F\rF F
+F0|)F
+8p}`<rO
+hP`pG
+!Q`pG
+%KT3%
+"iF i
+"iF i
+Removed dropped packet (%u, %u) for thread %08X
+No pipe queue with id %u found
+Task %08X unable to get packet (%u, %u)
+Q`pG4+
+"iF&H
+pGpG-
+"AF F
+F1F(F
+"@!(F
+1F"j i
+"1F F
+%F$hO
+!aC J
+No transport send function: %u
+F1F(F
+F\rF)F F
+"0!8F
+&7}IZk
+Hriz4
+F\rF)F F
+3F:FO
+3F:FO
+E `CoI
+E `CUI
+jz xAF
+F!F(F
+2F)F F
+ x+F:Fah
+`h8D``8F
+F%F\nH
+eJ!20h
+F\rF.F5Fph
+%F,Fhh
+Callback error
+pstack-can-mngr
+Fix2F
+hKhiF
+ i0D a`i0D`a
+F\rF'H
+"!F	H
+Unable to send message to socket task: %u
+ryiF F
+F2F)F F
+qx0xshzh
+hAh F
+]I\rp]HP
+hBi0F
+"J! F
+IHd F
+JQd\rI	h
+	I	h	J
+H@l\rI
+SYC main
+;F2F)F
+;F2F)F
+F%F,F(x
+pGpGpG
++F2F!F@F
++F2F!F
+2F)F F
+2F)F F
+`AF-H
+epGpG
+h[h[y
+h[hXy
+TSK bkgd
+F\rF"F
+TSK timr
+`H`pG
+!AH	8
+	-H88
+x)FPF
+]nCannot reallocate aligned pointer
+modules\os\garmin-os\tsk_mem.c
+_H88@h
+rfIfH
+#UJIF<H 8
+DOF9H
+@iG`)H
+@i8`T
+F@ix`O
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+TSK mem
+raq!q
+`)F F
+Task running when it should be waiting on semaphore
+modules\os\garmin-os\tsk_sem.c
+"1F F
+"1F F
+FAF\nH
+ h@yay
+p!FHF
+Fby1F(F
+`*F1F
+F'F<F8j
+PCF"F
+0 `@F
+F\rF'F<F(F
+F9FhF
+y`)F8F
+F\rF&F)F0F
+F9F0F
+F1FhF
+q3F\nJ9F
+F\rF.F5FphH
+F\rF&F
+Callback error
+pstack-can-mngr
+Jfh`j
+,FkFO
+!1H\r8
+F1F F
+hdhdy
+ip`5`
+*FAF F
+/1 0c
+Fatal condition '!(( size > packet.size ))' Incorrect packet size received (IOP inst = %u, packet size = %u)
+A0125-01
+Fatal condition '!(packet->in_use)' Trying to free packet %u that was already freed
+Fatal condition '!(packet->prev == 0)' prev pointer should be NULL at head of list
+Fatal condition '!(packet->next == 0)' next pointer should be NULL at tail of list
+Fatal condition '!(packet_inuse_tail != 0)' packet_inuse_tail was NULL
+Fatal condition '!(pkt->in_use == 0)' Inuse packet found in unused list
+Fatal condition '!(( (*result)->cnt == cnt ) && ( i == ((uint32)((((( ( 1 << ( 0 ) ) ) & 0xfff) * 0x1001001001001ULL & 0x84210842108421ULL) % 0x1f) + ((((( ( 1 << ( 0 ) ) ) & 0xfff000) >> 12) * 0x1001001001001ULL & 0x84210842108421ULL) % 0x1f ) + (((( ( 1 << ( 0 ) ) ) >> 24) * 0x1001001001001ULL & 0x84210842108421ULL) % 0x1f ))) ))' Did not process all instances
+Fatal condition '!(pgn_info_tbl[i].pgn < pgn_info_tbl[i + 1].pgn)' PGN table is not in sorted order
+Bad frame or sequence number: Got (seq_num=%u, frame_cnt=%u), expected (seq_num=%u, frame_cnt=%u)
+Software Version
+Copyright 2012-2023
+GARMIN Corp.
+Software Version\n5.70\nCopyright 2012-2023\nGARMIN Corp.
+Unsupported function, R4=caller
+GARMIN BITMAP 01
+GBITMAP       01
+GDEMO         01
+0123456789abcdef
+0123456789ABCDEF
+NMEA 2000
+Out of gfx resource, r0=task ID, r1=file name ptr, r2=line #
+Out of file descriptors, r0=task ID, r1=p_fdp, r2=fil usr tsk 1, r3=tsk 1 hndl cnt, r4=fil usr tsk 2, r5=tsk 2 hndl cnt, etc.
+Task not active, r0=calling task ID, r1=inactive task ID
+Deleting cond var with waiters, r0=task ID, r1=cond, r2=waiting task ID
+Deleting cnt smphr with waiters, r0=task ID, r1=smphr, r2=waiting task ID
+Out of NV memory, r0=task ID
+Out of stack pool memory, r0=task ID
+TLS array index overflowed, r0=task ID, r1=tls idx, r2=MAX TLS INDICES
+Stack overflow, r0=task ID, r1=sp, r2=pc
+MIPS32 exception.  R0-R31 + badvaddr + status + cause + epc
+Cond var already initialized, r0=task ID, r1=cond
+Uninitialized cond var, r0=task ID, r1=cond
+Out of memory, r0=not useful, r1=rtrn, r2=blk sz requested, r3=num handles in use, r4=mem bytes in use
+ADS call to __rt_raise(), r0=task ID, r1=sig, r2=type, see RTL_pub_lib.h
+Deleting spinlock that is currently owned, r0=task ID, r1=spin lock
+Uninitialized spinlock, r0=task ID, r1=spin lock
+Bad memory block pointers, r0=task ID, r1=rtrn, r2=first blk, r3=prev blk, r4=prev blk's next, r5=this blk, r6=next blk's prev, r7=next blk, r8=last blk
+Smphr deadlock, r0=smphr 1 owner, r1=smphr 1, r2=smphr n owner, r3=smphr n
+Memory handle pointer missing, r0=task ID, r1=rtrn
+Not allowed in interrupt, r0=not useful, r1=rtrn
+Message queue overrun not allowed, r0=task ID, r1=target task ID, r2=rtrn
+Can't join detached task, r0=task ID, r1=target task ID, r2=rtrn
+Can't delete joinable task, r0=task ID, r1=target task ID, r2=rtrn
+Task already created, r0=calling task ID, r1=tdb, r2=rtrn
+Memory allocation exceeded, r0=task ID, r1=handle, r2=rtrn
+Bad memory handle, r0=task ID, r1=handle, r2=rtrn
+Realloc or xfer of locked memory, r0=task ID, r1=handle, r2=rtrn
+Task msg size not multiple of 4, r0=task ID, r1=msg_size, r2=rtrn
+Semaphore already released, r0=task ID, r1=smphr, r2=rtrn
+Out of memory handles, r0=task ID, r1=limit, r2=rtrn
+Detached event already initialized, r0=task ID, r1=detached event, r2=rtrn
+Uninitialized detached event, r0=task ID, r1=detached event, r2=rtrn
+Deleting detached event with tasks waiting, r0=task ID, r1=detached event, r2=waiting task ID, r3=rtrn
+Bad memory lock count, r0=task ID, r1=handle, r2=oldcnt, r3=newcnt, r4=rtrn
+Cnt smphr already initialized, r0=task ID, r1=smphr
+Uninitialized cnt smphr, r0=task ID, r1=smphr
+Bad use of recursively reserved smphr, r0=task ID, r2=smphr
+Cond var used with unowned smphr, r0=task ID, r1=cond, r2=smphr
+Unknown RTL error
+Undefined instruction, system r0-15 + cpsr
+Unhandled software interrupt, system r0-15 + cpsr
+Data abort, system r0-15 + cpsr
+Prefetch abort, system r0-15 + cpsr
+Can't free memory that includes handle, r0=task ID, r1=rtrn, r2=ptr
+%s %u, %s
+TLS key is invalid, r0=task ID, r1=address of tls key, r2=tls idx
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

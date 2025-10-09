@@ -1,0 +1,2219 @@
+[GCD_DUMP]
+dump_by = grmn-gcd
+dump_ver = 1
+original_filename = /content/drive/MyDrive/garminRSD_Dump/echoMAPwithSDCard_202507290 (1)/Garmin/GUPDATE.GCD
+
+# [BLOCK_nn] headers are just for parsing/grouping purposes.
+# Lengths are informational only, they will be calculated upon reassembly.
+
+[BLOCK_0]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_1]
+# Padding
+type = 0x0002
+# Length of padding block
+length = 21
+
+[BLOCK_2]
+# Part number?
+type = 0x0003
+length = 9
+value = 10 d4 5c 13 04 45 0d 14 41
+
+[BLOCK_3]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_4]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_5]
+# Padding
+type = 0x0002
+# Length of padding block
+length = 3977
+
+[BLOCK_6]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_7]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_11]
+from_file = gcd_dump_0008_1097.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0005a600
+# Device hw_id
+0x1009 = 0x0682
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_19]
+from_file = gcd_dump_02bd_5b6d1.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0221e200
+# Device hw_id
+0x1009 = 0x0682
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_570]
+from_file = gcd_dump_0533_227a187.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0533
+# Binary length
+0x2015 = 0x02db0000
+# Device hw_id
+0x1009 = 0x0682
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_1306]
+from_file = gcd_dump_05a2_502ad21.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x007a0000
+# Device hw_id
+0x1009 = 0x0682
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_1429]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_1432]
+from_file = gcd_dump_0008_57caf64.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x000bda00
+# Device hw_id
+0x1009 = 0x0684
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_1446]
+from_file = gcd_dump_02bd_58889b6.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0287ec00
+# Device hw_id
+0x1009 = 0x0684
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_2099]
+from_file = gcd_dump_0533_8108004.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0533
+# Binary length
+0x2015 = 0x02db0000
+# Device hw_id
+0x1009 = 0x0684
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_2835]
+from_file = gcd_dump_05a2_aeb8b9e.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x007a0000
+# Device hw_id
+0x1009 = 0x0684
+# Firmware version
+0x100d = 0x02a8
+
+[BLOCK_2958]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_2959]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_2960]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_2963]
+from_file = gcd_dump_0008_b658e21.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x000b7d00
+# Device hw_id
+0x1009 = 0x07ce
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_2977]
+from_file = gcd_dump_02bd_b710b73.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x01099900
+# Device hw_id
+0x1009 = 0x07ce
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3246]
+from_file = gcd_dump_05a2_c7aa8c1.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x001f8af5
+# Device hw_id
+0x1009 = 0x07ce
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3280]
+from_file = gcd_dump_05a5_c9a3458.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a5
+# Binary length
+0x2015 = 0x007a3fad
+# Device hw_id
+0x1009 = 0x07ce
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3403]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_3406]
+from_file = gcd_dump_0008_d147648.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x000b8100
+# Device hw_id
+0x1009 = 0x0830
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3420]
+from_file = gcd_dump_02bd_d1ff79a.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x01273d00
+# Device hw_id
+0x1009 = 0x0830
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3719]
+from_file = gcd_dump_05a2_e473960.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x0034cdbd
+# Device hw_id
+0x1009 = 0x0830
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3775]
+from_file = gcd_dump_05a5_e7c0817.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a5
+# Binary length
+0x2015 = 0x007a3fad
+# Device hw_id
+0x1009 = 0x0830
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3898]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_3901]
+from_file = gcd_dump_0008_ef64a07.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x000b8600
+# Device hw_id
+0x1009 = 0x0835
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_3915]
+from_file = gcd_dump_02bd_f01d059.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x01b76700
+# Device hw_id
+0x1009 = 0x0835
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_4359]
+from_file = gcd_dump_05a2_10b93e63.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x0057fce3
+# Device hw_id
+0x1009 = 0x0835
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_4450]
+from_file = gcd_dump_05a5_11113ccc.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a5
+# Binary length
+0x2015 = 0x007a3fad
+# Device hw_id
+0x1009 = 0x0835
+# Firmware version
+0x100d = 0x019a
+
+[BLOCK_4573]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_4574]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_4575]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_4578]
+from_file = gcd_dump_0008_118b7efc.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00058900
+# Device hw_id
+0x1009 = 0x097a
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_4586]
+from_file = gcd_dump_02bd_11910836.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x010d2700
+# Device hw_id
+0x1009 = 0x097a
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_4859]
+from_file = gcd_dump_05a2_129e3394.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x00262ac0
+# Device hw_id
+0x1009 = 0x097a
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_4900]
+from_file = gcd_dump_05a5_12c45f12.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a5
+# Binary length
+0x2015 = 0x007a3fad
+# Device hw_id
+0x1009 = 0x097a
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_5023]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_5026]
+from_file = gcd_dump_0008_133ea102.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00058d00
+# Device hw_id
+0x1009 = 0x097b
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_5034]
+from_file = gcd_dump_02bd_13442e3c.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0162e900
+# Device hw_id
+0x1009 = 0x097b
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_5393]
+from_file = gcd_dump_05a2_14a71cf2.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x004757d4
+# Device hw_id
+0x1009 = 0x097b
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_5467]
+from_file = gcd_dump_05a5_14ee7608.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a5
+# Binary length
+0x2015 = 0x007a3fad
+# Device hw_id
+0x1009 = 0x097b
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_5590]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_5593]
+from_file = gcd_dump_0008_1568b7f8.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00059400
+# Device hw_id
+0x1009 = 0x097c
+# Firmware version
+0x100d = 0x01ae
+
+[BLOCK_5601]
+from_file = gcd_dump_02bd_156e4c32.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0209e200
+# Device hw_id
+0x1009 = 0x097c
+# Firmware version
+0x100d = 0x01ae
+
+[BLOCK_6127]
+from_file = gcd_dump_05a4_17783684.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a4
+# Binary length
+0x2015 = 0x054bac62
+# Device hw_id
+0x1009 = 0x097c
+# Firmware version
+0x100d = 0x01ae
+
+[BLOCK_7490]
+from_file = gcd_dump_05a2_1cc3f84c.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a2
+# Binary length
+0x2015 = 0x007fa3db
+# Device hw_id
+0x1009 = 0x097c
+# Firmware version
+0x100d = 0x01ae
+
+[BLOCK_7621]
+from_file = gcd_dump_05a5_1d439e4d.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x05a5
+# Binary length
+0x2015 = 0x007a3fad
+# Device hw_id
+0x1009 = 0x097c
+# Firmware version
+0x100d = 0x01ae
+
+[BLOCK_7744]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_7745]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_7746]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_7749]
+from_file = gcd_dump_0008_1dbde07d.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0001bb00
+# Device hw_id
+0x1009 = 0x0725
+# Firmware version
+0x100d = 0x014a
+
+[BLOCK_7753]
+from_file = gcd_dump_02bd_1dbf9ba7.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x000aef00
+# Device hw_id
+0x1009 = 0x0725
+# Firmware version
+0x100d = 0x014a
+
+[BLOCK_7764]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_7767]
+from_file = gcd_dump_0008_1dca8b2e.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00059f00
+# Device hw_id
+0x1009 = 0x07e6
+# Firmware version
+0x100d = 0x0280
+# Field 1016 (WiFi fw)
+0x1016 = 0x1000
+
+[BLOCK_7775]
+from_file = gcd_dump_02bd_1dd02a68.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x004e3e00
+# Device hw_id
+0x1009 = 0x07e6
+# Firmware version
+0x100d = 0x0280
+
+[BLOCK_7854]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_7857]
+from_file = gcd_dump_0008_1e1e69ff.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00059f00
+# Device hw_id
+0x1009 = 0x0970
+# Firmware version
+0x100d = 0x0276
+# Field 1016 (WiFi fw)
+0x1016 = 0xdc00
+
+[BLOCK_7865]
+from_file = gcd_dump_02bd_1e240939.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x004efa00
+# Device hw_id
+0x1009 = 0x0970
+# Firmware version
+0x100d = 0x0276
+
+[BLOCK_7945]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_7948]
+from_file = gcd_dump_0008_1e7304d0.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00059f00
+# Device hw_id
+0x1009 = 0x0a47
+# Firmware version
+0x100d = 0x028a
+
+[BLOCK_7956]
+from_file = gcd_dump_02bd_1e78a40a.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x004e3e00
+# Device hw_id
+0x1009 = 0x0a47
+# Firmware version
+0x100d = 0x028a
+
+[BLOCK_8035]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8038]
+from_file = gcd_dump_0008_1ec6e3a1.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00059f00
+# Device hw_id
+0x1009 = 0x0b60
+# Firmware version
+0x100d = 0x02bc
+# Field 1016 (WiFi fw)
+0x1016 = 0xdc00
+
+[BLOCK_8046]
+from_file = gcd_dump_02bd_1ecc82db.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00526a00
+# Device hw_id
+0x1009 = 0x0b60
+# Firmware version
+0x100d = 0x02bc
+
+[BLOCK_8129]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8132]
+from_file = gcd_dump_0008_1f1eee7e.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0001bb00
+# Device hw_id
+0x1009 = 0x0c0a
+# Firmware version
+0x100d = 0x00dd
+
+[BLOCK_8136]
+from_file = gcd_dump_02bd_1f20a9a8.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x000b2400
+# Device hw_id
+0x1009 = 0x0c0a
+# Firmware version
+0x100d = 0x00dd
+
+[BLOCK_8148]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_8149]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8150]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8153]
+from_file = gcd_dump_0401_1f2bce6d.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00011408
+
+[BLOCK_8157]
+from_file = gcd_dump_0401_1f2ce297.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00351408
+
+[BLOCK_8211]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8214]
+from_file = gcd_dump_0401_1f61f7cc.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00012c08
+
+[BLOCK_8218]
+from_file = gcd_dump_0401_1f6323f6.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00167b08
+
+[BLOCK_8241]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8244]
+from_file = gcd_dump_0008_1f799fb5.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00026300
+# Device hw_id
+0x1009 = 0x0351
+# Field 100c
+0x100c = 0x0032
+# Firmware version
+0x100d = 0x015e
+
+[BLOCK_8249]
+from_file = gcd_dump_02bd_1f7c02e7.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00039800
+# Device hw_id
+0x1009 = 0x0351
+# Field 100c
+0x100c = 0x0032
+# Firmware version
+0x100d = 0x015e
+
+[BLOCK_8253]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8256]
+from_file = gcd_dump_0008_1f7f9b4e.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0000e900
+# Device hw_id
+0x1009 = 0x03f6
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8259]
+from_file = gcd_dump_02bd_1f808474.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00030200
+# Device hw_id
+0x1009 = 0x03f6
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8263]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8266]
+from_file = gcd_dump_02bd_1f8386e1.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0002e000
+# Device hw_id
+0x1009 = 0x0469
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8269]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8272]
+from_file = gcd_dump_0008_1f866744.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0000db00
+# Device hw_id
+0x1009 = 0x04c2
+# Firmware version
+0x100d = 0x00f0
+
+[BLOCK_8275]
+from_file = gcd_dump_02bd_1f87426a.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00043e00
+# Device hw_id
+0x1009 = 0x04c2
+# Firmware version
+0x100d = 0x00f0
+
+[BLOCK_8280]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2012 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8283]
+from_file = gcd_dump_0008_1f8b80d5.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00015900
+# Device hw_id
+0x1009 = 0x05ae
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8287]
+from_file = gcd_dump_02bd_1f8cd9ff.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0004de00
+# Device hw_id
+0x1009 = 0x05ae
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8292]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8295]
+from_file = gcd_dump_0008_1f91b86a.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00019d00
+# Device hw_id
+0x1009 = 0x064a
+# Firmware version
+0x100d = 0x0172
+
+[BLOCK_8299]
+from_file = gcd_dump_02bd_1f935594.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00385f00
+# Device hw_id
+0x1009 = 0x064a
+# Firmware version
+0x100d = 0x0172
+
+[BLOCK_8356]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8359]
+from_file = gcd_dump_0008_1fcbb5cf.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0001ec00
+# Device hw_id
+0x1009 = 0x064b
+# Firmware version
+0x100d = 0x023a
+
+[BLOCK_8363]
+from_file = gcd_dump_02bd_1fcda1f9.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00510000
+# Device hw_id
+0x1009 = 0x064b
+# Firmware version
+0x100d = 0x023a
+
+[BLOCK_8445]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8448]
+from_file = gcd_dump_0008_201ea398.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00012d00
+# Device hw_id
+0x1009 = 0x073e
+# Firmware version
+0x100d = 0x0140
+
+[BLOCK_8452]
+from_file = gcd_dump_02bd_201fd0c2.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x000b1900
+# Device hw_id
+0x1009 = 0x073e
+# Firmware version
+0x100d = 0x0140
+
+[BLOCK_8464]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8467]
+from_file = gcd_dump_0008_202aea49.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00012a00
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x0226
+
+[BLOCK_8471]
+from_file = gcd_dump_02bd_202c1473.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00078000
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x0226
+
+[BLOCK_8481]
+from_file = gcd_dump_0534_203394b5.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0534
+# Binary length
+0x2015 = 0x00012700
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x010e
+
+[BLOCK_8485]
+from_file = gcd_dump_0537_2034bbdf.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0537
+# Binary length
+0x2015 = 0x00038000
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8491]
+from_file = gcd_dump_0538_20383c11.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0538
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8494]
+from_file = gcd_dump_0535_20389c37.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0535
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8497]
+from_file = gcd_dump_0536_2038fc5d.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0536
+# Binary length
+0x2015 = 0x0000e000
+# Device hw_id
+0x1009 = 0x07a8
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8498]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8501]
+from_file = gcd_dump_0008_2039dcb8.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00011f00
+# Device hw_id
+0x1009 = 0x0848
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8505]
+from_file = gcd_dump_02bd_203afbe2.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00039300
+# Device hw_id
+0x1009 = 0x0848
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8509]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8512]
+from_file = gcd_dump_0008_203e8f49.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00016100
+# Device hw_id
+0x1009 = 0x0849
+# Firmware version
+0x100d = 0x0136
+
+[BLOCK_8516]
+from_file = gcd_dump_02bd_203ff073.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x000dbf00
+# Device hw_id
+0x1009 = 0x0849
+# Firmware version
+0x100d = 0x0136
+
+[BLOCK_8530]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8533]
+from_file = gcd_dump_0008_204db002.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00017500
+# Device hw_id
+0x1009 = 0x099f
+# Firmware version
+0x100d = 0x0140
+
+[BLOCK_8537]
+from_file = gcd_dump_02bd_204f252c.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00091000
+# Device hw_id
+0x1009 = 0x099f
+# Firmware version
+0x100d = 0x0140
+
+[BLOCK_8547]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8550]
+from_file = gcd_dump_0008_205835ab.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0001cf00
+# Device hw_id
+0x1009 = 0x0584
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8554]
+from_file = gcd_dump_02bd_205a04d5.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x001e3a00
+# Device hw_id
+0x1009 = 0x0584
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8585]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8588]
+from_file = gcd_dump_0008_20783fa8.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0001ab00
+# Device hw_id
+0x1009 = 0x0585
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8592]
+from_file = gcd_dump_02bd_2079ead2.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00037200
+# Device hw_id
+0x1009 = 0x0585
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8596]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8599]
+from_file = gcd_dump_0008_207d5d39.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00015300
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x03f2
+
+[BLOCK_8603]
+from_file = gcd_dump_02bd_207eb063.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0009a500
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x03f2
+
+[BLOCK_8615]
+from_file = gcd_dump_0534_208855ad.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0534
+# Binary length
+0x2015 = 0x000134c4
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8619]
+from_file = gcd_dump_0537_20898a9b.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0537
+# Binary length
+0x2015 = 0x00038000
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8625]
+from_file = gcd_dump_0538_208d0acd.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0538
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8628]
+from_file = gcd_dump_0535_208d6af3.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0535
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8631]
+from_file = gcd_dump_0536_208dcb19.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0536
+# Binary length
+0x2015 = 0x0000e000
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x00fa
+
+[BLOCK_8634]
+from_file = gcd_dump_0539_208eab3f.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0539
+# Binary length
+0x2015 = 0x000155da
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x00f0
+
+[BLOCK_8638]
+from_file = gcd_dump_053a_20900143.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x053a
+# Binary length
+0x2015 = 0x0000a15e
+# Device hw_id
+0x1009 = 0x0a9e
+# Firmware version
+0x100d = 0x00dc
+
+[BLOCK_8639]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_8640]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8641]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8644]
+from_file = gcd_dump_0401_2090a33a.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x01
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00003e08
+
+[BLOCK_8647]
+from_file = gcd_dump_0401_2090e160.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x01
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00028a08
+
+[BLOCK_8650]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8653]
+from_file = gcd_dump_0401_20936bc9.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x01
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00003e08
+
+[BLOCK_8656]
+from_file = gcd_dump_0401_2093a9ef.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x01
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00029408
+
+[BLOCK_8659]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8662]
+from_file = gcd_dump_0401_20963e58.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x01
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00003e08
+
+[BLOCK_8665]
+from_file = gcd_dump_0401_20967c7e.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x01
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00029308
+
+[BLOCK_8668]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8671]
+from_file = gcd_dump_0008_20990fed.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00003b00
+# Device hw_id
+0x1009 = 0x030d
+# Firmware version
+0x100d = 0x012c
+# Field 1016 (WiFi fw)
+0x1016 = 0xcc00
+
+[BLOCK_8674]
+from_file = gcd_dump_02bd_20994b13.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0003a000
+# Device hw_id
+0x1009 = 0x030d
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8678]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8681]
+from_file = gcd_dump_0008_209ceb7e.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00005800
+# Device hw_id
+0x1009 = 0x0365
+# Firmware version
+0x100d = 0x0122
+# Field 1016 (WiFi fw)
+0x1016 = 0x9400
+
+[BLOCK_8684]
+from_file = gcd_dump_02bd_209d43a4.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00037200
+# Device hw_id
+0x1009 = 0x0365
+# Firmware version
+0x100d = 0x0122
+
+[BLOCK_8688]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8691]
+from_file = gcd_dump_0008_20a0b60b.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00024264
+# Device hw_id
+0x1009 = 0x0570
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8696]
+from_file = gcd_dump_02bd_20a2f89d.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x000f6a00
+# Device hw_id
+0x1009 = 0x0570
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8712]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8715]
+from_file = gcd_dump_0008_20b26334.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00061100
+# Device hw_id
+0x1009 = 0x0dfc
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8724]
+from_file = gcd_dump_02bd_20b87472.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0023bf00
+# Device hw_id
+0x1009 = 0x0dfc
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8760]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_8761]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8762]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8765]
+from_file = gcd_dump_02bd_20dc349f.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0000d900
+# Device hw_id
+0x1009 = 0x03b7
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8768]
+from_file = gcd_dump_0555_20dd0dc5.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x0555
+# Binary length
+0x2015 = 0x0001a2a3
+# Device hw_id
+0x1009 = 0x03b7
+# Firmware version
+0x100d = 0x00d9
+
+[BLOCK_8770]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8773]
+from_file = gcd_dump_02bd_20deb0cd.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x02f5
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8774]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2008 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8777]
+from_file = gcd_dump_0549_20df112e.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x0549
+# Binary length
+0x2015 = 0x00003680
+# Device hw_id
+0x1009 = 0x0306
+# Firmware version
+0x100d = 0x00fa
+
+[BLOCK_8780]
+from_file = gcd_dump_02bd_20df47d4.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x0306
+# Firmware version
+0x100d = 0x00fa
+
+[BLOCK_8781]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8784]
+from_file = gcd_dump_02bd_20dfa835.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00006000
+# Device hw_id
+0x1009 = 0x0387
+# Firmware version
+0x100d = 0x0122
+
+[BLOCK_8785]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2012 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8788]
+from_file = gcd_dump_0008_20e00890.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00024700
+# Device hw_id
+0x1009 = 0x0662
+# Firmware version
+0x100d = 0x00c8
+
+[BLOCK_8793]
+from_file = gcd_dump_02bd_20e24fbe.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0003b600
+# Device hw_id
+0x1009 = 0x0662
+# Firmware version
+0x100d = 0x00c8
+
+[BLOCK_8797]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8800]
+from_file = gcd_dump_0008_20e60625.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00011900
+# Device hw_id
+0x1009 = 0x0760
+# Firmware version
+0x100d = 0x010e
+
+[BLOCK_8804]
+from_file = gcd_dump_02bd_20e71f4f.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00063e00
+# Device hw_id
+0x1009 = 0x0760
+# Firmware version
+0x100d = 0x010e
+
+[BLOCK_8811]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8814]
+from_file = gcd_dump_02bd_20ed5dc8.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00078c8e
+# Device hw_id
+0x1009 = 0x09e7
+# Firmware version
+0x100d = 0x01b8
+
+[BLOCK_8824]
+from_file = gcd_dump_0555_20f4ea98.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x0555
+# Binary length
+0x2015 = 0x0002e42c
+# Device hw_id
+0x1009 = 0x09e7
+# Firmware version
+0x100d = 0x01a4
+
+[BLOCK_8827]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8830]
+from_file = gcd_dump_02bd_20f7cf2d.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x000d683c
+# Device hw_id
+0x1009 = 0x09e8
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8844]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8847]
+from_file = gcd_dump_0008_210537f8.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00012d00
+# Device hw_id
+0x1009 = 0x0a7a
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8851]
+from_file = gcd_dump_02bd_21066522.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0005b900
+# Device hw_id
+0x1009 = 0x0a7a
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8859]
+from_file = gcd_dump_0534_210c1e5c.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x0534
+# Binary length
+0x2015 = 0x00014000
+# Device hw_id
+0x1009 = 0x0a7a
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8861]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8864]
+from_file = gcd_dump_02bd_210d5ec1.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00018f00
+# Device hw_id
+0x1009 = 0x0ad7
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8866]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8869]
+from_file = gcd_dump_0401_210eee1e.bin
+# Reset/Downgrade flag
+0x000b = 0x01
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x0401
+# Binary length
+0x2015 = 0x00120874
+
+[BLOCK_8888]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8891]
+from_file = gcd_dump_02bd_2120f73b.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00078f08
+# Device hw_id
+0x1009 = 0x0c91
+# Firmware version
+0x100d = 0x015e
+
+[BLOCK_8901]
+from_file = gcd_dump_0555_21288685.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x0555
+# Binary length
+0x2015 = 0x0002e42c
+# Device hw_id
+0x1009 = 0x0c91
+# Firmware version
+0x100d = 0x01d6
+
+[BLOCK_8904]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8907]
+from_file = gcd_dump_02bd_212b6b1a.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00018800
+# Device hw_id
+0x1009 = 0x0e75
+# Firmware version
+0x100d = 0x00d2
+
+[BLOCK_8909]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8912]
+from_file = gcd_dump_0008_212cf379.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x00061400
+# Device hw_id
+0x1009 = 0x0e87
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8921]
+from_file = gcd_dump_02bd_213307b7.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x00
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00247400
+# Device hw_id
+0x1009 = 0x0e87
+# Firmware version
+0x100d = 0x012c
+
+[BLOCK_8958]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2017 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8961]
+from_file = gcd_dump_02bd_21577ca8.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x0001a000
+# Device hw_id
+0x1009 = 0x1204
+# Firmware version
+0x100d = 0x00e6
+
+[BLOCK_8963]
+# Checksum rectifier
+type = 0x0001
+
+[BLOCK_8964]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2013 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8965]
+# Copyright notice
+type = 0x0005
+length = 55
+text = Copyright 1996-2018 by Garmin Ltd. or its subsidiaries.
+
+[BLOCK_8968]
+from_file = gcd_dump_0008_21591d47.bin
+# Block type
+0x100a = 0x0008
+# Binary length
+0x2015 = 0x0000cb68
+# Device hw_id
+0x1009 = 0x113d
+# Firmware version
+0x100d = 0x009e
+
+[BLOCK_8971]
+from_file = gcd_dump_02bd_2159e8d5.bin
+# Reset/Downgrade flag
+0x000b = 0x00
+# XOR flag/value
+0x000a = 0x45
+# Block type
+0x100a = 0x02bd
+# Binary length
+0x2015 = 0x00021638
+# Device hw_id
+0x1009 = 0x113d
+# Firmware version
+0x100d = 0x009e
+
+[BLOCK_8974]
+# Checksum rectifier
+type = 0x0001

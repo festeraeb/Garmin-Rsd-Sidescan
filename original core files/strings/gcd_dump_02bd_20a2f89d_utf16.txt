@@ -1,0 +1,392 @@
+#*90
++"18
+#:1(
+#:1(
+#:1(
+#:1(
++2)0
+;290
+#2)8
+#2)8
+vol %u: FAT: Bogus bpb data
+vol %u: FAT: Can't read fsinfo
+fs_image.ver
+/Garmin/
+%d:%s%s
+006B0XXX00
+GPS_eng
+0:/Garmin/Profiles/Profiles.ver
+0:/Wherigo/Wherigo.ver
+;2) 
+;2) 
+;2) 
+;2) 
+;2) 
+;2) 
+;2) 
++"90
+()*+.
+NVM main
+SYC bkgd
+INVALID
+TSK bkgd
+TSK mem
+TSK timr
+.txt
+/debug/
+%d:%s%s%s
+!"#'
+;2) 
++2)0
+;290
++") 
++") 
+#:)0
+%c %08.5lf
+%c%09.5lf
+%c%*c%8lf%*c%c%9lf%*c
+_ __._____
+____._____
+%c %02d
+%06.3lf'%c%03d
+%06.3lf'
+%c%*c%2d%*c%6lf%*c%c%3d%*c%6lf%*c
+_ __
+__.___'____
+__.___'
+%c %02d
+%02d'%04.1lf"%c%03d
+%02d'%04.1lf"
+%c%*c%2d%*c%2d%*c%4lf%*c%c%3d%*c%2d%*c%4lf%*c
+_ __
+__'__._"____
+__'__._"
+%c%03d
+%06.3lf'
+%c%3d%*c%6lf%*c
+____
+__.___'
+%c %02d
+%06.3lf'
+%c%*c%2d%*c%6lf%*c
+____
+__.___'
+%c%c %06d%06d
+%c%c%*c%6d%6d
+__ ____________
+E%08dN%08d
+%*c%8d%*c%8d
+E________N________
+E%06dN%06d
+%*c%6d%*c%6d
+E______N______
+E%06dN%06d
+%*c%6d%*c%6d
+E______N______
+E%08dN%08d
+%*c%8d%*c%8d
+E________N________
+E%08dN%08d
+%*c%8d%*c%8d
+E________N________
+%c%c%c%c%c%c
+______
+ABCFGHJKLPQRSTUXYZ
+E%07dN%07d
+%*c%7d%*c%7d
+E_______N_______
+%06d%06d
+%6d%6d
+____________
+%07d%06d
+%7d%6d
+_____________
+%07d%07d
+%7d%7d
+______________
+%06d%06d
+%6d%6d
+____________
+E%08dN%08d
+%*c%8d%*c%8d
+E________N________
+ABCDEFGHJKLMNPQRSTUVWXYZ
+__VWXYZQRSTULMNOPFGHJKABCDE
+M%02d %06d%06d
+%*c%2d%*c%6d%6d
+M__ ____________
+%c%c %05d%05d
+%c%c%*c%5d%5d
+__ __________
+%01d%06d%07d
+%1d%6d%7d
+______________
+I%c %05d%05d
+%*c%c%*c%5d%5d
+I_ __________
+%07d%07d
+%7d%7d
+______________
+%07d%07d
+%7d%7d
+______________
+NZTM
+E%07dN%07d
+%*c%7d%*c%7d
+E_______N_______
+X %07dY %07d
+%*c%*c%7d%*c%*c%7d
+X _______Y _______
+MGRS
+%02d%c %c%c %05d%05d
+%2d%c%*c%c%c%*c%5d%5d
+___ __ __________
+%06d%06d
+%6d%6d
+____________
+%06d%07d
+%6d%7d
+_____________
+USNG
+%02d%c %c%c %05d%05d
+%2d%c%*c%c%c%*c%5d%5d
+___ __ __________
+E%08dN%08d
+%*c%8d%*c%8d
+E________N________
+%02d %c %07d%07d
+%2d%*c%c%*c%7d%7d
+__ _ ______________
+%02d Y%c%06dX%07d
+%2d%*c%*c%7d%*c%7d
+__ Y_______X_______
+N%07dE%07d
+%*c%7d%*c%7d
+N_______E_______
+E%07dN%07d
+%*c%7d%*c%7d
+E_______N_______
+*?<>|":/\
+[];,+=
+vol %u: FAT: Can't read from volume
+vol=%u: FAT: bpb magic number = 0x%08X, should be 0x%08X
+vol %u: FAT: Logical and physical block sizes differ
+vol %u: FAT: Invalid bpb parameters
+vol %u: FAT: Did not find valid fsinfo signature
+     Found signature1 0x%08X signature2 0x%08X
+vol %u: FAT: Invalid FAT entry for cluster %d
+vol %u: FAT: Allocation of 0 clusters requested
+vol %u: FAT: No room in directory for slots
+vol=%u: FAT: Directory exceeds max directory size
+vol %u: FAT: Invalid file name, can't generate short name
+vol %u: FAT: Invalid long name sequence encountered, sector = %d, offset = %d
+vol %u: FAT: Encountered orphan long entries in sector %d
+vol %u: FAT: Checksum mismatch in long entries,sector = %d, offset = %d
+vol %u: FAT: EOC before end of long name
+vol %u: FAT: Orphaned long directory entries in sector %d
+vol %u: FAT: Checksum in long entries doesn't match calculated checksum,sector = %d, offset = %d
+vol %u: FAT: Attempt to create file that already exists
+vol %u: FAT: Invalid path passed to get_parent_dir(): %s
+vol=%u: FAT: Attempt to open directory as regular file
+FAT: Attempt to open regular file as directory
+vol %u: FAT: Encountered volume with no FAT information
+vol %u: FAT: Encountered unexpected end of direcotry
+Software Version
+3.00
+  !!""##$$%%&&''(())**++,,--..//00112233445566778899::;;<<==>>??@@AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ[[\
+]]^^__``aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}
+  !!""##$$%%&&''(())**++,,--..//00112233445566778899::;;<<==>>??@@AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ[[
+\]]^^__``aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ 0@P`p
+ "$$$$$$$$$$$$&(*,............024
+8::<>@BDFHJLNPRTVVVVVVVVVVVXVVVZ\\\\\\\\\\\^\\\`bbbbbbbbbbbbbbbbbbbbbbbbdbbbfhhhhhhhjbbbbbbbbbbbbbbbbbbbbbbblhhjnbbprtvxzr|~b
+hhhhhhh
+bbbbbbbbb
+bbbb
+bbbbbbbbb
+VVVVVVVV
+VVVV
+\\\\\\\\
+\\\\
+bbbbbbbbbbbb
+VVVVVVVVVVVVVVVV\\\\\\\\\\\\\\\\
+bbbbbbbbbbb
+hhhhhh
+bbbbbbbbbbbbbbbbbbb
+bbbbbbbb
+<<<<<<<<<<<<<<<<
+bbbbbbbbbbb
+bbbbbbbbbbbbb
+:::::::::
+RRRRRR
+<<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<
+<<<<
+<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<
+<<<<<<<
+<<<<<<<<<
+<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<
+<<<<<<<
+<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<<
+<<<<<<
+RRRRRRR
+<<<<<<<<
+ ,............02
+Gvsj
+Astro Bcn "E"
+Bellevue (IGN)
+Santo (Dos)
+Rome 1940
+ARC 1950
+European 1950
+ARC 1960
+AIN EL ABD '70
+RT 90
+Midway Ast '61
+Mahe 1971
+Chatham 1971
+Astro Stn '52
+WGS 72
+LKS92
+CH-1903
+Sapper Hill '43
+Hong Kong '63
+Prov S Chln '63
+Guam 1963
+NAD83
+Astr Dos 71/4
+Liberia 1964
+Indonesia 74
+WGS 84
+Aus Geod '84
+GDA 94
+Hjorsey 1955
+Anna 1 Ast '65
+Ireland 1965
+Viti Levu 1916
+Prov S Am '56
+Aus Geod '66
+Obsrvtorio '66
+Canton Ast '66
+Bermuda 1957
+Easter Isld 67
+Ptcairn Ast '67
+Timbalai 1948
+Kertau 1948
+Ascnsn Isld '58
+Tristan Ast '68
+Dos 1968
+Geod Datm '49
+Sth Amrcn '69
+European 1979
+Nhrwn United A
+Nhrwn Saudi A
+Ord Srvy GB
+Naparima BWI
+NAD27 CONUS
+NAD27 Cuba
+NAD27 Canada
+Austria
+South Asia
+Croatia
+NAD27 Alaska
+Kandawala
+Minna
+Djakarta
+Massawa
+Indian Thailand
+NAD27 Grnland
+Johnston Island
+Kergueln Islnd
+Finland Hayfrd
+Carthage
+Luzon Philippine
+None
+Cape
+Campo Inchspe
+SE Base
+SW Base
+Gandajika Base
+Afgooye
+Nhrwn Masirah
+Merchich
+Dutch
+Indian Bngldsh
+Zanderij
+Schwarzeck
+Wake-Eniwetok
+NAD27 San Sal
+Qatar National
+NAD27 Central
+Astro B4 Sorol
+Cape Canavrl
+Potsdam
+NAD27 Canal Zn
+Adindan
+Hu-Tzu-Shan
+Old Hawaiian
+Old Egyptian
+Oman
+Taiwan
+NAD27 Caribbn
+Reunion
+Luzon Mindanao
+Puerto Rico
+NAD27 Mexico
+Gux 1 Astro
+ISTS 073 Astro
+L.C. 5 Astro
+Chua Astro
+Marco Astro
+Tokyo
+Qornoq
+User
+Corrego Alegr
+NAD27 Bahamas
+Pico De Las Nv
+Bogota Observ
+Sao Braz
+012345
+0123456
+01234567
+012345678
+13579
+0123456789
+QRVW
+_ABCDEFGHJKLMNPQRSTUVWXYZ
+_ABCDEFGHJKLMNOPQRSTUVWXYZ
+_ABCDEFGHIJKLMNOPQRSTUVWXYZ
+GPS main
+GPS19x-NMEA2000
+reserved_2
+reserved_3
+GPS19x-HVS
+HWM CAN
+CAN main
+HWM GFS main
+HWM main
+HWM_usb main
+IOP main
+IOP_usb
+SYC main
+#:1(
+#:1(
+;290
++2)0
+ "#$%

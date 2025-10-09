@@ -1,0 +1,388 @@
+`pGn)
+F!F	H
+@pG s
+K{DiF
+D(b(F
+hu)9F
++F"F8F
+F\rF!F
+F)F F
+&_F F
+h/F F
+fJF)F F&`NF
+ppGpGpGpG	hJ
+pG	hJ
+ pGpG-
+02bUm
+#\b\cTI
+FAF F
+B-#\n"
+ j8D b F
+02:Ud
+3F*F!F@F
+HpGHs
+\nV\r-J
+\nZTiF
+ j(D b
+01HxD
+HpG(s
+iFSF 
+HpG,s
+bF9FN
+RAIAK
+bF9FN
+RAIAK
+bF9FN
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAA
+! 3[B
+%s %s %s
+$jF9F
+FjF)F
+a\rI2 %b
+MPRTW
+2F)F F
+2F)F F
+;FBFPF
+[Y%h+D#`
+1L h1J1I
+h;I;M
+@iF\rH
+U(pG-
+D`p`h
+F\rF\nF
+xfer to bb   mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+F\rF\nF
+xfer to ldr  mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+2F9FPF
+2F9FPF
+:F1F@F
+`x<#*F
+x8#*F
+x1#*F
+ 0#*F
+ y(#*F
+`y##*F
+y #*F
+CF:F1F
+xJpBx
+2F!F(F
+IhJj!F
+FD!hF
+&signal
+H@xpG
+ watchdog reset occurred\r\n
+loading region...\r\n
+aborting region load\r\n
+L	 `p
+GHP Reactor CCU Loader\r\nUnit Type = %u\r\n
+ xfer mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X\r\n
+IHppG
+H@hpG
+`BhE`
+b)H/h
+({ rh{
+d(i b
+chi7d
+]n&p_tcb->que_smphr
+a1F\rH
+!AapG
+F\nH\nJ
+!(F.a
+F\rF	H
+IAapG#
+CF:F1F(F
+,F4F8
+H+FRF
+KFZFQF8F
+get_semaphore(p_list)
+!8F%h
+  gH`
+"aF(F
+F\rF	H
+!BhA`
+`BhE`
+`BhE`
+  \rH@
+&tls_smphr
+#*F9F F
+H@`aAF
+`!hIh
+`!hIhA`!h	h1D
+`#hZh
+ H`!h
+h5F0D
+D:F@F
+`ED`h@
+h5F0D
+`ED`h
+B(D``
+BF)FHF
+BF)FHF
+&p_list->smphr
+`"tca
+!!tXC
+Failed to allocate queue buffer
+modules\utl\utl_queue.c
+ahA``h
+``` `
+#AF F
+`A`pG
+` a`a
+&queue->smphr
+W[FRFIF F
+32F)F F
+;F"F1F(F
+  ``f
+f g f``
+&queue->smphr
+&queue->cond
+3@&x3C#p
+@+C#p
+ pG08\n(
+ pGpG
+pG F0
+2F)F F
+#BF8F
+(#BF(F
+````n
+!0[i3
+!0[j;
+ `b F\n
+0!FhF
+"aF h
+`` h(D `0F
+pGpGpGpGp
+a,ala
+&timers_smphr
+ CNS Workhorse
+ pG\nJ
+ix0x	Kjh
+`hH` x
+  v`v
+Rhqx0x
+  ``f
+f g f
+pGGHP Reactor
+`FpG\n(	
+FpG(*
+FpG`+
+ `P! 
+pGSj#
+ ```i@
+H$"Ki	i
+GEN\rF
+cDCP zo
+ C\rL p
+(C`pp
+a@hAi!
+ HWM CAN
+ &can_module[ i ].smphr
+,L!h,J
+D!i	h
+FEDFD
+C ` h@
+!`!h!
+ pG*((
+@pGpGpGpGpGpGp
+EFFFDF
+ &my_m25px16_smphr
+I\n`BhJ`
+`\rI\nhB
+@2F9F
+riF(x
+"iF(x
+"iF x
+"iF0x
+  ```
+` a(x
+`hh `
+h``(x
+'<FG`
+&my_nor_chip_smphr_tbl[i]
+O\rF4I
+!h)D!
+G2F@F
+G:F@F
+`A`pG
+pG\nI	x
+pG\nI	x
+#BFQF0F
+JFAF0F
+#BFIF0F
+0 ` h 
+  ` h 
+` iiy
+p`a`i
+p`a F)h
+H'&#F
+h i`i
+&my_iwdg_kr_smphr
+FOFXF
+%8x4F
+g"fag
+F)F F
+F#F\rJ
+F\rF00
+FiF(F
+"1F F
+&waiter->sgnl
+FpG$C
+b\nqHq
+aBy\nC
+@1Xh1
+ (po`
+(b(I\n
+ `b j
+CF:F1F 
+BF9F0F
+;F2F)F
+`:F1F Fkh
+h2F)F F
+F@hQF
+0x9FO
+ yXE7
+  q#F/J@
+px`p!q
+ 1DkF
+"0IXF
+o@!H=
+@h;FBFiF
+\n pa0i
+&pipe_queues_smphr
+&packet_list_smphr
+&my_sock_create_del_smphr
+&my_sock_smphr
+&my_task_msg_queue_smphr
+&my_tap_del_sgnl
+&my_intf_status_cond
+ IOP sock
+u1F(F
+&event->smphr
+ IOP Stack
+&stat_smphr
+&sgnl
+modules\iop\iop_stack_trans.c
+modules\iop\iop_stack_trans.c
+&my_tap_smphr
+&my_trans_smphr
++FAF8F
+:F1FhF
+\n`0Fp
+ Jh	h!
+`pG\q
+!AapG
+;F2F)F F
+hIFMFNF
+`/I`h
+!XF2h
+C9F(F
+hh``hh
+`hh``h,F
+`0F<`
+ (p!F0h
+`QhA`
+`P`pG
+!xApax
+&t8x`pxx
+  pg`%r
+  p z
+@hH`pG
+`L`%qp
+"iF(i
+"iF(i
+(N5Fpi
+ba(Fp
+&my_product_info_smphr
+h)F0F
+"@!(F
+")F F
+!F$h\rr
+%.F`x
+"0!(F
+ .h<JY
+cz2F(F
+bz(x1F
+ `8h0`
+```3`H`Y
+ g`n@
+ x;F2Fah
+0D``&
+ (ppx
+riF<H
+h\n,!D
+"1F@h
+AbyiF0F
+Jp)xr	
+a)xjh
+port_cfg->data_smphr
+port_cfg->isr_signal_csmphr
+ixzh(xkh
+  qxh
+`y!h@
+py1h@
+hAh F
+JQxPp
+")I(x
+ppGbo
+ pGpGpGp
+x+F2F!F
+2F)F F
+2F)F F
++F2F!F
+FYF)H
+m0` F
+&#\nJ\nH
+epGpG
+ TSK bkgd
+  ```
+ TSK timr
+`H`pG|p
+AibiBaaa!F
+]nCannot reallocate aligned pointer
+modules\os\garmin-os\tsk_mem.c
+rPIPH
+@rNILH
+#?J1F\n
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+ TSK mem
+pGpG8
+req%q(F
+`1F F
+Task running when it should be waiting on semaphore
+modules\os\garmin-os\tsk_sem.c
+F5F H
+"AF8F
+"AF8F
+`pGXq
+ pGXq
+Fjy F
+0`RF9F
+0 `(Fp
+`pG\q
+pG\nhSh
+F!FhF
+F!FhF
+ahH@``
+2F!FhF
+"iF F
+1HC(I
+ `q jp@ b
+ j0C b
+FYF8F
+BF9F(F
+FEDGD
+r9FhF
+rppGO
+ stm32f205
+0123456789ABCDEF@0X
+0123456789abcdef@0x
+0123456789abcdefxp
+0123456789ABCDEFXP
+HWM LED main
+STM32F2XX Watchdog
+NMEA 2000
+SYC main LDR
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

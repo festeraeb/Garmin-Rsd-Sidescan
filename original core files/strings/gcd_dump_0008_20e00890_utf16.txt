@@ -1,0 +1,123 @@
+0:/Debug/GCD_log.txt
+Unable to open file:  %s
+bmap_data      Sz:%6d
+external_data  Sz:%6d
+id_pgm_strt_rd Sz:%6d
+ - %d descriptors
+id_pgm_strt    Sz:%6d
+    product_nmbr: %d
+    lng_dset_len: %d
+    dset_type:    %d
+    crypt_key:    %d
+    erase_flag:   %d
+    int_dset_len: %d
+    min_vrsn:     %d
+    cur_vrsn:     %d
+id_ignore      Sz:%6d
+id_chksm       Sz:%6d
+ *** Error:  Checksum failure.
+ - Checksum is valid.
+bb_data        Sz:%6d
+rom_data       Sz:%6d
+jepp_data      Sz:%6d
+audio_data     Sz:%6d
+audio_data2    Sz:%6d
+ldr_data       Sz:%6d
+pckd_prtnum    Sz:%6d
+Long Text Warning
+text_data      Sz:%6d - %s
+rgn data: %2d   Sz:%6d
+valid.
+NOT valid.
+GCD image is %s
+;2) 
+;2) 
+;2) 
+;2) 
+;2) 
+fenix
+%d:%s%s%s
+#:1(
+dInput file is not a valid GCD image
+*** Error - Too many record descriptors
+*** Error - gcd_rd_end not found.
+ *** Error - no record descriptor found
+    *** Unknown Descriptor = %d
+ *** Error:  Checksum is the wrong size.
+id:%6d      Sz:%6d - *** Unknown ID
+2.00
+Software Version
+eWA+!
+eVA+ 
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ 0@P`p
+ "$$$$$$$$$$$$&(*,............024
+8::<>@BDFHJLNPRTVVVVVVVVVVVXVVVZ\\\\\\\\\\\^\\\`bbbbbbbbbbbbbbbbbbbbbbbbdbbbfhhhhhhhjbbbbbbbbbbbbbbbbbbbbbbblhhjnbbprtvxzr|~b
+hhhhhhh
+bbbbbbbbb
+bbbb
+bbbbbbbbb
+VVVVVVVV
+VVVV
+\\\\\\\\
+\\\\
+bbbbbbbbbbbb
+VVVVVVVVVVVVVVVV\\\\\\\\\\\\\\\\
+bbbbbbbbbbb
+hhhhhh
+bbbbbbbbbbbbbbbbbbb
+bbbbbbbb
+<<<<<<<<<<<<<<<<
+bbbbbbbbbbb
+bbbbbbbbbbbbb
+:::::::::
+RRRRRR
+<<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<
+<<<<
+<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<
+<<<<<<<
+<<<<<<<<<
+<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<
+<<<<<<<
+<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<<
+<<<<<<
+RRRRRRR
+<<<<<<<<
+ ,............02
+*?<>|":/\
+[];,+=
+xGNT10
+HWM GFS main
+HWM_usb main
+hwm_wdog main
+IOP main
+IOP_usb
+/Garmin/Poi/
+/Garmin/
+/Garmin/Demo/
+.GCD
+GUPDATE
+.srf
+.img
+.gpi
+demo
+gmapbmap
+gmapsupp
+gmaptz
+HWM CAN
