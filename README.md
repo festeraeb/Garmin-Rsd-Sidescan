@@ -6,6 +6,9 @@
 
 ---
 
+[![CI](https://github.com/festeraeb/Garmin-Rsd-Sidescan/actions/workflows/ci.yml/badge.svg)](https://github.com/festeraeb/Garmin-Rsd-Sidescan/actions/workflows/ci.yml)
+
+
 ## 🎯 **What is Garmin RSD Studio?**
 
 Garmin RSD Studio is an advanced marine survey analysis system that processes Garmin RSD (sonar) files with cutting-edge artificial intelligence, real-time streaming, and enterprise-grade features. Designed for marine surveyors, researchers, and Search & Rescue operations.
