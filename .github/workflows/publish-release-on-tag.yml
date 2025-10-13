@@ -1,0 +1,39 @@
+name: Publish Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Read release notes for tag
+      id: notes
+      run: |
+        TAG=${GITHUB_REF#refs/tags/}
+        if [ -f "RELEASE_NOTES/${TAG}.md" ]; then
+          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
+          cat "RELEASE_NOTES/${TAG}.md" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        else
+          echo "RELEASE_BODY=" >> $GITHUB_ENV
+        fi
+
+    - name: Publish release and upload artifacts
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ github.ref_name }}
+        name: ${{ github.ref_name }}
+        body: ${{ env.RELEASE_BODY }}
+        files: release-artifacts/*.zip
+        draft: false
+        prerelease: true
