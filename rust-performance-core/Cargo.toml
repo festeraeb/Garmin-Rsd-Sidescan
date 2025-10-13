@@ -1,0 +1,46 @@
+# RUST PERFORMANCE CORE MODULE
+# High-performance Rust implementation for critical parsing operations
+
+[package]
+name = "rsd_performance_core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rsd_performance_core"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.20", features = ["extension-module"] }
+rayon = "1.8"
+memmap2 = "0.9"
+bytemuck = "1.14"
+simd-json = "0.13"
+lz4_flex = "0.11"
+crossbeam = "0.8"
+parking_lot = "0.12"
+ahash = "0.8"
+smallvec = "1.11"
+
+[dependencies.numpy]
+version = "0.20"
+default-features = false
+features = ["ndarray"]
+
+# Performance optimizations
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+# Target-specific optimizations
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+wide = "0.7"
+
+[features]
+default = ["simd", "parallel"]
+simd = []
+parallel = ["rayon"]
+cuda = []
