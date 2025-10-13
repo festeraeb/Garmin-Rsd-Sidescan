@@ -1,3 +1,38 @@
+# Ignore Python cache and virtualenvs
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+
+# Ignore Rust/Cargo build artifacts
+rust-video-core/target/
+**/target/
+*.rlib
+*.rmeta
+*.dll
+*.pdb
+*.lib
+*.exp
+*.exe
+*.d
+
+# Wheels / distribution
+*.whl
+dist/
+build/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Logs and outputs
+*.log
+benchmark_results/
+outputs/
+outputs_auto/
 # License files and tools (KEEP PRIVATE - DO NOT COMMIT)
 license_manager.py
 license_generator.py
