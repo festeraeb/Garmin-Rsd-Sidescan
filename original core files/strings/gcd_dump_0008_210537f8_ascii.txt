@@ -1,0 +1,389 @@
+`pGn)
+FAFHF
+K{DiF
+D(b(F
+hu)9F
++F"F8F
+F\rF!F
+F)F F
+&_F F
+h/F F
+fJF)F F&`NF
+ppGpGpGpG	hJ
+pG	hJ
+ pGpG-
+02bUm
+#\b\cTI
+FAF F
+B-#\n"
+ j8D b F
+02:Ud
+3F*F!F@F
+\nV\r-J
+\nZTiF
+ j(D b
+01HxD
+iFSF 
+bF9FN
+RAIAK
+bF9FN
+RAIAK
+bF9FN
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAA
+! 3[B
+%s %s %s
+$jF9F
+a\rI2 %b
+MPRTW
+2F)F F
+2F)F F
+;FBFPF
+[Y%h+D#`
+1L h1J1I
+h;I;M
+@iF\rH
+U(pG-
+D`p`h
+F\rF\nF
+xfer to bb   mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+F\rF\nF
+xfer to ldr  mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+2F9FPF
+2F9FPF
+:F1F@F
+`x<#*F
+x8#*F
+x1#*F
+ 0#*F
+ y(#*F
+`y##*F
+y #*F
+CF*F9F
+xJpBx
+FD!hF
+&signal
+H@xpG
+ watchdog reset occurred\r\n
+loading region...\r\n
+aborting region load\r\n
+L	 `p
+9-axis Heading Sensor CCU Loader\r\n
+ xfer mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X\r\n
+IHppG
+H@hpG
+`BhE`
+b)H/h
+({ rh{
+d(i b
+chi7d
+]n&p_tcb->que_smphr
+a1F\rH
+!AapG
+!0F5a
+F\rF	H
+IAapG#
+CF:F1F(F
+,F4F8
+H+FRF
+#.J)F
+Late use of function.
+modules\os\garmin-os\tsk_mem.c
+get_semaphore(p_list)
+!8F%h
+  gH`
+F\rF	H
+!BhA`
+`BhE`
+`BhE`
+  \rH@
+&tls_smphr
+#*F9F F
+(DiF\n
+H@`aAF
+)F F&j
+WRKQ-
+`!F(F
+BF)FHF
+BF)FHF
+BhJ`Ah
+`A`pG
+&p_list->smphr
+pGpG@ipG
+`"tca
+!!tXC
+Failed to allocate queue buffer
+modules\utl\utl_queue.c
+ahA``h
+``` `
+#AF F
+`A`pG
+` a`a
+&queue->smphr
+W[FRFIF F
+32F)F F
+;F"F1F(F
+  ``f
+f g f``
+&queue->smphr
+&queue->cond
+3@&x3C#p
+@+C#p
+ pG08\n(
+ pGpG
+pG F0
+2F)F F
+#BF8F
+(#BF(F
+````n
+!0[i3
+!0[j;
+ `b F\n
+0!FhF
+"aF h
+`` h(D `0F
+pGpGpGpGp
+a,ala
+&timers_smphr
+ CNS Workhorse
+&cns_workhorse_workq
+ pG\nJ
+ x\rJ\rI
+aajp0hh`
+`(a(uph(b
+&,F/FO
+a(aha
+a(bhb
+b(chc
+c(d!q
+ b`b wWH
+0 bE\n
+  a`a
+  ``f
+f g f
+pG9-axis Heading Sensor
+pG9-axis Heading Sensor
+`ea!a
+a b`b
+b	I c 
+!\nhP`
+$"F!F
+$"F!F
+$"F!F
+ `P! 
+pGSj#
+ ```i@
+H$"Ki	i
+GEN\rF
+cDCP zo
+ C\rL p
+(C`pp
+a@hAi!
+ HWM CAN
+ &can_module[ i ].smphr
+,L!h,J
+D!i	h
+FEDFD
+C ` h@
+!`!h!
+ pG*((
+@pGpGpGpGpGpGp
+EFFFDF
+&my_m25px16_smphr
+I\n`BhJ`
+`\rI\nhB
+@2F9F
+riF(x
+"iF(x
+"iF x
+"iF0x
+  ```
+` a(x
+`hh `
+h``(x
+'<FG`
+&my_nor_chip_smphr_tbl[i]
+O\rF4I
+!h)D!
+G2F@F
+G:F@F
+`A`pG
+pG\nI	x
+pG\nI	x
+#BFQF0F
+JFAF0F
+#BFIF0F
+0 ` h 
+  ` h 
+` iiy
+p`a`i
+p`a F)h
+H'&#F
+h i`i
+&my_iwdg_kr_smphr
+FOFXF
+%8x4F
+g"fag
+F)F F
+F#F\rJ
+F\rF00
+FiF(F
+"1F F
+&waiter->sgnl
+b\nqHq
+aBy\nC
+@1Xh1
+ (po`
+(b'I\n
+CF:F1F 
+BF9F0F
+;F2F)F
+`:F1F Fkh
+h2F)F F
+F@hQF
+0x9FO
+ yXE7
+  q#F/J@
+px`p!q
+ 1DkF
+"0IXF
+ |HEY
+@h;FBFiF
+ z@E,
+aNa2(
+&my_create_smphr
+&my_state_smphr
+&my_pipe_smphr
+&my_taps[i].rx_direct.wait_event
+hA` F
+`aiAb
+1A`Kh
+&sock->tx_ready.item
+&event->smphr
+ IOP Stack
+&sgnl
+modules\iop\iop_stack_trans.c
+modules\iop\iop_stack_trans.c
+&my_tap_smphr
+&my_trans_smphr
++FAF8F
+\n`0Fp
+ Jh	h!
+!AapG
+;F2F)F F
+hIFMFNF
+`.I`h
+!XF2h
+C9F(F
+hh``hh
+`hh``h,F
+`0F<`
+ (p!F0h
+`QhA`
+`P`pG
+!xApax
+&t8x`pxx
+  pg`%r
+  p z
+@hH`pG
+&my_product_info_smphr
+h)F0F
+"@!(F
+")F F
+!F$h\rr
+%.F`x
+" !(F
+"0!(F
+ .h<JY
+cz2F(F
+bz(x1F
+\rF7F0H
+!aw w)H
+F;FhF
+ `8h0`
+^^^3^H^Y
+ g`n@
+\rF4F7F
+ x;F2Fah
+0D``&
+ (ppx
+p)qjq x
+\n`*F9FhF
+h\n,!D
+AbyiF0F
+Jp)xr	
+a)xjh
+port_cfg->data_smphr
+port_cfg->isr_signal_csmphr
+s&cfc(H
+ixzh(xkh
+``y!h@
+hAh F
+hAi(F
+JQxPp
+ pGpGpGp
+x+F2F!F
+2F)F F
+2F)F F
++F2F!F
+&queue->workq_item
+h`(j@
+&sock->rx_direct.item
+FYF)H
+m0` F
+&#\nJ\nH
+epGpG
+0!)qP %`
+TSK xbkgd
+$hf,p.
+r)I*H
+@r(I&H
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+ TSK mem
+  ```
+ TSK timr
+`H`pG
+AibiBaaa!F
+]nCannot reallocate aligned pointer
+modules\os\garmin-os\tsk_mem.c
+]npGpG8
+req%q
+`1F F
+Task running when it should be waiting on semaphore
+modules\os\garmin-os\tsk_sem.c
+F4F$H
+I(F	h
+"AF8F
+"AF8F
+Fjy F
+0`RF9F
+0 `(Fp
+pG\nhSh
+F!FhF
+F!FhF
+ahH@``
+2F!FhF
+"iF F
+ `q jp@ b
+ j0C b
+FYF8F
+!h FI
+WRKQP
+BF9F(F
+FEDGD
+r9FhF
+rppGO
+ stm32f205
+0123456789ABCDEF@0X
+0123456789abcdef@0x
+0123456789abcdefxp
+0123456789ABCDEFXP
+HWM LED main
+STM32F2XX Watchdog
+NMEA 2000
+iop_stack.c: 202
+prd_software_version.c: 72
+SYC main LDR
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

@@ -36,3 +36,14 @@ class VideoWorker:
 
     def close(self):
         if self._writer is not None: self._writer.release(); self._writer=None
+
+def process_record_images(csv_path, img_dir, scan_type=None, channel=None):
+    """
+    Stub function for processing record images from CSV data
+    TODO: Implement proper image generation from sonar records
+    """
+    print(f"[render_accel] process_record_images called for {csv_path}")
+    print(f"[render_accel] Would generate images to {img_dir}")
+    # For now, just create the directory and return
+    import os
+    os.makedirs(img_dir, exist_ok=True)

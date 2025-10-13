@@ -1,0 +1,578 @@
+`pGn)
+F!F	H
+`pGpGpG
+"iF x
+"iF x
+"iF(x
+"iF x
+riF(x
+@2F9F
+2F)F F
+v1FhF
+@2FiF(x
+2F)F F
+"iF(x
+"iF(x
+"iF x
+ %s SPI Flash  Type:%02X  Size:%u Bytes
+Unknown
+ (p6 
+H@xpG
+I\n`BhJ`
+h\n`BhJ`
+`pG[(\n
+k[]`bd
+mPSVX
+F9F(F
+FEDGD
+BF9FhF
+ &my_at25df32_smphr
+F\rF\nF
+F\rF\nF
+F\rF\nF
+xfer to bb   mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+ xfer to ldr  mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+xfer to sys  mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X
+;F2F)F F
+hJJJL
+0 ` h 
+  ` h 
+jH@B(
+` iiy
+p`a`i@
+p`a F)h
+p`a`i 
+H'&#F
+h i`i
+"1F8F
+r1F F
+r1F F
+"AF F
+`\rFHxiF
+ pGpG&H
+ &my_product_info_smphr
+xpGpGLH@xpGKIHppGIH
+xpGHI
+ppGFH@hpG
+1Fhh\n
+1Fhh\n
+L	 `p
+GHP40 CCU Loader\r\nUnit Type = %i\r\n
+ xfer mode:%08X   xdt0:%08X   xdt1:%08X   xdt2:%08X\r\n
+ watchdog reset occurred\r\n
+loading region...\r\n
+aborting region load\r\n
+xpG\nH@xpG
+ pG1H
+xpGpG
+Volvo AP Reactor 40
+Reactor 40 Volvo
+Reactor 40
+Reactor 40 SBW
+Reactor 40 VIPER
+Reactor 40 Unknown Unit Type
+GdH$0
+GPH$0
+GHH$0
+p@,H$0
+ &timers_smphr
+ CNS Workhorse
+HiF$0\r
+!F} y
+hAh(F
+F4F,?iF7
+FGH88
+"\r! F
+"!FC 
+"J!0F
+"J!0F
+ pGpGpG
+ (ppx
+pGpGpG8
+ x;F2Fah
+0D``&
+ i`ha`h
+ %s %s %s
+@hAi!
+iF0F\r
+ ```i@
+A9`9h!
+9`9hA
+8`8h 
+8`8h@
+8`8h@
+@hAi!
+Aa0F\n
+ HWM CAN
+&can_module[ i ].smphr
+/h8F\n
+ `@F\n
+$jF9F
+8hkFBF
+BFiFrH\r
+FjF)F
+H&`:FAh
+%)F(F,Fo
+C ` h@
+!`!h!
+ `8h0`
+D!i	h	
+FEDFD	
+`ih!`
+ha`)x
+%,FE`
+O\rFUI
+h:FADPF
+G2F@F
+G:F@F
+ &my_nor_chip_smphr_tbl[i]
+ iGh?
+ iFh6
+CF:F1F
+" Yi	
+FJF`F
+Y&h5D%`
+!kF2F
+1FhF\n
+kF2F!F
+1FhF\n
+%AZ9\r
+"!F0F
+ pGpG
+D`p`h
+KpKh[
+*h\nP!z
+2DBP.
+kFBF9F0F
+$`)x	
+B`pGr(
+GpGr(
+GpGr(
+GpGr(
+GpGr(
+pGpGr(
+ pGr(
+GpGr(
+GpGr(
+apGpGpGpGpGpGpGpGp
+CPbPj
+bh\nCb`
+`A`pG
+\raMim
+F(x~I
+%)-159 
+Jp)xr	
+a)xjh
+ }`u'u
+	1F8F
+#BFQF8F
+F1F8F
+ }`u'u
+	1F8F
+port_cfg->data_smphr
+port_cfg->isr_signal_csmphr
+JFAF8F
+F1F8F
+ }`u'u+H
+	1F8F
+#BFIF8F
+F1F8F
+|L!h|J
+nMjCYC
+`!hlJ
+@A`"hhK
+PIl1\rhE
+KI81\rhE
+\r`MI\r
+II<9\r
+FM0=)
+IHx	x
+!0[i+
+!0[j+
+$VI#F
+jVFWFXF\r
+XFih\r
+@&my_iwdg_kr_smphr
+q#F(F
+"iF(F
+"@!(F	
+F#FSJ
+jdj3F*FiF
+F\rF00
+FiF(F
+"1F F
+&waiter->sgnl
+!!`a`
+"<!(F	
+"8!(F	
+"1!(F	
+"(!(F	
+"#!(F	
+" !(F	
+`x<#:F
+x8#:F
+x1#:F
+ 0#:F
+ y(#:F
+`y##:F
+y #:F
+b\nqHq
+aBy\nC
+h$&<'
+@xHppG
+\r Jh[hiF
+"2p x@
+`hH` x
+ XM `
+ hGFO
+A`pG)H
+(1eh x
+pGpGpG
+ 0KpT
+p!qbq(x
+\n`"F9FhF
+cz*F0F
+zaz0F
+zbz0F
+zbz0x)F
+x+F2F!F
+2F)F F
+2F)F F
++F2F!F
+2F)F F
+xJpBx
+CF2F)F 
+BF1F(F
+;F2F)F
+"9F h
+`` h(D `
+#2FHF
+(#2F(F
+" !(F
+"0!(F
+$T.9C
+`:F1F(Fch
+h2F)F F
+F@hYF
+0x9FO
+!yAE9
+  q#FlJ@
+ppx`p
+  pXF
+"!FhF
+KFBF9F
+&t8x`pxx
+!xApax
+SFJFAF
+(h``(y rhy`r
+pap2FIF
+F!FhF
+@h;FBFiF
+  pg`%r
+  p z
+F2F8F
+F2F8F
+BF1FHF
+`L`%qp
+"Xi\n@
+`a(Fp
+"iF0i
+"iF0i
+cNphX
+C:FOyC
+x9FGxA
+\n pa0i
+ &pipe_queues_smphr
+&packet_list_smphr
+"br\r""r!s
+qxRh0xKF
+ a0x rpx`r
+  v`v
+"1F@h
+!p@x`p
+2F!F(F
+IhJj!F
+FD!hF
+ `b j
+ &signal
+IhJi)F
+&my_sock_create_del_smphr
+&my_sock_smphr
+&my_task_msg_queue_smphr
+&my_tap_del_sgnl
+&my_intf_status_cond
+ IOP sock
+u1F(F
+h2,!D
+FLHBh
+xpG&H
+pGpGp
+!F$h\rr
+&blocker->signal
+ &event->smphr
+FPxQppG-
+%.F`x
+h1F(F
+h1F(F
+ %C8p
+g K*F!
+ IOP Stack
+&stat_smphr
+ &sgnl
+d!HC2!
+:F1FhF
++FAF8F
+rhix(x
+hkh"F
+  qph
+xy9h@
+hAh F
+..\..\..\..\modules\iop\iop_stack_trans.c
+ &my_tap_smphr
+&my_trans_smphr
+pGpGpGp
+ pGpG
+ TSK bkgd
+ChIH"F
+#*FAF F
+`BhE`
+ChcH"F
+!BhA`
+1H+F:F
+ `q jp@ b
+ j0C b
+bqH/h
+({ rh{
+d(i bcH`b
+chi7d
+ pGBH
+!!qaq
+]n&p_tcb->que_smphr
+ `b F
+ jFI@
+&#+J+H
+]nTask cannot join itself return: 0x%08x
+..\..\..\..\modules\os\garmin-os\tsk_delete.c
+&join_smphr
+ChxH"F
+a1FqH
+`BhE`
+`BhE`
+F9F\nH
+epGpG
+ pGpGpG
+9 gH`
+ H`	h
+P`pG\nI
+`H`pG
+ Active task list not locked
+..\..\..\..\modules\os\garmin-os\tsk_list.c
+~(mActive task list already locked
+"!F(F
+memalign, R4=blk_sz, R5=addr
+..\..\..\..\modules\os\garmin-os\tsk_malloc_mem.c
+H@`aAF
+`QhA`
+`P`pG-
+0,FAo.FI
+ xa|H
+@VI	oI
+ 1RO8o@
+HO8o@
+ 0@E	
+I`h\no
+;F2F)F F
+ 0p!F8h
+AtOEh
+hh``hh
+`hh``h,F
+\H+FZF
+!PF*h
+hIFCh
+C9F0F
+H\rF80
+G+FJF
+H#FZF
+fH[F2F
+AibiBaaa!F
+]nCannot reallocate aligned pointer
+..\..\..\..\modules\os\garmin-os\tsk_mem.c
+aiAEd
+ CH\nF
+m\9	h
+'hf/p
+3CP>I
+rX9OH
+8INKO
+@rH9KH
+#>J9F 8
+DPaH`
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+ TSK mem
+KFZFQF F
+TSK_mem
+`pG$I
+!AapG
+@hH`pG-
+`1F F
+AbyiF0F
+"QF8F
+FAFpH
+Fjy F
+\nTask running when it should be waiting on semaphore
+..\..\..\..\modules\os\garmin-os\tsk_sem.c
+F\rFeH
+< F&o
+`)F8F
+!AapG
+pGpGp
+0 `(Fp
+FlHnJ
+!0F7a
+"`chC
+%%`(!hFe`
+ TSK timr
+!(F#h
+$hpHd
+ `P! 
+$)FCH
+ &tls_smphr
+ pGpGp
+req%q(F
+I\nK$1O
+!8F%h
+ ..\..\..\..\modules\os\tsk_ntfctn.c
+]nget_semaphore(p_list)
+F!FhF
+@9Ca`
+\n`pG|
+F!FhF
+@i@a`|
+2F!FhF
+Reactor 40
+ pGpGpG
+F!F0F
+F!F0F
+h5F0D
+`MD`h@
+ H`!h
+`(h@h
+`(h@hH`(h
+`(hBhj
+h2F8DIF
+h5F0D
+F8DIF
+`MD`h
+B(D``
+BF)FHF
+BF)FHF
+BF)FHF
+BF)FHF
+:F)F@F
+:F)F@F
+  `(Fp
+G Fdh
+ (`h`
+\rFXFRF
+h\n`pG
+&p_list->smphr
+1@&x1C!p
+  a`a
+ "iF(F
+ @ipG
+G!FhF
+` tca
+Failed to allocate queue buffer
+..\..\..\..\modules\utl\utl_queue.c
+#1F F
+#:F1F F
++F9F F
+ahA``h
+``` `
+`A`pG
+&queue->smphr
+````n
+2F)F F
+  ``f
+f g f
+g%fcg
+SF2F)F F
+@\nSFBF)F F
+00070K0\
+ZFIFPF
+af!oQ
+ g`n@
+32F!F(F
+;F"F1F(F
+  ``f
+f g f``
+ &queue->smphr
+&queue->cond
+K{DiF
+D(b(F
+hu)9F
++F"F8F
+F\rF!F
+F)F F
+&_F F
+h/F F
+fJF)F F&`NF
+ppGpGpGpG	hJ
+pG	hJ
+ pGpG-
+02bUm
+#\b\cTI
+FAF F
+B-#\n"
+ j8D b F
+02:Ud
+3F*F!F@F
+HpG,1
+\nV\r-J
+\nZTiF
+ j(D b
+01HxD
+iFSF 
+bF9FN
+RAIAK
+bF9FN
+RAIAK
+bF9FN
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAA
+! 3[B
+ pG08\n(
+rppGO
+ stm32f205
+ 22792057P01
+22792061P01
+ #$3TUV
+Can't destroy notification. List not empty. p_list = 0x%08x, p_first = 0x%08x
+10.10
+0123456789ABCDEF@0X
+0123456789abcdef@0x
+0123456789abcdefxp
+0123456789ABCDEFXP
+Micron
+Unknown
+Adesto
+Cypress
+HWM LED main
+GHP40 CCU BIOS 2
+GHP40 CCU BIOS
+GHP40 CCU Boot Block
+GHP40 CCU Non-Vol
+Kicker TC System
+GHP40 AHRS System
+GHP40 CCU System
+GHP10 ECU System
+GHP12 ECU System
+Leisure ECU System
+Kicker ECU System
+GHP20 SmartPump ECU Sys
+SYC main LDR
+STM32F2XX Watchdog
+NMEA 2000
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

@@ -1,0 +1,431 @@
+`pGn)
+F!F	H
+M h)h
+@pGT_
+hpGpGpGpG
+K{DiF
+pG	hJ
+D(b(F
+hu)9F
++F"F8F
+ j8D b F
+F\rF!F
+F)F F
+&_F F
+h/F F
+fJF)F F&`NF
+ppGpGpGpGpG-
+HpG\_
+HpG`_
+%s %s %s
+"P(x@
+$jF9F
+]/M!?
+]/M!?
+F%HGp
+]/M!?
+a\rI2 %b
+MPRTW
+  `(x
+;FBFPF
+[Y%h+D#`
+ ,ph`
+U(pG-
+D`p`h
+2F9FPF
+2F9FPF
+:F1F@F
+`x<#*F
+x8#*F
+x1#*F
+ 0#*F
+ y(#*F
+`y##*F
+y #*F
+CF:F1F
+xJpBx
+2F!F(F
+IhJj!F
+FD!hF
+&signal
+GNXXX
+ modules\os\garmin-os\rtl_stubs.c
+H@xpG
+jF2!O
+L	 `p
+IHppG
+H@hpG
+`BhE`
+hi`b/H/h
+Fhh`a*{
+({ rh{
+a!H b
+chi7d
+]n&p_tcb->que_smphr
+a1F\rH
+!AapG
+!(F,a
+F\rF	H
+IAapG#
+CF:F1F(F
+,F4F8
+H+FRF
+KFZFQF8F
+get_semaphore(p_list)
+!8F%h
+  gH`
+"aF(F
+F\rF	H
+!BhA`
+`BhE`
+`BhE`
+F0h D0`ph
+  \rH@
+&tls_smphr
+H@ aAF
+`!hIh
+`!hIhA`!h	h1D
+`#hZh
+ H`!h
+h5F0D
+D:F@F
+`ED`h@
+h5F0D
+`ED`h
+B(D``
+BF)FHF
+BF)FHF
+&p_list->smphr
+`"tca
+!!tXC
+Failed to allocate queue buffer
+modules\utl\utl_queue.c
+ahA``h
+``` `
+#AF F
+`A`pG
+` a`a
+&queue->smphr
+W[FRFIF F
+32F)F F
+;F"F1F(F
+f g`g`f
+&queue->smphr
+&queue->cond
+3@&x3C#p
+@+C#p
+pG08\n(
+pG F0
+2F)F F
+#BF8F
+(#BF(F
+  b F\n
+f g`g
+0!FhF
+"aF h
+`` h(D `0F
+pGpGpGpGp
+a,ala
+&timers_smphr
+ CNS Workhorse
+ix0x	Kjh
+`hH` x
+  v`v
+Rhqx0x
+7r5pup
+'Jd!O
+ pG|`
+f g`g`f
+*pGaDR
+`FpG\n(	
+ `P! 
+CFRF)F8F
+pGSj#
+ ```i@
+H$"Ki	i
+GEN\rF
+cDCP zo
+H@xpG
+@hAi!
+a@hAi!
+ HWM CAN
+ &can_module[ i ].smphr
+&my_cache_smphr
+&my_segmened_buffer_smphr
+H,qlq
+"(!\nH
+D!i	h
+FEDFD
+ ` hf
+ ` h@
+!`!h!
+I	J\n`\nJ\n`
+ pG,((
+ pG|b
+@pGpGpGpGpG
+B`pGL
+&bus_smphr[ i ]
+ &bus_variables[i].d_evnt
+`RH<$
+#IMj%
+MbMjE
+I\n`BhJ`
+  ```
+` a(x
+`hh `
+h``(x
+p8!A`pG
+p`!Ap
+  p``
+&my_nor_chip_smphr_tbl[i]
+O\rF4I
+!h)D!
+G2F@F
+G:F@F
+p8!A`pG`
+pAp@!
+p<!A`pGh
+"FaFX
+&status_led_smphr
+ HWM STATUS LED DRIVER
+BFYFPF
+BFYFPF
+` `fa
+GNX30
+GNX21
+GNX20
+F#F\rJ
+F\rF00
+FiF(F
+"1F F
+&waiter->sgnl
+FpG\*
+b\nqHq
+aBy\nC
+@1Xh1
+ (po`
+(b(I\n
+ `b j
+CF:F1F 
+BF9F0F
+;F2F)F
+`:F1F Fkh
+h2F)F F
+F@hQF
+(x1FO
+ yXE/
+  q#F/J@
+hx`p!q
+ 1DkF
+"0IXF
+o@!H=
+@h;FBFiF
+\n pa0i
+&pipe_queues_smphr
+&packet_list_smphr
+&my_sock_create_del_smphr
+&my_sock_smphr
+&my_task_msg_queue_smphr
+&my_tap_del_sgnl
+&my_intf_status_cond
+ IOP sock
+u1F(F
+&event->smphr
+ IOP Stack
+&stat_smphr
+&sgnl
+modules\iop\iop_stack_trans.c
+modules\iop\iop_stack_trans.c
+&my_tap_smphr
+&my_trans_smphr
++FAF8F
+:F1FhF
+\n`0Fp
+F)zd 
+q!`!h
+` ``i
+ (r iih
+` ` iih
+ (r h@
+p ` h
+F)zd 
+q!`!h
+x ahh@
+!)r!hA
+q!`!h
+ Jh	h!
+!AapG
+;F2F)F F
+hIFMFNF
+`3I`h
+!XF2h
+C9F(F
+hh``hh
+`hh``h,F
+`0F<`
+ (p!F0h
+`QhA`
+`P`pG
+!xApax
+&t8x`pxx
+  pg`%r
+  p z
+@hH`pG
+`L`%qp
+"iF(i
+"iF(i
+(N5Fpi
+ba(Fp
+h)F0F
+"@!(F
+")F F
+!F$h\rr
+%.F`x
+"0!(F
+ .h<JY
+cz2F(F
+bz(x1F
+ `(h0`
+fff;fPfa
+@p``)FXF
+ x;F2Fah
+0D``&
+ (ppx
+fN!h5hE
+aMaJ(h
+ba	hG
+ba	hG
+ \rF\n,
+h\n,!D
+"1F@h
+p ` h
+MbyiF8F
+ixzh(xkh
+  qxh
+`y!h@
+py1h@
+hAh F
+#!hhh@
+JQxPp
+ pGpGpGp
+x+F2F!F
+2F)F F
+2F)F F
++F2F!F
+-N0hx
+FYF*H
+m0` F
+epGpG
+ TSK bkgd
+  q`q
+TSK fake timr
+\nL!F\nh2
+00HcPh@
+`H`pG
+AibiBaaa!F
+]nCannot reallocate aligned pointer
+modules\os\garmin-os\tsk_mem.c
+rPIPH
+@rNILH
+#?J1F\n
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+ TSK mem
+`1F F
+F5F H
+"AF8F
+"AF8F
+Fjy F
+0`RF9F
+0 `(Fp
+pG\nhSh
+F!FhF
+F!FhF
+ahH@``
+2F!FhF
+"iF F
+FYF8F
+s"FiF
+@p``)FXF
+CwIwP
+@yIOII
+(D((((D(
+II6>AA"
+A0@@?
+		v&II2
+?@@??@ 
+?@|@?c
+D||DD|D
+|@|<@<|@|@|l
+]VUt"
+|DD|T\
+A_KWA
+< |xM@x
+IIA^a!!|UVD|VUD~UVD}TUDE~DD~EF}FE|E
+IA>~	
+}9FD88FE8:EF8:EF99DD9
+=B@<<@B=>AB<=@@=
+II6iJxhJyjIzjIz
+iHyhHytT||T\
+D}V\|V]~U^}T]
+}F||F}~E~~E~
+|dTL|}B||B}~A~}@}|B
+ stm32f205
+ Software Version
+ Unsupported function, R4=caller
+LOADING SOFTWARE
+0123456789ABCDEF@0X
+0123456789abcdef@0x
+HWM DISPLAY MNGR
+HWM LED main
+NMEA 2000
+Out of gfx resource, r0=task ID, r1=file name ptr, r2=line #
+Out of file descriptors, r0=task ID, r1=p_fdp, r2=fil usr tsk 1, r3=tsk 1 hndl cnt, r4=fil usr tsk 2, r5=tsk 2 hndl cnt, etc.
+Task not active, r0=calling task ID, r1=inactive task ID
+Deleting cond var with waiters, r0=task ID, r1=cond, r2=waiting task ID
+Deleting cnt smphr with waiters, r0=task ID, r1=smphr, r2=waiting task ID
+Out of NV memory, r0=task ID
+Out of stack pool memory, r0=task ID
+TLS array index overflowed, r0=task ID, r1=tls idx, r2=MAX TLS INDICES
+Stack overflow, r0=task ID, r1=sp, r2=pc
+MIPS32 exception.  R0-R31 + badvaddr + status + cause + epc
+Out of memory, r0=not useful, r1=rtrn, r2=blk sz requested
+Cond var already initialized, r0=task ID, r1=cond
+Uninitialized cond var, r0=task ID, r1=cond
+ADS call to __rt_raise(), r0=task ID, r1=sig, r2=type, see RTL_pub_lib.h
+Deleting spinlock that is currently owned, r0=task ID, r1=spin lock
+Uninitialized spinlock, r0=task ID, r1=spin lock
+Bad memory block pointers, r0=task ID, r1=rtrn, r2=first blk, r3=prev blk, r4=prev blk's next, r5=this blk, r6=next blk's prev, r7=next blk, r8=last blk
+Smphr deadlock, r0=smphr 1 owner, r1=smphr 1, r2=smphr n owner, r3=smphr n
+Memory handle pointer missing, r0=task ID, r1=rtrn
+Not allowed in interrupt, r0=not useful, r1=rtrn
+Message queue overrun not allowed, r0=task ID, r1=target task ID, r2=rtrn
+Can't join detached task, r0=task ID, r1=target task ID, r2=rtrn
+Can't delete joinable task, r0=task ID, r1=target task ID, r2=rtrn
+Task already created, r0=calling task ID, r1=tdb, r2=rtrn
+Memory allocation exceeded, r0=task ID, r1=handle, r2=rtrn
+Bad memory handle, r0=task ID, r1=handle, r2=rtrn
+Realloc or xfer of locked memory, r0=task ID, r1=handle, r2=rtrn
+Task msg size not multiple of 4, r0=task ID, r1=msg_size, r2=rtrn
+Semaphore already released, r0=task ID, r1=smphr, r2=rtrn
+Out of memory handles, r0=task ID, r1=limit, r2=rtrn
+Detached event already initialized, r0=task ID, r1=detached event, r2=rtrn
+Uninitialized detached event, r0=task ID, r1=detached event, r2=rtrn
+Deleting detached event with tasks waiting, r0=task ID, r1=detached event, r2=waiting task ID, r3=rtrn
+Bad memory lock count, r0=task ID, r1=handle, r2=oldcnt, r3=newcnt, r4=rtrn
+Cnt smphr already initialized, r0=task ID, r1=smphr
+Uninitialized cnt smphr, r0=task ID, r1=smphr
+Bad use of recursively reserved smphr, r0=task ID, r2=smphr
+Cond var used with unowned smphr, r0=task ID, r1=cond, r2=smphr
+Unknown RTL error
+Undefined instruction, system r0-15 + cpsr
+Unhandled software interrupt, system r0-15 + cpsr
+Data abort, system r0-15 + cpsr
+Prefetch abort, system r0-15 + cpsr
+Can't free memory that includes handle, r0=task ID, r1=rtrn, r2=ptr
+%s %u, %s
+TLS key is invalid, r0=task ID, r1=address of tls key, r2=tls idx
+SYC main
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

@@ -1,0 +1,144 @@
+{
+  "system_info": {
+    "cpu_count": 8,
+    "memory_gb": 47.81173324584961,
+    "platform": "win32"
+  },
+  "benchmark_summary": {
+    "total_tests": 8,
+    "best_performance": {
+      "name": "Baseline Parser",
+      "rps": 19768.49443331454,
+      "advantage": 3.5586848664832655
+    },
+    "target_achieved": false,
+    "max_advantage": 3.5586848664832655
+  },
+  "improvements_over_baseline": {
+    "Optimized Parser": {
+      "speedup": 0.9141668428896152,
+      "memory_ratio": 0.4350328225175755,
+      "competitive_advantage": 3.2532317092320584
+    },
+    "Parallel Parser (2 workers)": {
+      "speedup": 0.8274466522656286,
+      "memory_ratio": 2.751891747586925,
+      "competitive_advantage": 2.9446218792399335
+    },
+    "Parallel Parser (4 workers)": {
+      "speedup": 0.6680525973116954,
+      "memory_ratio": 2.7181540177977164,
+      "competitive_advantage": 2.3773886680679697
+    },
+    "Parallel Parser (8 workers)": {
+      "speedup": 0.796953301123827,
+      "memory_ratio": 2.6720690333020896,
+      "competitive_advantage": 2.8361056520032437
+    },
+    "Scalability Test (small)": {
+      "speedup": 0.8307792077407516,
+      "memory_ratio": 0.22326918088179362,
+      "competitive_advantage": 2.9564813939759698
+    },
+    "Scalability Test (medium)": {
+      "speedup": 0.8778809127032663,
+      "memory_ratio": 0.2232711348740251,
+      "competitive_advantage": 3.1241015186116305
+    },
+    "Scalability Test (large)": {
+      "speedup": 0.783291500419166,
+      "memory_ratio": 0.2232689144283075,
+      "competitive_advantage": 2.7874876085866562
+    }
+  },
+  "all_results": [
+    {
+      "name": "Baseline Parser",
+      "duration_seconds": 2.5292770862579346,
+      "records_processed": 50000,
+      "bytes_processed": 52428800,
+      "memory_peak_mb": 85.89935874938965,
+      "records_per_second": 19768.49443331454,
+      "mbytes_per_second": 19.76849443331454,
+      "competitive_advantage": 3.5586848664832655,
+      "optimization_type": "baseline"
+    },
+    {
+      "name": "Optimized Parser",
+      "duration_seconds": 2.766756534576416,
+      "records_processed": 50000,
+      "bytes_processed": 52428800,
+      "memory_peak_mb": 37.36904048919678,
+      "records_per_second": 18071.702144784085,
+      "mbytes_per_second": 18.071702144784084,
+      "competitive_advantage": 3.2532317092320584,
+      "optimization_type": "optimized"
+    },
+    {
+      "name": "Parallel Parser (2 workers)",
+      "duration_seconds": 3.056725263595581,
+      "records_processed": 50000,
+      "bytes_processed": 209715200,
+      "memory_peak_mb": 236.3857364654541,
+      "records_per_second": 16357.37453917783,
+      "mbytes_per_second": 65.42949815671132,
+      "competitive_advantage": 2.9446218792399335,
+      "optimization_type": "parallel"
+    },
+    {
+      "name": "Parallel Parser (4 workers)",
+      "duration_seconds": 3.7860448360443115,
+      "records_processed": 50000,
+      "bytes_processed": 209715200,
+      "memory_peak_mb": 233.48768711090088,
+      "records_per_second": 13206.394051117572,
+      "mbytes_per_second": 52.82557620447029,
+      "competitive_advantage": 2.3773886680679697,
+      "optimization_type": "parallel"
+    },
+    {
+      "name": "Parallel Parser (8 workers)",
+      "duration_seconds": 3.173682928085327,
+      "records_processed": 50000,
+      "bytes_processed": 209715200,
+      "memory_peak_mb": 229.52901649475098,
+      "records_per_second": 15754.56689687802,
+      "mbytes_per_second": 63.01826758751208,
+      "competitive_advantage": 2.8361056520032437,
+      "optimization_type": "parallel"
+    },
+    {
+      "name": "Scalability Test (small)",
+      "duration_seconds": 1.5222318172454834,
+      "records_processed": 25000,
+      "bytes_processed": 10485760,
+      "memory_peak_mb": 19.17867946624756,
+      "records_per_second": 16423.254143536513,
+      "mbytes_per_second": 6.569301657414605,
+      "competitive_advantage": 2.9564813939759698,
+      "optimization_type": "scalability"
+    },
+    {
+      "name": "Scalability Test (medium)",
+      "duration_seconds": 1.4405581951141357,
+      "records_processed": 25000,
+      "bytes_processed": 52428800,
+      "memory_peak_mb": 19.178847312927246,
+      "records_per_second": 17354.383935887607,
+      "mbytes_per_second": 34.70876787177521,
+      "competitive_advantage": 3.1241015186116305,
+      "optimization_type": "scalability"
+    },
+    {
+      "name": "Scalability Test (large)",
+      "duration_seconds": 1.614518404006958,
+      "records_processed": 25000,
+      "bytes_processed": 209715200,
+      "memory_peak_mb": 19.178656578063965,
+      "records_per_second": 15484.493665698876,
+      "mbytes_per_second": 123.87594932559101,
+      "competitive_advantage": 2.7874876085866562,
+      "optimization_type": "scalability"
+    }
+  ]
+}

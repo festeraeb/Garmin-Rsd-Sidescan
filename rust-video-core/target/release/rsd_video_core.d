@@ -1,0 +1,1 @@
+C:\Temp\Garmin_RSD_releases\testing\ new\ design\rust-video-core\target\release\rsd_video_core.dll: C:\Temp\Garmin_RSD_releases\testing\ new\ design\rust-video-core\src\alignment.rs C:\Temp\Garmin_RSD_releases\testing\ new\ design\rust-video-core\src\lib.rs C:\Temp\Garmin_RSD_releases\testing\ new\ design\rust-video-core\src\waterfall.rs

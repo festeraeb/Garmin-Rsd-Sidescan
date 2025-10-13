@@ -1,0 +1,532 @@
+@FYFRFKF
+\rIF10
+{hrX{
+pGpGpG
+Bootblock
+System
+\pG\rK
+@4H@i
+HWM_CAN_MCP2515_MAIN
+&my_stop_thread_flag_smphr
+&result.sgnl
+/J0I\n`0J
+"(#|1H0
+zXshz
+t({TMd5Xt(
+&my_tx_queue_smphr[0]
+&my_tx_queue_smphr[1]
+&my_rx_queue_smphr
+CXt`\r
+t@ 8C
+I8U.U
+pGpGpGpGpG
+\ncpKQ
+cpGmJ\n 
+c<H,0
+`H`pG
+IL#XCIh
+  `L \r
+!`L#YC\r
+``L pCahD
+`hh `
+h``(xA
+AXab)xK
+2IL#XCIh
+rAxYr
+&nor_partition->nor_smphr
+5IL#XCIh
+LL#CCdh
+  a`a
+&state->smphr
+aZauK
+bZbrbgK
+b%`qK
+`dN5`
+ Ha	"
+aPJ\nbHbPJ
+bNJ\nc
+`ILT`
+`H`EH
+"\nCCI
+cAcBH
+cBc?H
+CBc;H
+cBc9H
+JP`" 
+JP`" 
+K|Lcb~L
+##`~K
+awKcN
+a0bvKsbxL
+##`wKxM
+a(bvKkbvL
+##`pK
+a bgKcbqO
+#;`pK
+a8bnHxbnI
+CXJQb
+8LajI
+7NqjI
+'9Cab
+qj9Cqb
+x%q]xeq
+ pGpG
+  r$ 
+C	X@8
+@9Hb!z
+`ph@Y
+phGQ1x	
+&my_bus_smphr
+bJj  
+!hAc !
+C/JRx
+CAb-I
+!Ac !
+&spi_smphr
+CMJRx
+CAbKI
+!hAc !
+ pGkI
+ pG`HAj
+9XHh	j
+JIHx	x
+ pGFI
+9XHhIj
+9XHhIi
+%ep%p	
+qXpphiF
+C2\n\n@
+rbFZr
+r`FXr\n
+uIp`\r
+kI(18
+IOP_APP_MAIN
+&my_stop_thread_flag_smphr
+&iop_app_main_msg_queue_smphr
+&my_timers_smphr
+ai i	h
+ai i	h
+=Xrai iLh3
+c d p`d8
+&waiter->sgnl
+`A`pG8
+w"ahR
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpG
+ pGpGpGpG
+$oF>I`
+hpG-I
+pGpGpGpG
+ pGpGpG8
+\I8"(1 
+&my_rx_rgn_state_smphr
+pGpGpG`
+%s %s %s
+ECU version %s
+ pep8
+&my_comm_smphr
+pqxAp
+qAxYq
+pJxBp
+!" `J
+!. ^J
+XKUIVH
+                 
+!1 XJ
+QKOIOH
+@[B 3
+@[B 3
+@[B 3
+@[B 3
+yH@Xq
+yH@Xq
+bIcH	x@
+x2x\n@
+0x9I@
+?K=I=H
+\nx"C\np\r
+C\np\nx
+mI818
+4adL 4 
+_H@xpG
+  pfp
+%``4H
+&my_stop_thread_flag_smphr
+IOP_ISO14229_SERVER_MAIN
+x x}K*
+pG`Ep
+` a`a
+``i a
+\rHL8\n
+xar@x
+hRh,0Bf
+sLrIL<
+ ah< 
+ a^H^I
+UMlppH
+haSH48
+ hr,r
+`8axaxvEI8vDH
+9	nCN
+eT60x
+x8r>HL8
+!4?9v
+&my_srvc_rec_smphr
+&rqst_msg_smphr
+&my_rspns_cnfrm_cond
+&my_rspns_cnfrm_smphr
+&force_pend_sgnl
+N(>0x
+M(=(x
+ (=(p
+8iyi@
+ (=(p
+TI(9Lp
+hH`\na
+qAxYq
+pAxYp
++O(?8x
+"I$90
+ 8p$$%
+zApYz
+!4 FJ
+!6 EJ
+!7 CJ
+zXpXz
+&my_dl_smphr
+ xp1h
+ !x		
+p !	\
+pbdx"
+$XpL `C
+DIL"BCR
+L#XCD
+pgp0h !``
+ `q`d
+apGpG
+&L `C<T
+yPppG
+x:ImF
+pXy q
+yYqAy
+zYrAz
+xiFtK
+xdKiF
+=T0x 1
+1P0bx
+ 06J6I
+phx`p 
+8x+IC
+u!`hI
+zXt z
+ x(r(
+~XrX~
+HiF\rK
+pGpGpGpGpG
+r`FXr
+phzXp
+uKhC`Hi
+MIXw@
+pGpGpGpGpG
+yLL4 
+nLd4 
+;LL4 
+0Ld4 
+ pp3H
+ ad5(
+IOP_N2K_APP_MAIN
+&my_stop_thread_flag_smphr
+&my_timer_smphr
+&my_clbk_smphr
+`pGEI
+9X219Phh
+5zL\nh
+(X``nI
+ppGpG0
+ Xw9H
+$03I	
+sAxYs
+0=JcUdq
+k@kYC
+`8kyk
+&my_pipe_list_smphr
+CBy\nC
+h@X@h
+`8X``
+ XsZ}X
+\nzIh(\
+xpGmH
+xpGlI
+ppGjI
+  pe`
+(I)KHp*I+H(J
+uL 4 
+ihFnF
+"Bq\n"
+IOP_SOCK_MAIN
+&my_stop_thread_flag_smphr
+hpxWi
+ P4 s
+X! f0h`e
+ P4 s
+]yeE,
+p`FXp
+!P0As
+  v`v
+\n\n\n\n\n\n\n
+\n\n\n\n\n\n\n
+!i`,`
+d%EC0
+&my_sock_smphr
+&my_task_msg_queue_smphr
+ jFoF
+ h1h@
+ ``h1h@
+  ``` 
+  ``` 
+IOP_STACK_MAIN
+&my_stop_thread_flag_smphr
+&event->smphr
+H`8@xpG
+lpnH,a
+8DaD`
+h"ici
+&stat_smphr
+`\naJa
+d#XC	
+UM,i	
+%xa7I
+^d!AC
+h@=-hm
+]EI@9
+2@0Ah
+<a}ap]
+F8ibK
+^I8azi
+>Np>0
+ `p@B
+zNp60
+xO(78
+9HCXC	
+d"bCH
+hxCXC	
+ONMIMJ
+  `4H!
+jpG)H)I
+0@hIj
+ pGpG8
+#HmFiF
+%(7p4
+ Hp{H
+auH(0
+aqHX0
+amHp0
+c`IKHL
+Z`2KbF
+X ;bC
+0ZP.I
+$I#K\n
+&dfrg_smphr
+&del_smphr
+&get_smphr
+&put_smphr
+0]8Jq]
+8FC2 pC
+hah@1
+Stack Overflow: r0=task(%s), r%d=limit, r13=sp, r15=pc
+\rH@xpG
+"\npJx
+pHp	H
+CM$5(
+ 'I}"
+\rL$4 
+SYC_MAIN_LDR
+&my_stop_thread_flag_smphr
+`ahA`ah
+`e` k
+`a!c0
+#3`s`
+!1`q`
+ pG&wksp->smphr
+@=C\rp
+@7@/C<
+@5@&x5C%p
+@>C&p
+@>@gx>Cfp
+@=C%p
+hBi@hQC
+hbichQC
+hbiahPCA
+hbichPC
+hbiahPC@
+manHC!o@
+Gan n
+e f`f
+``` g`g 
+|Hx1|K
+mbnPC"o
+ean n
+HC!o@
+HC!oA
+e f`f
+``` g`g
+&queue->smphr
+&queue->cond
+`%a`i
+b~H,0
+HW Expired
+Expired Handle: %d \n
+Expiration Time: %d \n
+Enabled: TRUE\n
+Enabled: FALSE\n
+ILD< 
+&my_task_smphr
+&my_data_smphr
+&my_log_smphr
+ &Jpp
+pGpGpGpGpGpG
+`pGQ`pG
+h aHhO`
+" aHhJ`
+&sgnl->wait_tsk_smphr
+$4=,`l`
+`hhDt
+&p_list->smphr
+&sgnl->smphr
+I(1Oo
+ `Aha`
+{I49Jh
+lI49Hh
+KH48@o
+BH48@i
+0(aii
+H48@o
+J(:Qh	
+$C`Sh
+$S`Ch
+AH(8@hpG
+H 948
+PWH48
+TJ{h4:
+;H48@
+&~f>p
+;;aS`
+FI\9H`
+\nXza\nX
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.malloc_smphr
+&tsk_mem_ws.wait_smphr
+-JRorE
+ (p	Ihm(9Ih
+0P!pG
+G G(G0G8G
+&HiFxD
+"x1x2p!p
+*x1x2p)p
+*x!x"p)p
+x"x#p
+*x!x"p)p
+(  R"
+`BA02
+?v<y5
+=UUUUUU
+RBL@;x
+0;\n+\r
+(`\np'
+h@h0c
+h@h0c
+h@h0c
+h@h0c
+aq`ra
+`!a!!	
+0123456789ABCDEF
+0123456789abcdef
+2\n`pG
+#CRU#
+#CRU#
+5I\nhKh
+SU'GS '
+.O>h}h
+SU'GS '
+2GZFZw@
+#CRU#
+`pG)X
+{(tht
+u#H(`
+`\nIB|
+!M-h.|(
+I	h8 @
+I	hHh
+I\nhPh
+I\nhPh
+t"}SC
+h+`j`
+`2h\n`5`
+HP!pG
+1h)`wh1{
+I	hA`
+Cy`ci
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAA
+/1 0c
+Volvo AP Compass
+ERROR: Undefined Product
+21812209P01
+00000000P00
+HWM CAN
+A0038-XX
+A0062-XX
+32Khz Bravo 2 Watchdog
+IOPAppMain
+CAN Single Frame
+TEA2+
+14229 Dispatch
+NMEA 2000 Address Claim
+NMEA 2000 Fast Packet
+NMEA 2000 Transport
+NMEA 2000 Garmin Transport Layer
+IOPN2KMain
+CAN Frame Layer
+IOP sock
+IOPstack
+:\nHandle: %u Owner: %u Timeout: %u NextTimeout: %u LastKick: %u 
+WDT main
+Out of memory handles
+Bad memory handle
+Out of file descriptors
+Memory allocation exceeded
+Realloc or xfer of locked memory
+Out of NV memory
+Memory handle pointer missing
+Bad use of recursively reserved smphr
+Bad memory lock count
+Semaphore already released
+ADS call to __rt_raise()
+Task msg size not multiple of 4
+Bad memory block pointers
+Out of memory
+Deleting cnt smphr with waiters
+Cnt smphr already initialized
+Uninitialized cnt smphr
+Deleting cond var with waiters
+Cond var already initialized
+Uninitialized cond var
+Cond var used with unowned smphr
+%s %u, %s
+Unknown RTL error
+UUUUU
+     
+     	  
+b$C4 
+P%@Fpg`
+RwbVr
+ftGd$T
+uJTZ7j
+ld\EL
+n6~UNt^
+Qkkbal
+wn>Jj

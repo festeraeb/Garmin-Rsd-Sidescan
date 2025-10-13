@@ -1,0 +1,986 @@
+`pGp)
+pGpGp
+ahi`!h
+FAFHF
+D(b(F
+hu)9F
++F"F8F
+F\rF!F
+F)F F
+&_F F
+h/F F
+fJF)F F&`NF
+HxDjF
+*`	h"
+F!j(F
+F0F\n"
++pGBx
+`pGpGpGpGpG
+HpGXZ
+HpGPZ
+ pGpGpGpG8
+02bUm
+#\b\cTI
+FAF F
+B-#\n"
+JzDJa
+JzD\nb
+pGAhY
+JF9F F
+HpGPZ
+HpGpZ
+'=F9F
+#FjFo
+	c(OF
+	IFbi
+01HxD
+iFSF 
+1(@!@
+\nFaA+
+DP\nC1F
+KPCJ@
+INFINITY
+SIGRTMEM: Out of heap memory
+: Heap memory corrupted
+HpGTZ
+bF9FN
+RAIAK
+bF9FN
+RAIAK
+bF9FN
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAAF
+! 3[B
+"\npH`pG
+"\npH`pG
+mag cal mat:\r\n
+accel cal mat:\r\n
+ gyro cal mat:\r\n
+ `p`x
+pwrp accel cal mat:\r\n
+\r\npwrp gyro cal mat:\r\n
+\r\npwrp mag cal mat:\r\n\r\n
+"\npH`pG
+`0hqh
+	 (p0hqh
+L `a`
+ aaa\r
+4 `a`
+4 `a`
+< dad
+a nan
+`a nan
+`&p&a
+!!dad
+ApAx!
+ApAx!
+ApAxA
+ApAx!
+ApAx!
+ApAx!
+ApAx!
+IH`pG
+ATT: Unhandled msg: 0x%02X \r\n
+ AHRS: msg rx: 0x%02X \r\n
+ iron cal mat:\r\n
+Setting Down Vector\r\n
+Iron Calibration Start\r\n
+Iron Calibration End\r\n
+hah h
+hah h
+K0F9F
+K0F9F
+4F=F"F+F
+2F;FXF
+E"F;F
+2F;FXF
+F0F9F
+ "F+F
+hqh0h
+E:FCF
+ Min Err Dim = %u has err %g\r\n
+ meq:%i spq:%i\r\n
+ironcal fail\r\n
+ %03u %g %g %g \r\n
+ EDim %u has err %g\r\n
+Ironcal Failed\r\n
+" p`p
+FZFQFHF
+  CVR: 
+h*rp: 
+   h: 
+  rp: 
+ag % 8.5lf % 8.5lf % 8.5lf % 8.5lf % 8.5lf % 8.5lf\r\n
+`Q`4H
+accraw
+magraw
+gyroraw
+rawsdb
+rawsde
+%s %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf
+Cal points %07u %0.5lf %0.5lf %0.5lf %0.5lf %0.5lf %0.5lf\r\n
+AHRS ma cal started\r\n
+raw sd
+AHRS raw sensor test started\r\n
+"iFA 
+"iFC 
+"iF( 
+F"F1F
+"iF4 
+`iF8F
+	Set North failed\r\n
+Set North done\r\n
+IAaA`2!
+Set North Start\r\n
+`pb`!pA
+ GPS: COG source found! \r\n
+ GPS: Mag Var source found! \r\n
+ e` p
+p@d!	 
+p@d!	 
+ GPS: COG source lost! \r\n
+GPS: Mag Var source lost! \r\n
+ 5 pG
+pJxBp
+pJyBp
+#F("iF
+#8FAF
+#8FAF
+# F9F
+# F9F
+# F)F
+# F)F
+pHpp1
+  p`p
+FLFMF
+`MaNaI+
+FDFGF@F	
+1F(F	
+I	J	K	h
+F(hih
+``(iii
+`(hih
+ a(iii
+5`a(hih
+a(iii
+aAa@8
+aKaD`
+cDa\rI
+pG\niKi
+`!aaa!p
+iIipG
+IHppG
+F F)F
+p!hbh
+x h#i
+G h#k	
+G hak
+SF*F1F
+A(h+i
+jF9F0F
+GZFiF
+	NOH_pwrdn: Uptime %d used %d\r\n
+	NOH_pwrp: Uptime %d used %d\r\n
+ah0F<1a`
+0" IhF
+ NOH_tsk: Checking Time %d < %d\r\n
+NOH_tsk: Time Expired\r\n
+NOH_tsk: Detected Ironcal\r\n
+NOH_tsk: Writing NVM\r\n
+HiF(F
+2FAF\n
+ NVM: flushing tag %p\r\n
+NVM_flush: failed on tag %p\r\n
+ Hp	J#!	H
+TAG: 0x%p offset %u, size %u\r\n
+ 0x%02x 
+ NVM_read: failed on tag %p offset %d max %d \r\n
+F*F!F0F
+*F!F0F
+ NVM_write: failed on tag %p offset %d max %d \r\n
+xj@Dxb
+FiF F
+%iF F
++FAF8F
+" Ah\rH
+SYSDIAG crit:%u non:%u\r\n
+]F^FXFO
+ 8U+H
+$\nM\nN
+qBq	K
+`\na\n(
+ Comm Only Mode\r\n
+Normal Mode\r\n
+Test Mode\r\n
+FHFQF
+F(F1F
+[tx]   [% 12.6f % 12.6f][mx]   [% 12.6f]\r\n
+[ty] = [% 12.6f % 12.6f][my] + [% 12.6f]\r\n
+[tx]   [% 12.6f % 12.6f % 12.6f][mx]   [% 12.6f]\r\n
+[ty] = [% 12.6f % 12.6f % 12.6f][my] + [% 12.6f]\r\n
+[tz]   [% 12.6f % 12.6f % 12.6f][mz]   [% 12.6f]\r\n
+2F;F(F!F
+F2FCF
+2FCF(F!F
+2F;F(F!F
+@(-DT
+ F)F5
+F2F;F
+F\rFBFKF
+$%F F)F\r
+A"F+F
+F"F+F@FIF
+FKFBF
+I7F0F
+F!F8F
+F!F8F
+FQF(F
+FIF(F
+FAF(F
+FAF(F
+F9F F
+OFAF F
+#PFYF
+F\rF0FAF2FCF
+"F+F\r
+$%F F)F\r
+F\rF4J5K
+A"F+F\r
+A"F+F\r
+F7F8FYF
+F2FSF8FYF
+F F)F
+F F)F
+F\rFBFKFPFYF
+;F2FPFYF
+FBFKF F)F
+A;F2F
+#(F1F
+#(F1F\r
+:FSF\r
+"F+F\r
+$%F F)F\r
+F"F+F\r
+"F+FHFQF
+F*F3FaF
+8FAF*F3F
+A*F3F
+A*F3F
+:FCF\r
+:FCF\r
+*F3F\r
+JFSF\r
+:FCF\r
+*F3F\r
+JFSF\r
+:FCF\r
+*F3F\r
+:FCF\r
+JFSF\r
+29F0F
+F0F9F
+2 F)F
+F F)F
+RF[F\r
+BFKF\r
+"F+F\r
+2F;F\r
+BFKF\r
+F2F;F\r
+RF[F\r
+F"F+F\r
+2F;FPFYF\r
+F"F+F@FIF\r
+F8FAF
+F0F9F2F;F\r
+F F)F"F+F\r
+F\rFPFYFRF[F\r
+"F+F\r
+2F;F\r
+BFKF\r
+$%F F)F
+"F+F0F9F
+JFAF8F\r
+2F F)F\r
+#PFYF\r
+2FAF8F
+JF F)F
+JFPFYF
+#AF8F\r
+# F)F\r
+2FPFYF
+FAF8F\r
+F F)F\r
+:FCF\r
+2FKF\r
+[FRF\r
+FPFYF\r
+"F+FPFYF\r
+F"F+F0F9F\r
+F"F+F@FIF\r
+%8.5lf %8.5lf %8.5lf %8.5lf\r\n
+RF[F@FIF\r
+F2F;F F)F\r
+BFKF\r
+BFKF0F9F\r
+FRF[F F)F\r
+F"F+F8FAF\r
+2FKF\r
+K F)F\r
+?(-DT
+K F1F\r
+2F;F(F!F\r
+F2F;F\r
+2F;F(F!F
+F(F!F\r
+"3F F)F\r
+"3F F)F
+F F)F\r
+ F)Fp
+%.F,F
+RF[F\r
+[F`F\r
+ %+11.2f
+ ][x%u]=[%+11.2f]\r\n
+SLN: [
+ %+11.2f
+"F9F@F
+;F"FAF
+"F1F(F
+F F)F
+RF[F\r
+"F+F\r
+F F)F
+$%F F)F
+"F+F@FIF
+F\rF2F;FPFYF
+cFrF\n
+	sFbF
+SFJF\n
+KFBF9F0F
+FHFQF"F+F
+F0FYF"F+F
+"F+F@FIF
+F\rF2F;FPFYF
+$%F F
+F8FAF:FCF
+F(F1F*F3F
+"F+F@FIF\r
+F\rF2F;FPFYF\r
+FCF:FQFHF
+xSFJF
+?Kh\nhC`
+BFSF\r
+K@FQF
+F@FQF
+FRF[F
+F"J#K1F(F
+BSF1F(F
+@T1cb
+F8F!F
+FRF[F(F1F
+2(F1F\r
+M"F+F
+F"F+F
+F\rF:FSF0FAF
+F*F#F
+F2F;F
+!J"K@FQF
+ZF@FQF
+FZF0F9F
+IUUUUU
+F\rFjF
+F F)F
+F F)F
+CKLLM
+!mFc\j\
+ ahrs_auto_fieldcal_tsk: Detected UI Iron Calibration!\r\n
+JFSF F9F
+L@ahrs_bow_direction_tsk: state = %d COG: %f SOG: %f SOG dt: %d\r\n
+?HEADING: Done!\n
+HEADING: 10 Seconds of Delay, BOW_DIRECTION_STATE_DELAY!\r\n
+HEADING: Entering Accelerate State!\r\n
+HEADING: 120 Seconds of Still, No Cal!\r\n
+r@HEADING: sog_moving_average = %f my_sog = %f\r\n
+H@jpG
+pG1(:
+\nHppG
+-3MZd
+ ahrs_iop_process_rx_msg_sp: Unhandled message %u\r\n
+\rF&"lF
+"KKHF\n
+"KF8FAF\n
+"KF(F1F\n
+hCh:H:I\n
+.O:h{h
+2FCF\n
+"+Fyh
+8hyh `a`?
+H!```
+`A`\rH
+`B`\rH
+`A`\nH
+`A`pG
+&&pfp	
+ZO[HZL>x
+i@i!a`aTHSM
+i@i)ahaMH
+"Ah`F\n
+"Ah`F\n
+ iai2L
+i@i[F
+aBa+H
+i@i[F
+i@i[F
+aBa%H
+i@i[F
+i@i[F
+!0"n`F)n
+TN0`q`
++i"n)n
++j"n)n
++k"n)n
+&N0`q`
++l"n)n
++m"n)n
+:FCF\n
+FGHHI\n
+:FCF\n
+"F+F\n
+:FCF\n
+"F+F\n
+JFSF\n
+"F+F\n
+I"F+F\n
+:fail1\r\n
+fail2\r\n
+fail3\r\n
+:FCF\n
+FGHHI\n
+:FCF\n
+"F+F\n
+:FCF\n
+"F+F\n
+JFSF\n
+"F+F	
+I"F+F\n
+:fail1\r\n
+fail2\r\n
+fail3\r\n
+K(F!F\n
+ZF3F\n
+FZF3F
+ZF3F\n
+F@FQF	
+*F#F\n
+"=F;F\n
+2F;F\n
+MH2F;F
+2F;F\n
+0F9F	
+FCH\rFPE
+BF+F\n
+BF+F	
+0J0K\n
+0J0KL
+2F;F\n
+"0F9F\n
+"@F)F\n
+2F;F\n
+"PF)F\n
+*FCF\n
+:F3F\n
+*FCF\n
+C F)F	
+" F)F\n
+:FCF	
+"SF F)F	
+"SF F)F\n
+CF:F	
+"CF F)F\n
+"CF F)F\n
+RF;F	
+&"F+F
+F\rF"F+F
+RF[F\n
+F:FCF
+:FCF\n
+.PFYF
+"F+F\n
+"F+F\n
+"F+F\n
+IAaA`
+2F;F	
+FRF[F	
+K@FIF\n
+wKRF\n
+F@FIF	
+RFrK@FIF	
+lJlK	
+RF[F	
+gJhK	
+RF[F	
+BFKF	
+BFKF\n
+``8F\n
+BFKF\n
+BFKF	
+``8F\n
+BFKF	
+` i1F@
+ a`i\n
+"9I2 
+RF[F	
+RF[F	
+RF[F	
+ Set North Lost COG\r\n
+L@Set North COG: % 5.1f HDG: % 5.1f DIF: % 6.3f %%DONE: % 3u\r\n
+F(F!F	
+F\rF0F9F	
+FvJvKIF@F	
+rJtK@FIF	
+F@FIFmJpK	
+kJlK@FIF	
+FgJgK F)F	
+cJeK F)F	
+F\rF F)F^JaK	
+\J]K F)F	
+F\rFXJXK0F9F	
+TJVK0F9F	
+FPJSK0F9F	
+MJNK0F9F	
+"F+F	
+"F.K	
+"F3F	
+"F&K	
+"F+F	
+"F3F	
+"F+F	
+"F3F	
+ (-DT
+fPpGP`pG
+$%F F)F
+$%F F)F
+BFKF	
+"9F0F
+O"F+F
+$%F F)F
+hyh8h
+i:aya
+hah h
+F F)F"F+F	
+RF[F	
+K F)F	
+[FRF	
+K F)F	
+K F)F	
+BFKF	
+# F)F	
+# F)F	
+hah h
+F F)F"F+F	
+F\rF@FIFBFKF	
++F"F	
+RF[F	
+$%F F)F
+"0hqh\n
+#L `a`0h
+ aaamIlH
+ch"h\n
+F F)F
+ CAN1 - Dropped TX Message %d\r\n
+ h(D `
+Unknown argument "%s"\r\n
+normal
+Unknown argument "%s"\r\n
+display
+Unknown argument: "%s"\r\n
+Usage: nvm [cmd]\r\n
+display    Display NVM ram copy\r\n
+Unable to extract memory location %s\r\n
+%s 0x%08x\r\n
+%u 0x%x
+Unable to parse input: %s\r\n
+0x%x 0x%x
+flash
+Unknown argument "%s"\r\n
+RAM test failed\r\n
+RAM test passed\r\n
+Flash test passed\r\n
+Flash test failed\r\n
+ pG	 pG
+K F)F
+K F)F
+F\rFhF
+ %s returned error %u\r\n
+Unknown command: %s\r\n
+Try: help\r\n
+Commands:\r\n
+IH`pG
+`@(C%
+time wraparound now=%u us    prev=%u\r\n
+ timing error (dt=%u us)\r\n
+timing warning (dt=%u us)\r\n
+Qtiming ok\r\n
+2J3K8FAF
+F F)F
+A:FCF
+$%F"F
+Auto Fieldcal Detection Time's Up\r\n
+?(-DT
+!)@Auto Ironcal Start Detected\r\n
+L iai
+hJFSF
+FahJFSF
+F@FIF
+`(iii
+FPFYF
+(aia(iii
+F@FIF
+`(iii
+FPFYF
+(aia(iii
+*hkhq
+F@FIF
+`(iii
+FPFYF
+(aia(iii
+ %010lu 
+ SNST%010lu 
+ %+07.4lf %+07.4lf %+07.4lf
+ %+09.5lf %+09.5lf %+9.5lf
+ %+07.3lf %+07.3lf %+07.3lf\r\n
+AHRS %08lu 
+L@ % 7.4lf % 7.4lf % 7.4lf
+  % 7.4lf % 7.4lf % 7.4lf\r\n
+ %+05.1lf %+04.1lf %+05.1lf\r\n
+ cmps: %+06.2lf %+06.2lf %+06.2lf\r\n
+L iai
+hJFSF
+FahJFSF
+hZFzK
+FihZFvK
+F0F9F
+"hchoHK
+hZFHK
+(hihZFDK
+F0F9F
+"hchAH
+inov: %+06.2lf %+06.2lf %+06.2lf 
+ kt %4.1f, gb %6.3f %6.3f %6.3f\r\n
+ %+06.2lf %+06.2lf %+06.2lf\r\n
+  %+07.4lf %+07.4lf %+07.4lf\r\n
+  %+08.4lf %+08.4lf %+08.4lf\r\n
+F(F9F
+F(FAF
+AJFSF
+$%F F)F
+$%F F)F
+F\rFBFKF
+F8FAF
+*F3F8FAF
+F8FAF
+*F3F8FAF
+F*F;F@F
+F8F)F
+A"FKF
+FRF+F FIF
+:FCF FIF
+FPF)F
+$%F F)F
+"<FEF
+F8FAF
+$%F F)F
+F\rFHFQF
+#HFQF
+# F)F
+# F)F
+A\rF F
+F F)F
+:fail4\r\n
+fail5\r\n
+F*F;F@F
+F8F)F
+A"FKF
+FRF+F FIF
+:FCF FIF
+FPF)F
+$%F F)F
+"<FEF
+F8FAF
+$%F F)F
+F\rFHFQF
+#HFQF
+# F)F
+# F)F
+A\rF F
+F F)F
+:fail4\r\n
+fail5\r\n
+r)x!raz
+r(x rhx`r
+`! ha
+(j pG
+	 pG )
+OpG( pG
+pGSj#
+Fl"fIhF
+Rx\nT@
+0:bD[
+7:bD[
+W:bD[
+`pGBh"
+rB`Bh
+#0=JWdr
+'1;ENYcmw
+xrBcBk
+AcpGBk"
+BBcBk
+x"BcBk
+rBcBk
+xRBcBk
+hDh F
+ ```i@
+`$N0hDh0h
+CAN Bus Error\r\n
+CAN Arb Lost\r\n
+CAN Error\r\n
+CAN Unknown Error\r\n
+CAN1 - Error: 
+Bus Off \r\n
+Bus Passive \r\n
+LEC code: %u - "%s"\r\n
+Receive Error Counter: %i\r\n
+Transmit Error Counter: %i\r\n
+Warning \r\n
+pGno error
+stuff error
+form error
+ACK error
+bit recessive error
+bit dominant error
+CRC error
+set by software
+invalid error code
+(h@hAi!
+a,ala
+iMgH(`
+a.ana
+(h@hAi!
+\rAAa(hVJ
+#+q(hDh
+A!`!h!
+!`!hA
+` h ` h 
+ ` h@
+ ` h@
+(hBj(h
+P`a(h
+@BJ`Jh
+0H`pG
+`ihAN
+Ba*kO
+\n`\nhB
+\n`AhA`AhA`AhA
+aA`Ah!
+A`AhA
+A`AhA
+AaAiA
+1AaAiA
+!AaAiA
+AaAiA
+AaAiA
+`.J.I
+p`H`pG
+p@H`pG
+ afa i@
+IA`pG
+I\nh h
+I\nh h
+ pG_((
+F\rF6N6H!h
+p` `hF
+ ` h@
+s2FQF F
+`jxUh
+ timeout at %d\r\n
+s2FQF F
+ timeout at %d\r\n
+I\n`BhJ`
+h\n`BhJ`
+@iF0F
+ babh
+"jcj`h
+"kck`h
+ ffJ?
+VN0hVLVJ
+0 a i 
+  a i 
+h\rF%& ` F
+@ `(y
+p `(z
+ ` h h h`h
+h`hiy
+` F)h
+FaF F
+"+FiF
+F\nFaF
+"iFHF
+"iFHF
+F yay@
+*F9F@F
+ yay@
+IH`pG
+"iF F
+p!zAp
+2F)FhF
+Dim %u Ax=b:\r\n
+Dim %u Ax=b:\r\n
+KPFYF
+F(F!F
+ARF[F
+%,F*F
+RF[FuHwI
+RF[FcHdI
+A^J^K
+ "F+F
+:FCFQF=
+?(-DT
+Auto ironcal circle fail\r\n
+ %03u %g %g %g \r\n
+  pfp
+ EDim %u has err %g\r\n
+Min Err Dim = %u has err %g\r\n
+ Auto ironcal, entering settling state\r\n
+Auto ironcal failed, no solution\r\n
+:F0F!F
+\nF!Fb
+\nF!Fb
+FAF8F
+2F;F9F
+"F+F)F
+"F+F9F0F
+F\rFBFKFPFYF
+F+F"F
+F\rF2F;F
+$%F F)F
+" F)F
+$%F F)F
+F2F;F
+A\rF2F;F
+K F)F
+K F)F
+ecsq:%g offc:%g badn:%g\r\n
+2F;F9F
+"F+F)F
+"F+F9F0F
+F\rFBFKFPFYF
+F+F"F
+F\rF2F;F
+$%F F)F
+" F)F
+$%F F)F
+F2F;F
+A\rF2F;F
+K F)F
+K F)F
+ecsq:%g offc:%g badn:%g\r\n
+MiF(F
+@iF(F
+SYS\r\n
+ c2((
+hc2($
+:F!F\n
+%02X%02X
+;F2F!F
+;F2FQF
+`x!xQ
+%A)06ax
+ pGpG
+V\bglqy
+Iron Cal. Enabled\r\n
+Iron Cal. Disabled\r\n
+AHRS_IOP_CMD_AUTO_FIELDCAL_ENABLE\r\n
+AHRS_IOP_CMD_AUTO_FIELDCAL_DISABLE\r\n
+"ici hah
+h hah
+i iai
+Fch hah
+FFIDHFL
+[FRF\n
+%L M%N
+c\rdJd
+F3F*F
+FBFKF
+F0F9F
+BFKF F)F
+F\rF F)F
+FBFKF
+F0F9F
+BFKF F)F
+F\rF F)F
+F\rF2F
+;F F)F
+K F)F
+2F;F F)F
+F\rF F)F
+@(-DT
+FiF(F
+FiF(F
+bpG@S
+aAapG
+ 0p0x
+ resetting AHRS now\r\n
+a\ncKcpG
+aAapG
+aAapG
+323F F)F
+F2F!F
+$%F F)F
+$%F F)F
+&7F0F9F
+F"F+F@FIF
+$%F F)F
+$%F F)F
+&7F0F9F
+F"F+F@FIF
+`%i`i\n"
+ aaa iai@
++M(hih
+(hfnih
+M(hih
+M(hih
+=FFF$
+F8FAF
+F(F1F
+ARF[F
+NVM: Transferring Records\r\n
+A!H"I
+1F4xrx
+F'HMF
+F3F*F
+rppGO
+ahrs_iop_prj_pwrp: Read Bucket %d mean_temp = %f count %d i = %d tag = %u\r\n
+prop %+6.3lf %+6.3lf %+6.3lf %+6.3lf % +7.2lf % +6.2lf % +7.2lf % +6.2lf % +6.2lf % +6.2lf\r\n
+pvsl %+6.3lf %+6.3lf %+6.3lf %+6.3lf % +7.2lf % +6.2lf % +7.2lf % +6.2lf % +6.2lf % +6.2lf\r\n
+CAN_RX Error! No Room in FIFO Dropping New Data! head = %d tail = %d \r\n
+ $(,0
+W;^Software Version\n2.40\nCopyright 2014-2015\nGARMIN Corp.
+SYSDIAG Fslot:%u - Islot:%u = %u, sch:0x%02X, ran:0x%02X, left:0x%02X\r\n
+0123456789ABCDEF@0X
+0123456789abcdef@0x
+UUUUUU
+/lj,D
+\rUUUUU
+\rv$K{
+?LUUUUU
+'f?FO-
+unitid
+sysver
+memory
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          
+SteadyCast
+> Ver #
+Connect the h 8
+ing sensor to
+NMEA 2000 network.r

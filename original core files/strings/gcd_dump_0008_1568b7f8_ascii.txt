@@ -1,0 +1,2667 @@
+@FYFRFKF
+pGpGpG
+K{DiF
+K{D*FiF
+K{DiF
+pG	hJ
+D(b(F
+hu)AF
+019Ud
++F2F!F@F
+ j8D b F
+02:Ud
++F2F!F@F
+F\rF!F
+F)F F
+&_F F
+h/F F
+fJF)F F&`NF
+`" 2q
+02bUm
+#\b\cTI
+FAF F
+20JzD
+bF9FN
+RAIAK
+bF9FN
+RAIAK
+bF9FN
+~}|{zyxwvvutsrqqponnmllkjjihhgffeddccbaa``__^^]]\\[[ZZYYXXWWVVUUUTTSSRRRQQPPPOOONNMMMLLLKKKJJJIIIHHHGGGGFFFEEEDDDDCCCCBBBBAAA
+! 3[B
+F)H)I*J
+)H)I*J
+)H)I*J
+)H)I*J
+)H)I*J
+)H)I*J
+)H)I*J
+)H)I*J
+DFMFVF_F
+HjF1F
+"h	h@
+(` h@
+&IkF&H
+"-! 0
+"\r!kF F
+%s %s %s
+l@iPa
+Requested serial port out of bounds (%u)
+ h9F+
+!p`hU
+Failed to reallocate list to %uB
+Failed to string of length %uB
+!#F*F
+pGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpGpG
+!"F0F
+  ```
+` a`a
+$ !0F
+% F%d)Fedep
+e%f&p
+FjF9F
+3F:FAF F
+@\nKO.F
+8`fr 
+&network_interface_var[i].network_queue_smphr
+%04d/%02d
+MLC Data Integrity Test%s
+PCB ESN = %u%s
+MLC SN  = 0x%08X%s
+MLC MID = 0x%02X%s
+MLC PNM = %s%s
+MLC PRV = %s%s
+MLC MDT = %s%s
+MLC SZ  = %d MB%s
+FALSE
+perform_speed_read   = %s%s
+perform_speed_write  = %s%s
+perform_stress       = %s%s
+perform_integrity    = %s%s
+stop_at_error        = %s%s
+remount_at_error     = %s%s
+integrity_num_blocks = %d%s
+@------------------%s
+ Speed Read Test%s
+Read speed:  %lf MB/s, %d block reads%s
+Error read speed testing device%s
+ Speed Write Test%s
+Write speed:  %lf MB/s, %d block writes%s
+Error write speed testing device%s
+Successfully verified moviNAND errata 1 for test%s
+Verify time for test %d: %u msec%s
+Successfully verified moviNAND errata 2 for test%s
+Error verifying moviNAND errata 1 on test%s
+Error verifying moviNAND errata 2 on test%s
+ Stress Test%s
+Successfully stress tested device for test%s
+Time for stress test %d: %u msec%s
+Successfully wrote data for test%s
+Write time for test %d: %u msec%s
+Successfully verified data for test%s
+** %s Finished! %s **%s
+Error stress testing device on test%s
+Error writing pattern data on test%s
+Error verifying pattern data on test%s
+F&H\rF
+xbx!x
+R\n`pG
+IH`pG
+cAcpG
+  ` F)
+;FBFPF
+!kF F
+"3F F
+[Y%h+D#`
+2F8FAF
+U(pG-
+D`p`h
+\ny"rJybr
+hCFJF9
+!F8F*
++F2Fa
+3F*F!F8F
+#F*F1F8F
+#F*F1F8F
+2F9FPF
+:F1FPF
+2F9F@F
+CF*F1F
+)F#{0F
+%u.%u.%u.%u
+CF*F1F
+CF*F1F
+#F*F1F8F
+#F*F1F8F
+Sending data to tap %i %i
+F!h*F
+Sending preallocated packet to tap %i %i
+&sgnl
+KF:FAF
+&signal
+Waiting for tap %i
+&mnand_task_ready[device]
+&smphr[device]
+pRxBp\nJ
+pRx	K
+%s %s %s
+..\..\..\platform\modules\os\garmin-os\rtl_stubs.c
+`\rF i@
+h(Fci
+$%F F
+2!jFO
+pAp	!
+a>p>H
+txx}p\r
+&func_smphr
+!BhE`
+b*H/h
+!%H3F
+& rh{
+d(i b
+Hpdhi4d
+ 0` F
+]n&p_tcb->que_smphr
+]nFailed to allocate message queue structure
+..\..\..\platform\modules\os\tsk_detached_msg_queue.c
+Failed to allocate messages for queue
+H+F"F
+!Ch"F
+a(` n@
+]nDetached msg queue 0x%X not initialized
+..\..\..\platform\modules\os\tsk_detached_msg_queue.c
+Trying to delete msg queue %X but still has messages
+!AapG
+`&H%s
+!T`ah
+Entry point can't be NULL.
+..\..\..\platform\modules\os\garmin-os\arm\tsk_excptn_mngr.c
+'ZF!F(F
+IF(F"
+MDetached msg queue 0x%X not initialized
+..\..\..\platform\modules\os\tsk_detached_msg_queue.c
+F	H\rF
+IAapG#
+H+F"F
+]nTask cannot join itself return: 0x%08x
+..\..\..\platform\modules\os\garmin-os\tsk_delete.c
+]n&join_smphr
+G x1F
+%0C `
+xoHDxg
+  ```
+4PFhE
+XsAH3
+(`(F/
+Can't add additional memory to virtual pool.
+..\..\..\platform\modules\os\garmin-os\tsk_malloc_mmu.c
+Too many physical pools!!
+Physical memory area too small.
+&tsk_mem_ws.mem_smphr
+&tsk_mem_ws.phys_smphr
+Invalid virtual memory area.
+get_semaphore(p_list)
+!8F%h
+MDetached msg queue 0x%X not initialized
+..\..\..\platform\modules\os\tsk_detached_msg_queue.c
+!+F"F
+FP0\rF
+`e` a pp
+&lock->state_smphr
+&lock->excl_smphr
+&lock->cond
+TSK_RWL unknown lock type %u
+..\..\..\platform\modules\os\tsk_rwl.c
+%a F%c%e
+,q(F0
+!BhA`
+!(HCF"F
+!BhE`
+!BhE`
+B\nI\nH
+&tls_smphr
+!F0F"
+H+F"F
+#"F9F(F/
+H;F"F
+(DiF/
+H@`aAF
+&j)F F8
+WRKQ-
+0IFFGF
+!F(F8
+`!F(F8
+WRKQ8
+"\rFiF
+<D;FL`
+"AF F	
+ Fea\n
+&dev->smphr
+#F*F1F	
+L(`&Fh``h
+Failed to mount '%S'!
+3F:F@F3
+1F(F2
+\rFiF3
+	\nQpK
+\n!p`p
+2\nFcFO
+#\nF#FO
+#F*F9F
+#F*F9F
+#F*F9F
+#F*F9F
+#:FAF
+"FiF(F
+2FiF F
+4D8x5D
+ p(Dp
+`1F0F
+CF:F)F
+&list->smphr
+&list->smphr
+`%aea
+a%beb
+&wksp->listeners[idx].workq_item
+Invalid listener count
+..\..\..\modules\utl\utl_anotify.c
+J)F@F
+`!hIh
+`!hIhA`!h	h1D
+`#hZh
+ H`!h
+h5F0D
+D:F@F
+`ED`h@
+h5F0D
+`ED`h
+B(D``
+F>hDF
+3F"F9F@F
+BF)FHF
+BF)FHF
+  `(Fp
+G Fdh
+ (`h`
+h\n`Dh
+BhJ`Ah
+`A`pG
+gupdate
+F!F0F
+F!F0F
+&p_list->smphr
+GpG@ipG
+`"tca
+Failed to allocate queue buffer
+..\..\..\modules\utl\utl_queue.c
+i\rFai
+o0h8`
+i5F0F
+SLABEmpty slab in the free list
+..\..\..\modules\utl\utl_slab.c
+SLABInvalid SLAB block
+..\..\..\modules\utl\utl_slab.c
+&slab->smphr
+ahA``h
+``` `
+#AF F
+`A`pG
+` a`a
+&queue->smphr
+ln(F3
+RFYF F
+3*F1F F"
+3F"F9F(F"
+  ``f
+f g f``
+&queue->smphr
+&queue->cond
+3@&x3C#p
+1 11`p
+	 hPD `
+]nInvalid varray
+..\..\..\modules\utl\utl_varray.c
+Varray locked by other thread
+1F F&
+!hHi@
+%\ra`h
+F\nF `
+;F2F)F
+b hEb h
+&event->item
+xy(y`q8
+xhx)xA
+\n`jAj
+@j@E\n
+	`jAjAE
+`jAjAE
+` n@E
+inode
+Task %p locking inode %u...
+&waiter.cond
+Task %p done locking inode %u. result=%i
+%u Sending ack frame type %u for inst %u
+Bootblock
+NMEA0183: 
+%s - %s%u
+)F0F5
+(`)F0F!
+..\..\..\modules\ufs\ufs_fat.c
+I`h\n\R
++IkF)H
+Service %u at version %u already exists
+System
+#)h0F/
+J(F!h/
+F/F,F
+a`jEb`j
+0%aea
+Allocated inode %u. created=%u
+..\..\..\modules\ufs\ufs_inode.c
+FjF)F
+!FPF'
+xqBF0F*
+BF)FHF*
+BF)F*
+AF F*
+xqJF*
+JF``)F
+Trying to allocate invalid extended type
+..\..\..\platform\modules\os\garmin-os\tsk_mem_mmu.c
+Allocation size doesn't equal logical page size
+..\..\..\platform\modules\os\garmin-os\tsk_malloc_mmu.c
+..\..\..\modules\ufs\ufs_partition.c
+1F F&
+(` F&
+F>F=F
+:FAF F4
+rAF F4
+@hak@
+ AFCF\nF`
+ `q(F
+````n
+" F\npJp
+bFAFHF
+ 8`(F
+!*FPF
+!*FPF
+ 0` F
+aiAa`i
+hRx\np
+jx8FYF
+jx8FYF
+2FIF D 0
+BFIF D 0
+&blocker->signal
+3FJFQFXF
+F*FIF
+`\naBk
+aAcpG
+x\rF@xO
+hJF0D
+`'aga
+'pg`$
+h:F(F
+inode
+Found inode %u in the cache. name=%S
+!pGrF
+# h:F
+FpG	K
+ `b F(
+Closing client %u
+" `0F9ka`9k
+`)I<c
+Attempting to connect to unreachable remote host: [%s]:%u
+Connected client %u to %s:%u
+Dropping %u
+Error receiving data on %u
+Error sending more data on socket %u
+Invalid client socket %u
+Error on client %u
+ahA``h
+bhB``h
+  ```q
+kFBF(F%
+kFJF0F%
+\r!jF(F
+receive
+Setting async events for %u to %s %s
+Error updating async events for %u: %i
+`(x p 
+&my_device_tbl_smphr
+"1F50
+&my_workq
+(Hlpl`
+&my_service_list_smphr
+&my_srvc_msg_queue_smphr
+CDM NET ADV MAIN
+&my_device_list_smphr
+& M\n(
+pGpGM
+pGpGpG
+ "K)F"J
+pGpGpGpG
+F*F!F
+HpG,k\r
+a4btb
+&my_tx_wait_sgnl
+F*F!F
+HpG4k\r
+F*F!F
+HpG<k\r
+F*F!F
+HpGTk\r
+F*F!F
+HpGDk\r
+r `\rH
+rHc\rH!h
+CNS_updt_main
+&my_workq
+F*F!F
+HpGLk\r
+ `p p
+&timers_smphr
+CNS Workhorse
+&cns_workhorse_workq
+F1F(F
+LiF a
+h})}A
+9F0F	
+..\..\..\modules\ufs\ufs_fat.c
+Restarting cwnd to: %u on TCB: %u
+Growing cwnd by: %u to: %u on TCB: %u
+Reducing sstresh to: %u on TCB: %u
+Reducing cwnd to: %u, on TCB: %u
+  q`j0
+J `#F``
+` a`a0F)~(
+3FBFYF F 
+ZF9F F
+{Eh`k(
+1F F0
+1F F\n
+1F F0
+7`1F F
+..\..\..\modules\ufs\ufs_fat.c
+.          
+..         
+AF8F*
+@0F#h(
+..\..\..\modules\ufs\ufs_ramfs.c
+a(aha
+a(bhb
+b(chc
+c(d!qO
+ b`b wnH
+  a`a
+{x:x!h
+Cannot create a new tap for plug %u,%u
+No transport layer found for plug %u
+Plug %u,%u returned existing tap %u
+Created new tap %u on plug %u,%u
+Assigning tap %u to socket %u
+1"K F
+#F)FPF
+	*FykPF
+jF8F*
+ZF1F(F
+net-udp
+No interface to communicate with %u
+s%aeu%u
+f%geg
+  a F
+#\nJ!F(F*
+J!F(F*
+!F(F+
+\n hHE`h
+!F0F/
+'hOEQ
+!F0F/
+!F0F/
+..\..\..\modules\ufs\ufs_fat.c
+Removing pipe entry packet %u -> queue %p
+Deleted socket %u
+Deleted tap %u
+Tap %u deletion deferred
+kFAFHF
+ #2F9F(F*
+1F(F*
+Queue destroyed while message reserved!
+..\..\..\platform\modules\hwm\core\msg\hwm_msg.c
+detached_event
+Bh(*!
+JPEWp
+% `\r!
+`%aeae
+9F0F(
+BFChIF`F
+hIF`F
+Unable to poll socket for events (sock=%u ret=%d)
+Unable to get size of next datagram (sock=%u ret=%d)
+Dropping truncated message (sock=%u ret=%d flgs=0x%x)
+grmn-net-trans
+Unable to find packet info for sock %d
+Error receiving datagram: %d
+Invalid DGRAM socket %u
+Error on DGRAM socket %u
+Error setting multicast looping: %d
+Aha`Ah
+!BKBJ`j
+Error setting multicast looping: %d
+Address %s not available for interface %u. Socket not bound
+Error binding to %s: %u
+Error request packet info: %d
+Error request packet info for broadcast socket: %d
+BhJ`Ah
+`E`!k
+BhJ`Ah
+`E` k
+#\nF\n!
+SF!k:F
+ kKFRFAF@j
+!"K"J
+ kAj!
+ k*FAj#
+ kAj+
+ kAj)
+Removed DGRAM sock %u from send list
+DGRAM send rejected on sock: %u with: %d
+DGRAM sock: %u is busy
+Added DGRAM sock %u to send list
+DGRAM send rejected, destination unreachable: [%s]:%hu
+&my_tx_wait_check_item
+O:HGh
+H@]@(
+QLFMF!
+ 8TF	
+V@Fsn
+Hm	m2n
+\nm3nIm
+!j`h(
+ jAi!bakAa`c`m@
+ `b(Fp
+M&F F
+&cards_smphr
+&my_vol_list_smphr
+Volume added: %S Status: Available
+Volume added: %S Status: Unavailable
+Volume available: %S
+Volume unavailable: %S
+!hYKY
+alAd`l
+`jAiI
+inode
+Evicting inode %u
+amAe`m
+  e`e
+UNPOPULATED
+4F5FL
+R1F`F
+`!@F#
+!;F `V
+ q F*
+*AU9#
+{~:~R
+..\..\..\modules\ufs\ufs_fat.c
+&vol_info->fat_smphr
+";F)F F*
+p kha
+RRaArrAa
+.!)TB
+pKzCp
+..\..\..\modules\ufs\ufs_fat.c
+\nhu F
+..\..\..\modules\ufs\ufs_fat.c
+qk@h@
+BF0F*
+u	\nAuQF0F+
+QF0F+
+	`hAF
+QF0F*
+..\..\..\modules\ufs\ufs_fat.c
+"iF@F
+h!F `8F
+t!F8F*
+..\..\..\modules\ufs\ufs_fat.c
+h)F(`0F
+r)F0F*
+..\..\..\modules\ufs\ufs_fat.c
+ }(p F1i
+)F(`0F
+CF9F0F
+..\..\..\modules\ufs\ufs_fat.c
+h!F `8F
+t	\nAt!F8F*
+..\..\..\modules\ufs\ufs_fat.c
+F+F!F0F
+..\..\..\modules\ufs\ufs_fat.c
+`i)F(`8F
+hh 49
+.          
+..         
+)F`i(`0F
++F1F@F
+..\..\..\modules\ufs\ufs_fat.c
+h!F `8F
+v	\nAv!F8F*
+..\..\..\modules\ufs\ufs_fat.c
+hi!F `0F
+SF"F1FXF
+u	\nAu
+!F0F*
+!`!F0F
+\n hHE`h
+!F0F*
+'hOEK
+!F0F*
+!F0F*
+..\..\..\modules\ufs\ufs_fat.c
+`Aja`
+%m(F#
+iF(F#
+iF F"
+>FXF#
+ mKh1F
+..\..\..\modules\ufs\ufs_file.c
+CF mJF
+..\..\..\modules\ufs\ufs_ramfs.c
+..\..\..\modules\ufs\ufs_ramfs.c
+jF!F8F$
+ miF#
+..\..\..\modules\ufs\ufs_file.c
+Fp0\rF
+ m)F#
+H0b1jH\n
+..\..\..\modules\ufs\ufs_ramfs.c
+CF mJF
+..\..\..\modules\ufs\ufs_ramfs.c
+1lAd0l
+ h0d0F	
+!h4JHc
+F!hKF(
+Hardlinking inode %u to shared state %u
+Adding %u as a child of %u
+Bad inode state %u
+inode
+Finalized inode %u. result_in=%S (%i) result_out=%S (%i)
+ q*FO
+  q8F
+..\..\..\modules\ufs\ufs_partition.c
+3F:FAF(F
+F\nh\rF&NO
+FpG\n($
+F*F!F
+#:FAF F
+9T2h@
+#:FAF F
+UNPOPULATED
+F&F'F
+RFYF(F
+ShC`Ph
+*Y` k
+`)q0Fp
+%t0iF
+A` h$
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+PAGE-
+*QFUFi
+@*FAD$
+BhJ`Ah
+BhJ`Ah
+ahA``h
+` F%`e`
+h b(h
+&P0\rF
+jF)F F
+")F F'
+Freeing inode %u
+ hBF9F 
+Trying to free invalid extended type
+..\..\..\platform\modules\os\garmin-os\tsk_mem_mmu.c
+s a`a
+Attempting to free invalid memory.
+..\..\..\modules\utl\utl_packet.c
+  a`a
+';F=F
+Physical Memory pool not found
+..\..\..\platform\modules\os\garmin-os\tsk_mmu_phys_pool.c
+  ``f
+f g f
+EJF0F
+"kFQF0F
+"AF0F
+"kF0F
+%u TX Frame Inst: %u Data size: %u
+%u Cleaning up acked frame tx. Inst: %u Wait state: %u
+XKF!x2F
+ JF`p 
+KF\nHRF
+`FpGp
+%u Cleaning up frame tx. Size: %u Cur pos: %u
+F\nF3F
+:FAFHF
+9}gH2F
+eI2FXF
+9}3H2F
+F<F>F
+Z!:F8
+jFYF(F
+f!:F!
+..\..\..\modules\ufs\ufs_fat.c
+"FiF0F
+q4D10
+sIh@h
+ibi h\n
+"+FAF F%
+"+F9F F%
++F F%
+"+F9F F%
+jF!F0F
+Failed to grow message queue
+..\..\..\platform\modules\os\tsk_detached_msg_queue.c
+BA{AEm
+ h 0 `qh@
+ph `<
+ `qh@
+..\..\..\modules\ufs\rufs\ufs_rufs_block_cache.c
+!"F0F
+!"F0F
+jF!F(F
+jF!F(F
+5h`k5O
+jFAF F
+H@hpG
+`FpGpD
+ ea!a `
+a b`b
+!\nhP`
+Created new queue %p
+%)F(F,F
+sCF*F1FhF
+HjF)F
+!T jF
+P! ` 
+%k(h c(Fp
+ekhi`c(Fp
+`)F"h
+"F1F8F
+Y5`u`
+`5aua
+a5bub
+b5cuc
+4T0DEp
+%u RX Frame checksum failed! Inst: %u
+rQ`(Fp
+Got new port %u on %u
+Sending probe ACK on %u
+Got probe ACK on %u
+%u TX single frame packet. Inst: %u Data size: %u
+%u TX multi frame packet. Inst: %u Data size: %u
+G\rFDN
+cDCPo
+!" kF
+FTD\E
+ KF"FO
+  p`x
+cBcpG
+C\rF&I
+F@x!x
+Ch``x!xA
+J\nJ	I
+`\nJ	I
+]nFailed to free pre-allocated message buffer!
+..\..\..\platform\modules\hwm\core\msg\hwm_msg.c
+@XQh(
+pGpGpGpGpGpGpG
+0@E(	
+&bus_smphr[ i ]
+$wMxN
+`4`wH
+#sJ?!( 
+#?!) 
+#?!* 
+#?!+ 
+`hH0`
+!hJhK
+FaF0F
+1\r:\rb
++F:F1F F
+F\nH@h
+&$IIh
+Xzh!F
+8hA\nxhD\n.
+F.F/F
+5I3H	hP
+-LPFah*FCFo
+\nF$IA
+&block_smphr
+"F1F@F
+ !F@M
+FBF1F(F
+ 3FJFQF
+R1F(F
+"F1F(F
+ pGpGpG
+pGpG	I
+F\rN5xph
+`H` h
+``hH`(Fp
+FP{\rF
+\rHDpE`
+$KO&F
+eIF@H
+&buf_swap_smphr
+&eof_cmplt_smphr
+d\nJBdCla
+&tx_buff_smphr
+&tx_owner_smphr
+&tx_owner_evnt
+0H@20H@R0H
+&my_apwm_smphr[i]
+&my_hrpwm_smphr[i]
+&my_swap_smphr
+gfff-
+0HpGpGpG
+bHc@L
+bHc\rd
+bHc\rd
+bHc\rd
+ d l)F
+	IJjB
+&uarts[i].close_cond
+&uarts[i].lock
+&list_lock
+YFPF\r
+YFPF 
+kF"FIFPF
+hBF8F
+jFaF8F
+#jFaF8F
+*FAF8F
+paFB`
+!2F(F
+F2F(F
+"9F(F
+F2F(F
+:Fsi1F(F
+NMEA0183 generated an invalid device id ( Port = %u ).
+I@hH`pG
+g%fbg
+  p(F
+jI\na`
+..\..\..\modules\ufs\ufs_ramfs.c
+inode
+Looking up %u/%S. inode=%u result=%S (%i)
+Name too long: %u
+inode
+..\..\..\modules\ufs\ufs_ramfs.c
+inode
+inode
+FQF(F
+Bad shared lock count %i
+inode
+" !CF
+..\..\..\modules\ufs\ufs_ramfs.c
+ia`@i
+..\..\..\modules\ufs\ufs_fat.c
+..\..\..\modules\ufs\ufs_fat.c
+(!!`O
+Could not malloc ARP cache
+..\..\..\modules\iop\net\grmn\iop_net_arp.c
+IH`pG
+4P(Fp
+4P(Fp
+Eh(Fp
+FiF(F
+h2F)F8F
+`A`pG
+8 `0F
+Error getting maximum size on intf: %u
+ np/r
+%2F9F F
+Socket out of the TCP and UDP range.
+..\..\..\modules\iop\net\grmn\iop_net_sock.c
+Invalid sock_type
+..\..\..\modules\iop\net\grmn\iop_net_sock.c
+Index outside of TCP range
+Index outside of UDP range
+Invalid socket_type = %u
+net-sock
+TCP index incorrect %u
+UDP index incorrect %u
+IOP Legacy Sock Event
+&my_workq
+;FBFiF F
+BFIF F\r
+0	+FBF
+`x!xA
+#`x!xA
+;FBF F
+CFJF F
+Zero-copy buffer alloc failure of size: %u
+Resuming TX on: %u
+ 0` F
+Unsupported DGRAM socket option: %u
+Unsupported DGRAM socket option: %u
+CFZFQF(F\r
+@"FAFXF\r
+*}(Fi}
+[FRFIF(F\n
+!F0F\r
+2}0Fq}
++F"FIF0F\n
+hx)xA
+ CF9F
+CF9F F
+No DCB for 0x%X:%u, dropping
+KFRFYF(F
+*}(Fi}
+SFZF1F(F
+*}(Fi}
+FIF(F
+&my_create_smphr
+&my_state_smphr
+&my_pipe_smphr
+&my_taps[i].rx_direct.wait_event
+ y2\`y9\
+`.ana
+@xhs.ana\n
+ ax]"iPT i@
+:FAF F
+Cannot get socket %u
+hB` F\n`\n
+`Yh\n`Z`
+tap %u uses direct reception
+invalid tap index %d
+Receiving packet %u from tap %u, size %u
+&sock->tx_ready.item
+rpGAh
+$HDaD`
+IOP Stack
+&sgnl
+&my_tap_smphr
+&my_trans_smphr
+`JhB`Jh
+`H` F
+%,F F
+0 ` Fp
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+`pG@iIi@
+@iIi@
+Already unlocked.
+..\..\..\platform\modules\os\tsk_rwl.c
+Locking for shared access when locked exclusively
+..\..\..\platform\modules\os\tsk_rwl.c
+*FAFPF
+F)F0F
+Unable to set multicast output intf (%d) on socket %u. Error=%i
+ jF F
+Unable to enable multicast on socket %u. Error=%i
+;FBFIF F
+J AFHF
+FhhHE
+$(F!F
+$!F8F
+SF8mJF
+!+FBF
+!Bi F
+!;F2FAF
+!3FBF
+$(F!F
+Dha`i
+Dha(F
+`aiH`9F
+#biPF
+F9F F
+Q`)hI
+Q`)hI
+Z`*hR
+AiAE8
+QiciI
+Z`+h"i@
+3 *hR
+hciRiR
+a!y(D 
+vQFXF
+q1F(F
+&p_hc->host_smphr
+&p_hc->lockout_smphr
+?I	xA
+A\ 8P
+ N9FO
+```5 
+2	2H	
+-J@\\n
+)NIFO
+hkF1F8F
+"hkF1F8F
+ #2F9F(F
+zupp&J)FO
+9pi{({
+Ethernet not setup correctly.
+..\..\..\platform\modules\hwm\network\hwm_network.c
+!  2F
+&uarts[id].ar_wq_item
+F8FQF
+2F!F(F
+*F1F F
+"iF(F
+..\..\..\modules\ufs\rufs\ufs_rufs_chain.c
+Ai"F`F
+..\..\..\modules\ufs\rufs\ufs_rufs_chain.c
+  p`p
+x!pAxap
+y)pAyip
+@hH`pG0
+F*F!F
+0QD[h
+PIDch
+Deleting entry from packet %u to make room
+FHy\rFp
+ahA`(i
+()ia`
+xi0`~a
+`h(a`h
+ahA`(i
+()ia`
+`,a`h
+ 0p@F
+@\n a\n
+..\..\..\modules\ufs\devfs\ufs_devfs_rgn.c
+"1F F
+inode
+q1`7`\n(
+ `0D9F
+..\..\..\modules\ufs\ufs_vfs.c
+5F!F	
+F)F0F
+"kFaF
+8``hF!}
+!F$h\rr
+%.F`x\n
+8H*,O
+F\rFFh
+#jF9F0F
+F/F.F
+#BFXF
+FFH@!F
+#jF1F(F
+Loader timout is now %i
+p<D!x1
+#jFAF8F
+ `w,H
+j;FhF
+Processing RX ready callback for %u
+"IH)F
+;F*F1F
+%u RX Frame Inst: %u Data size: %u Acked inst: %u
+%u Forwarding frame to taps. Inst: %u Size: %u
+ahy)yA
+Phh#FpJA
+i0FJF
+ihA`hh
+ihA`hh
+ahA``h
+Unable to allocate space for reassembled packet of size %u
+Unable to allocate space for fragmented packet of size %u
+|! x3F
+|! x3F
+|! x3F
+Fpy1yO
+# x{!*F
+# x{!*F
+G`p`h
+6NoFK
+ah xIh
+`kAhac
+Processing TX ready callback for %u
+ xd(O
+`x\n(/
+hjDj4
+inode
+Pruning tree at %u
+]]]4]G]X
+!g`n@
+`f F	
+\rF4F7F
+Processing RX callback for %p
+`@F!h
+..\..\..\modules\ufs\ufs_fat.c
+..\..\..\modules\ufs\ufs_fat.c
+&&s0F
+IF0FRF	
+0F8F!h
+xrSF F	
+Realloc returned different handle
+..\..\..\platform\modules\os\garmin-os\tsk_mem_mmu.c
+3FAF F
+gBF F
+gi` h 
+Trying to reallocate invalid extended type
+..\..\..\platform\modules\os\garmin-os\tsk_mem_mmu.c
+Realloc returned different handle
+..\..\..\platform\modules\os\garmin-os\tsk_mem_mmu.c
+ x;Fah2F
+-0D``&
+ xJ()
+Deleting packet %u
+Deleting queue %p
+\rHAhI
+*i Fih
+;I] p
+":HBaAi
+#L#MA
+\rHjF!F
+pRFYF0F
+..\..\..\modules\ufs\devfs\ufs_devfs_rgn.c
+..\..\..\modules\ufs\devfs\ufs_devfs_rgn.c
+..\..\..\modules\ufs\devfs\ufs_devfs_rgn.c
+qO!h=hE
+lMlJ(h
+ba	hF
+ba	hF
+(` h@
+;F2F\r
+"iF(F
+hFyh\r
+ah2F+FhF\r
+@>J|0
+F h|0
+x(phF\r
+4AHF\r
+AFPF	
+@Tah\r
+,A(F\r
+4](F0
+HpG4I
+tM(F0
+F(h|0
+ !PF	
+F h|0
+c{*F9F0F
+Popping RX dgram of size: %u total: %u on: %u
+Trying to pop empty rx list
+..\..\..\modules\iop\net\grmn\iop_net_udp.c
+e1F n
+RX buffer full on: 0x%X:%u rcv buffer: %u used: %u datagram: %u
+Pushing RX dgram of size: %u total: %u on: %u
+h\n`aF
+\n" xiF
+ a`i@
+FIhhF
+>IY@hIh
+  q`k
+\n \rK q
+")F0F
+`hx)xA
+BFhx)xA
+#9F F
+CF:FIF(F
+FaF F
+hAhhF
+`o3F:F
+]nInvalid varray
+..\..\..\modules\utl\utl_varray.c
+Varray not locked
+Varray locked by other thread
+Varray lock count zero
+jF1F F
+..\..\..\modules\ufs\ufs_fat.c
+FiF F
+BF)F0F
+CF9F F
+xh 4)
+..\..\..\modules\ufs\ufs_fat.c
+CF*FiF
+"1F F
+ahF!s	\nas
+"IF8F
+1\n>sys F
+%DH%p
+0D r<H
+Unable to serialize V2 heartbeat: %u
+cdm-net-adv
+HqhF1s	\nqs
+!)p(p
+F x!F
+ x2F)F
+No HW address for host: 0x%X, ARPing and dropping
+No HW address for gateway: 0x%X, ARPing and dropping
+No gateway set, no route to: 0x%X, dropping
+`k2F@
+HW TX Failed on %s with %d, packet dropped
++F:F@
+#F2F@
+=D)FP
+3FZF@
+Unable to respond to client
+..\..\..\modules\mnand\driver\mnand_driver_common.c
+ xnF!i
+(D!i)D
+"+F1F
+9hBFXF
+AF:hXF
+"9FXF
+FBFXF
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+!Aa0Fp
+Ch\nh;
+ZaJhB`
+`H`pG
+`JhB`
+ hAi!`
+"J`Bi\n`
+@iF(F
+@iF(F
+0@gfffpGp
+h@i[h
+ 8!CC
+AiFby\r
+!F0F\r
+Unsupported socket type: %u
+net-sock
+IYcox
+#!z`h
+#!z`h
+(!z`h
+:FiF@F
+H6,FO
+1F F\n
+8iBF6K
+	8zIF
+BFIF/
+KBF8zIF
+1F F\n
+Error invalid read size %d%s
+Error reading at block address %d, expected %d blocks%s
+Remounting device%s
+Could not mount device- Aborting test%s
+Attempting to re-read block %d%s
+Error re-reading blocks %d%s
+Skipping read for block %d%s
+H6,FO
+1F F\n
+\n8zQF
+JFQF1
+JF8zQF
+1F F\n
+Error invalid write size %d%s
+Error writing at block address %d, expected %d blocks%s
+Remounting device%s
+Could not mount device- Aborting test%s
+Attempting to re-write block %d%s
+Error re-writing blocks %d%s
+Skipping write for block %d%s
+2SaAa
+ 8p x
+axAp!
+xh@hAj
+ha(iA
+ MpM`
+`McLa
+tSxRh
+"%pJ!kF
+"J!kF(F
+'p%aea
+"J!kF
+` `)ka`)k
+Accepted new client %u
+Client %u is ([%s]:%u -> [%s]:%u)
+There was an error. Resetting %u
+Invalid STREAM socket %u
+Error on STREAM socket %u
+hZF)F
+ l(D d
+Receive error on %u: %d
+Receive error: %d
+Setting priority to: %u
+Restoring priority to %u, time elapsed: %u
+Removing %u from the receive list
+Done sending. Cleaning up %u
+Indicating client %i has data to receive
+QF oPD gd
+Setting priority to: %u
+Restoring priority to %u, time elapsed: %u
+Error sending data on socket %u: %i
+Client %i -> %s:%u connected
+Sent %i more bytes on %u
+Done sending data on %u
+Trying to find something else to send on %u
+Sending queued packet on %i
+Nothing else to send on %u. Signaling TX Ready
+!iFbjP`."`b
+!KFRF
+hJFQF;
+Client %i -> %s:%u not connected. Queuing packet
+Error sending data on sock %u: %i
+Client %i -> %s:%u connected
+Only able to send %i of %u bytes on %u
+Sent %u bytes on %u
+".I c
+Address %s not available for interface %u. Socket not bound
+kFBF9F F
+KFRFYF
+Client %u is busy
+Error erasing blocks %d%s
+Error writing block %d%s
+Error reading block %d%s
+Aborting test%s
+Error verifying checksum for block %d%s
+Attempting to re-read block %d%s
+Error re-verifying checksum for block %d%s
+Re-verify for block %d was successful%s
+"\n`pG
+!jFPF
+ [FJFAF
+*FAFPD
+ 8`0F
+Cannot convert %i - Not implemented
+JQxPp
+Tap index %u already in use!
+grmn-net-trans
+Fatal condition '!(success)' Cannot get tap index %u
+Invalid socket type: %u
+ahA``h
+` F%`e`
+Cannot get tap index %u
+grmn-net-trans
+\rH2F!F
+Unsupported tap message: %u
+!`` s`s
+MNAND MEM
+%s %d
+msg_queue
+M	h\nJ
+	I\nh*
+%F(Fp
+PUEfFd
+Destination unreachable: 0x%X:%u
+D!	hI
+! u q`d
+Kbm h
+ `d F
+#*1?FMT
+k*F1F@j
+r1FhF
+`JhB`Jh
+&data.event
+Unknown socket type: %u
+&data.event
+pGpG0
+eF ,p
+IOP GRMN Net
+&my_workq
+Indicating client %i has data to receive
+Removing data for client %i
+D*FAF
+ xbh!i
+  a F
+%u RX multi-frame completed. Size: %u
+Unsupported socket type: %u
+%u Completed multi-frame packet transmit. Inst: %u Size: %u
+%u Finished transmitting frame Inst: %u Size: %u Pos: %u
+%u Failed to TX frame! Inst: %u Size: %u Pos: %u
+Unsupported socket type: %u
+&stack_signal
+`FpGX<
+&queue->workq_item
+")F F
+h`(j@
+Packet is still pending for tap %u
+&sock->rx_direct.item
+*F1F8F
+!=H"F
+m0` F
+epGpG-
+*F1F8F
+` a`a
+0!)q%`
+TSK xbkgd
+TSK timr
+`H`pG
+@2F9F F
+(	`I`
+req\rH%q
+RF9F0F
+FJF)F
+RFIF(F
+n#FBF
+\nAF0F
+FIF F
+BF)F F
+]nCannot reallocate aligned pointer
+..\..\..\platform\modules\os\garmin-os\tsk_malloc_mmu.c
+` F1F
+Task running when it should be waiting on semaphore
+..\..\..\platform\modules\os\garmin-os\tsk_sem.c
+F\rF4F
+&(DiF
+"AF8F
+"AF8F
+0 `(Fp
+``h`a
+Invalid logical page size, %u.
+..\..\..\platform\modules\os\garmin-os\tsk_stk_mmu.c
+F!FhF
+F!FhF
+2F!FhF
+Pushing TX dgram of size: %u total: %u on: %u
++F2FiF@F
+Popping TX dgram of size: %u total: %u on: %u
+Trying to pop empty TX buffer
+..\..\..\modules\iop\net\grmn\iop_net_udp.c
+updt_comm
+2F)F F
+0p Fih
+Dropped packet to %u
+Backup encountered, halting TX on: %u
+t t`t
+"!F(F
+"!F(F
+"!F(F
+hRF F
+`ab{`i
+&my_tx_wait_check_item
+v(F,F
+v(F,F
+UFS Block Read-Ahead
+repIF`h@
+&my_smphr
+&my_devs[i].smphr
+&my_devs[i].del_cond
+#F)F0F
+F:FAF(F
+F:FAF(F
+&my_file_smphr
+&my_file_hndls[i].smphr
+&my_file_hndls[i].ref_cond
+02F9F(F
+BFKF0F
+2F9F(F
+inode
+inode
+ (p i
+Faj(x	y 
+inode
+  p`p
+p``(i
+inode
+Bad inode state: %u
+inode
++FBF	h
+Bad type specified: 0x%08X
+inode
+Confirmed creation of inode %u
+F!h2F
+inode
+Setting creation time of inode %u to %u. result=%S (%i)
+(i2F9FCh(F
+F)h:F
+inode
+Deleteing inode. parent=%u name=%S result=%S (%i)
+inode
+%u is already dismembered
+Dismembering %u
+Handle 0x%08X is invalid (due to race condition?)
+inode
+inode
+inode
+inode
+inode
+inode
+ioctl file system type %u doesn't match inode partition type %u
+Performing ioctl 0x%08X on %u
+inode
+Inode state %u is incorrect for linking
+inode
+(F1Fp
+inode
+*F1F F
+inode
+1SF$H
+RF!F@F
+inode
+Mount result=%S (%i)
+Root inode must be a directory: had type 0x%08X
+inode
+F!h2F
+inode
+Setting modified time of inode %u to %u. result=%S (%i)
+inode
+inode
+inode
+inode
+Pruning %u
+&my_inode_smphr
+&my_evict_list_smphr
+&my_inode_cache[i].empty_wait_cond
+&my_inode_shared[i].smphr
+inode
+Reading link from %u. buf=%S result=%S (%i)
+inode
+inode
+#F*F1F8F
+inode
+Getting size of inode %u. size=%llu result=%S (%i)
+"(F"`b`
+`"aba
+a"bbb
+inode
+ iAlQ
+inode
+Syncing inode %u. result=%S (%i)
+0(`h`
+inode
+Getting timestamps for inode %u. result=%S (%i)
+inode
+F!h2F
+inode
+Unmounting partition from inode %u. flags=0x%08X result=%S (%i)
+"(F"`b`
+`"aba
+x p0F
+inode
+,D)F8F
+,D)F8F
+,D)F0F
+UFS Main
+@)FHF
+RYF8F
+RQF0F
+..\..\..\modules\ufs\ufs_partition.c
+G jAh
+mpG@jpGpG
+&my_partitions_smphr
+&my_partitions[i].smphr
+&my_partitions[i].unmount_cond
+F<0\rF
+FN`<0
+k``hj
+UFS Error %s:%i - %s\n
+f!h z
+FjF(F
+@2F9D
+KF h:FAF
+iHa m@
+ zjF&
+ zjF&
+..\..\..\modules\ufs\rufs\ufs_rufs_block_cache.c
+F@h\rF
+0i"F)F
+ ihIk
+"!F(F
+#!F(F
+"pChZk
+a`` b`b
+!h*F0F
+jFQF@
+)`!hI
+P#FJF
+*F3FhF
+ ;FPTr
+#pGpG
+pGpG-
+`E` F
+%t0iF
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+` j a
+ i@E(
+h.D(D
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+` j a
+)h"F0F
+iAa!H
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+1Aa(Fp
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+ahHYBhJQ
+ahHYBhJQ
+F=DUE
+"iF(F
+EFNF(F1F
+x8FAF
+:FQF F
+F	"kF1FHF
+&files[i].smphr
+&files_smphr
+&printf_buffer_smphr
+`"a"r(h
+` F)Fp
+&my_dismember_smphr
+&my_root_part_smphr
+BF)FHF
+BF)FHF
+J	?K3
+B	=K3
+A	\nJ2
+jF)F0F
+2iF0F
+Failed to signal device to unmount
+..\..\..\modules\mnand\api\mnand.c
+(hP(1
+[D"1F
+[D"1F
+F`F!F
+!"F(F
+inode
+!KF2F@F
+ERROR! Block %d, incorrect checksum%s
+EFDF$
+Error invalid verify size %d%s
+ERROR! Block %d, corrupted data%s
+Error data does not match pattern%s
+    expecting 0x%08X and found 0x%08X at offset %d%s
+\n 1F F
+:F!FK
+\n 1F F
+Error invalid verify size %d%s
+Error reading at block address %d, expected %d blocks%s
+Remounting device%s
+Could not mount device- Aborting test%s
+Attempting to re-read block %d%s
+Error re-reading blocks %d%s
+Skipping verify for block %d%s
+Error verify pattern does not match for block %d%s
+Error re-verifying pattern does not match for block %d%s
+ZQFXF
+\n )F F
+Error invalid verify size %d%s
+Error writing blocks %d%s
+Aborting test%s
+Error reading blocks %d%s
+\n )F F
+Error verify pattern does not match for block %d%s
+Error re-verifying pattern does not match for block %d%s
+ZQFXF
+\n )F F
+Error invalid verify size %d%s
+Error writing blocks %d%s
+Aborting test%s
+Error reading blocks %d%s
+\n )F F
+Error verify pattern does not match for block %d%s
+Error re-verifying pattern does not match for block %d%s
+!o:F F
+&vol_info->smphr
+ IkF H2F
+!0H+F:F
+!+H:F
+ `q jp@ b
+ahA``h
+  ``` F
+P%tea%
+0Fe`p
+`0F'v
+'1D)`O
+\n 1F(F
+$ZF1F(F
+:FKK)F
+\n 1F(F
+Error invalid write size %d%s
+Error writing blocks %d%s
+Remounting device%s
+Attempting to re-write block %d%s
+Error re-writing blocks %d%s
+Skipping read and verify for block %d%s
+Aborting test%s
+Error reading blocks %d%s
+Attempting to re-read block %d%s
+Error re-reading blocks %d%s
+Skipping verify for block %d%s
+Error verify pattern does not match for block %d%s
+Attempting to re-read block and verify again %d%s
+Could not mount device- Aborting test%s
+Skipping re-verify for block %d%s
+Re-verify for block %d was successful%s
+"+F1F F
+"+F1F F
+"+F1F F
+"(x+F
+"+F1F F
+"+F1F F
+"+F1F F
+..\..\..\modules\ufs\ufs_fat.c
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+i#F2F
+G(i&D D(a
+..\..\..\modules\ufs\rufs\ufs_rufs_journ.c
+rppGO
+Ethernet generated an invalid device id ( Product Number = %u, Unit ID = %u ).
+An application attempted to remove a service that was unknown: %u
+Fatal condition '!(( size > packet.size ))' Incorrect packet size received (IOP inst = %u, packet size = %u)
+\rFatal condition '!(result)' Failed to populate variant string %s!
+Fatal condition '!(status == IOP_STATUS_SUCCESS)' Cannot send heartbeat: %u
+Fatal condition '!(status == IOP_STATUS_SUCCESS)' Error sending install complete to %s: %i
+Fatal condition '!(status == IOP_STATUS_SUCCESS)' Error sending loader header to %s: %i
+Fatal condition '!(status == IOP_STATUS_SUCCESS)' Error sending update item to %s: %i
+Reference count is zero!
+Destination unreachable, code: %u, dest IP: 0x%X, src IP: 0x%X, UDP port: %u
+Datagram too big, dropping on: 0x%X:%u rcv buffer: %u, datagram: %u
+Local address interface: 0x%X does not match bound socket interface: 0x%X
+&item
+%u TX acked Frame Inst: %u Data size: %u wait_for_ack: %u clbk: %p param: %p
+#(-27<FPQ
+#(-27<FP)
+Software Version
+GARMIN BITMAP 01
+GBITMAP       01
+GDEMO         01
+Fatal condition '!((inode)->ref_count > 0)' Invalid reference count %i
+Fatal condition '!(inode->state == INODE_STATE_IN_USE)' Inode %u had a bad state %u
+Fatal condition '!(inode->ref_count == 0)' Inode %u reference count must be zero, not %i
+Fatal condition '!(inode->created == 0)' Inode %u was evicted before it was finished being created
+Fatal condition '!(inode->ref_count == 0)' Inode should have zero reference count, not %i
+Fatal condition '!(inode->shared->inode_count > 0)' Invalid shared state reference count %i
+Fatal condition '!(inode->state != INODE_STATE_UNUSED)' Bad inode state %u
+Fatal condition '!((parent)->ref_count > 0)' Invalid reference count %i
+Creating inode: parent=%u name=%S type=0x%08X inode=%u result=%S (%i)
+Fatal condition '!(inode->shared->type == type)' Shared type 0x%08X doesn't match provided type 0x%08X
+Fatal condition '!(inode->state == INODE_STATE_IN_USE)' Inode state %u is invalid for eviction
+Fatal condition '!((desc)->ref_count > 0)' Invalid reference count %i
+Fatal condition '!((a)->ref_count > 0)' Invalid reference count %i
+Fatal condition '!((b)->ref_count > 0)' Invalid reference count %i
+Fatal condition '!((mount_point)->ref_count > 0)' Invalid reference count %i
+Mounting partition on %u. source=%S flags=0x%08X fs=%u param=%S root=%u
+Fatal condition '!(inode->state != INODE_STATE_UNUSED)' Invalid inode state %u
+Fatal condition '!((old_parent)->ref_count > 0)' Invalid reference count %i
+Fatal condition '!((new_parent)->ref_count > 0)' Invalid reference count %i
+Creating new symlink. parent=%u name=%S link=%S inode=%u result=%S (%i)
+Fatal condition '!(( ( ( inode->shared->type ) & UFS_ATTR_SYMLINK ) ? 1 : 0 ))' Inode type 0x%08X is not a symbolic link
+%$%a%b%V%U%c%Q%W%]%\%[%
+%4%,%
+%<%^%_%Z%T%i%f%`%P%l%g%h%d%e%Y%X%R%S%k%j%
+")"a"
+e"d" #!#
+ &   ! 
+0	@	P	`	p	
+\n \n0\n@\nP\n`\np\n
+\r \r0\r@\rP\r`\rp\r
+Fatal condition '!(utl_cnvt_tbl[units].unit == units)' Table integrity failed for idx %u: units were actually %u
+b$C4 
+P%@Fpg`
+RwbVr
+ftGd$T
+uJTZ7j
+ld\EL
+n6~UNt^
+Qkkbal
+wn>Jj
+--------------------------------------------------------------------%s
+Enabling multicast reception for: %02X-%02X-%02X-%02X-%02X-%02X with filter: 0x%02X
+Unsupported function, R4=caller
+]n={\r
+]nfx\r
+]n	~\r
+]ng|\r
+]n%}\r
+]n<~\r
+]nm~\r
+]nHy\r
+]n.z\r
+]ntz\r
+]nf{\r
+1K)K)K)
+{K)K)K)
+[kK)K)K)K)K)K)K)K)K){
+K)K)K)K)K)K)K)K)K)K)
+K)K)K))
+K)K)K)
+K)K)K)[k
+{K)K)K)K)
+K)K)K)K)K)K)K)c
+K)K)K)K)K)K)K)K)K)
+1K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)
+BK)K)K)K)K)K)K)K)
+[kK)K)K)K)K)K)K)K)K)K)
+K)K)K))
+1K)K)K)
+[kK)K)K)1
+K)K)K)K)K)
+K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+BK)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)c
+1K)K)K)K)K)K)K)K)K)K)
+K)K)K)1
+K)K)K)K))
+K)K)K)
+K)K)K)K)K)
+[kK)K)K)K)K)K)K)K)K)[k
+K)K)K)K)K)K)K)K)
+K)K)K)
+RK)K)K)
+RK)K)K)
+K)K)K)
+K)K)K)
+[kK)K)K)
+K)K)K)1
+K)K)K)K))
+K)K)K)
+1K)K)
+cK)K)
+1K)K)K)
+K)K)K)K)
+RK)K)K)
+K)K)K)
+K)K)K)1
+K)K)K)
+K)K)K)K)
+K)K)K)[k
+RK)K)K)
+K)K)K)
+RK)K)K)K)
+[kK)K)K)
+K)K)K)K)
+K)K)K)K){
+K)K)K)K)
+K)K)K)
+K)K)K)1
+K)K)K)[k
+K)K)K)
+[kK)K)K)
+K)K)K)K)
+K)K)K)
+K)K)K)K)K)1
+1K)K)
+RK)K)
+{K)K)
+K)K)K)K){
+K)K)K)K)
+K)K)K)K)
+1K)K)K)
+RK)K)K)
+K)K)K)
+1K)K)K)
+K)K)K)K)
+K)K)K){
+K)K)K)K)K)1
+K)K)K))
+K)K)K)
+[kK)K)
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+[kK)K)K)c
+K)K)K)K)K)K)K)K)K)
+K)K)K)
+K)K)K)
+RK)K)
+BK)K)
+[kK)K)
+cK)K)
+RK)K)K)[k
+BK)K)K)
+[kK)K)K)K)K)K)K)K)
+{K)K)K)K)
+K)K)K)K){
+1K)K)K)
+K)K)K)K)K)K)K)K)K)
+[kK)K)K)c
+K)K)K){
+cK)K)
+BK)K)
+K)K)K)
+RK)K)
+K)K)K)K)K)K)K)K)K)K)
+BK)K)K)K)K)K)K)K)c
+{K)K)K)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)K)K)K)K)
+BK)K)K)
+K)K)c
+BK)K)1
+K)K)K)1
+K)K)K){
+BK)K)
+K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)K))
+[kK)K)K)
+K)K)K)
+RK)K)K))
+K)K)K)K)
+R[kK)K)
+BK)K)
+1K)K)[k
+1K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)
+K)K)K)[k
+[kK)K)K)
+RK)K)K)
+K)K)K)[k
+K)K)K)K)
+K)K)K)
+K)K)K)[kK)K)
+K)K)K)K)K)K)K)K)K)
+[kK)K)K)[k
+RK)K)K)c
+K)K)K)[k
+K)K)K)[k
+K)K)K)K)
+K)K)K)K)
+RK)K)K)
+K)K)K)
+K)K)K)
+BK)K)[k
+1K)K)
+RK)K)K)K)K)K)K)K)K)
+RK)K)K)c
+{K)K)K)c
+[kK)K)K)c
+K)K)K)
+K)K)K)
+K)K)K)K){
+K)K)K)K){
+K)K)K)
+[kK)K)K)c
+K)K)K)K)K)
+K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)K)
+K)K)K)K)
+cK)K)K)
+1K)K)K)
+BK)K)K)
+K)K)K)
+1K)K)K)
+{K)K)K)[k
+[kK)K)K)c
+1K)K)K))
+K)K)K)K)K){
+K)K)K)K)K)
+[kK)K)K)1
+K)K)K)
+K)K)K)K){
+1K)K)K)
+K)K)K)K)
+K)K)K)K)K)K)K)K)K))
+[kK)K)K)K)K)K)K)K)K)
+BK)K)K)
+K)K)K)K)
+K)K)K)K)[k
+K)K)K)K)K){
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)K)K)K)K)K)c
+RK)K)K)K)K)K)K)
+1K)K)K)K)K)K)K))
+K)K)K)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)[k
+K)K)K)
+K)K)K)
+[kK)K)K)c
+K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+BK)K)K)[k
+K)K)K)K)c
+K)K)K)
+K)K)K)
+K)K)K)K){
+K)K)K)K)
+1K)K)K)
+K)K)K)
+1K)K)K)
+K)K)K)K)
+RK)K)K)K)K)K)K)K)K){
+[kK)K)K)c
+BK)K)K)[k
+K)K)K)K)K)
+K)K)K)K)K)K)K)c
+K)K)K)K)
+[kK)K)K)
+K)K)K)
+{K)K)K)K)
+BK)K)K))
+BK)K)K)K)K)K)K)
+{K)K)K)K)K)
+K)K)K)K)K)K)K)K)
+K)K)K)
+1K)K)K)
+K)K)K)c
+K)K)K)K)K)K)K)
+K)K)K)K)
+RK)K)K)K)K)K)K)K)K)
+1K)K)K)K)K)
+[kK)K)K)K)K)K)K)K)K)[k
+K)K)K)[k
+K)K)K)K)K){
+{K)K)K))
+K)K)K)K)K)K)K)K)K)
+K)K)K)
+K)K)K)
+RK)K)K))
+cK)K)K)
+RK)K)K))
+K)K)K)
+cK)K)K)
+K)K)K)K)K)
+RK)K)K)
+cK)K)K)
+K)K)K)
+K)K)K)
+[kK)K)K)
+{K)K)K)
+BK)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+1K)K)K)
+K)K)K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)
+[kK)K)K)c
+K)K)K)K)
+RK)K)K))
+K)K)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K){
+[kK)K)K)K)K)
+K)K)K)[k
+K)K)K)[k
+K)K)K)
+1K)K)K)
+K)K)K)K)
+K)K)K)K)1
+cK)K)
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)
+1K)K)K)K)K)c
+K)K)K)c
+RK)K)K)
+K)K)K)K)
+K)K)K)
+K)K)K)K){
+K)K)K)1
+K)K)K)1
+[kK)K)K)c
+K)K)K)[k
+K)K)K)[k
+K)K)K)[kK)K)[kc
+K)K)K)
+K)K)K)K)
+K)K)K)
+RK)K)K)c
+K)K)K)
+{K)K)
+K)K)K)1
+1K)K)K)
+[kK)K)K)c
+RK)K)K)
+K)K)K)c
+c[kK)K)K){
+K)K)K)K)
+K)K)K)K)K))
+K)K)K)[k
+K)K)K)K)
+[kK)K)K)[k
+1K)K)c
+K)K)K)1
+K)K)K)K)
+1K)K)K)
+K)K)K)K)
+K)K)K))
+RK)K)
+K)K)K)
+cK)K)K)K)K)
+RK)K)K)c
+K)K)K)K)
+BK)K)K)
+K)K)K)
+K)K)K)1
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+RK)K)K)
+1K)K)[k
+[kK)K)K)c
+1K)K)K)K)
+K)K)K)K)
+K)K)K)
+K)K)K)K)
+BK)K)K)K)K)K)K)K)K)1
+K)K)K)[k
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)K)K)K)
+RK)K)K)
+{K)K)K)[k
+K)K)K)K)
+K)K)K)[k
+K)K)K)
+K)K)K)K)K)K)K)K)K)K)1
+RK)K)K)c
+K)K)K)
+[kK)K)K)c
+K)K)K)[k
+BK)K)K)K)K)
+1K)K)K)
+RK)K)K)
+K)K)K)
+K)K)K)c
+{K)K)K)c
+cK)K)K)K)K)K)K)K)K)K)1
+K)K)K)K)
+1K)K)K)
+BK)K)K))
+K)K)K)
+cK)K)K)K)K){
+K)K)K)K)
+K)K)K)K)
+[kK)K)K)[k
+K)K)K)
+1K)K)K)
+K)K)K)
+[kK)K)K)1
+K)K)K)K){
+{K)K)K)
+K)K)K)K)
+{K)K)K)
+{K)K)K)K)
+K)K)K)K)1
+cK)K)K)K){
+K)K)K)
+K)K)K)K)
+K)K)K)
+BK)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)[k
+{K)K)K)
+cK)K)K)1
+K)K)K)K)K)K)K)K)K)K)
+K)K)K)
+RK)K)K){
+K)K)K)K)c
+RK)K)K)K)K)K)K)K)K)
+RK)K)K)
+K)K)K)
+RK)K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)
+1K)K)K)
+cK)K)K)1
+[kK)K)K)K)K)K)K)K)K)
+K)K)K)[k
+K)K)K)
+K)K)K)K))
+K)K)K)K)K)K)
+RK)K)
+K)K)K)K)
+K)K)K)[k
+K)K)K)K)
+K)K)K)K)K)K)K)K)K)c
+cK)K)K)
+K)K)K)
+RK)K)K)1
+1K)K)K)K)K)K)K)
+cK)K)K)c
+K)K)K)[k
+K)K)K)K)
+BK)K)
+K)K)K)
+cK)K)K)
+K)K)K)
+RSJSJSJSJSJSJSJ
+1K)K)K)K)K)K)K)	!	!	!	!	!	!	!	!	!
+RSJSJSJSJSJSJSJ
+1K)K)K)K)K)K)K)	!	!	!	!	!	!	!	!	!
+RSJSJSJSJSJSJSJ
+1K)K)K)K)K)K)K)	!	!	!	!	!	!	!	!	!
+RSJSJSJSJSJSJSJ
+1K)K)K)K)K)K)K)	!	!	!	!	!	!	!	!	!
+[kK)K)K)c
+BK)K)K)[k
+K)K)K)K)K)
+K)K)K)K)K)K)K)c
+K)K)K)K)K)K)K)K)K)
+cK)K)K)K)K)K)
+BK)K)K))
+BK)K)K)K)K)K)K)
+{K)K)K)K)K)
+K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+1K)K)K)K)K)K)K)K)
+K)K)K)K)
+RK)K)K)K)K)K)K)K)K)
+1K)K)K)K)K)
+[kK)K)K)K)K)K)K)K)K)[k
+K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)K)
+K)K)K)
+K)K)K)
+RK)K)K))
+cK)K)K)
+RK)K)K))
+K)K)K)
+RK)K)K)
+K)K)K)
+BK)K)K)
+K)K)K)
+[kK)K)K)
+{K)K)K)
+BK)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+K)K)K)K)
+{K)K)K)[k
+K)K)K)c
+[kK)K)K)c
+K)K)K)K)
+RK)K)K))
+K)K)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+RK)K)K)c
+K)K)K)
+1K)K)K)
+K)K)K)K)
+K)K)K)K)1
+cK)K)
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)K)
+RK)K)K)
+K)K)K)K)
+K)K)K)
+K)K)K)K){
+K)K)K)1
+K)K)K)1
+[kK)K)K)c
+K)K)K)[k
+[kK)K)K)K)K)K)K)K)
+K)K)K)K)
+K)K)K)
+K)K)K)
+RK)K)K)c
+K)K)K)
+{K)K)
+K)K)K)1
+1K)K)K)
+[kK)K)K)c
+BK)K)K)K)K)K)K)K)c
+K)K)K)K)K)K)K)K)K)K))
+K)K)K)[k
+K)K)K)K)
+[kK)K)K)[k
+1K)K)c
+K)K)K)1
+K)K)K)K)
+1K)K)K)
+K)K)K)K)K)K)K)K)K)
+[kK)K)K)K)K)K)K)K)[k1
+RK)K)K)c
+K)K)K)K)
+BK)K)K)
+K)K)K)
+K)K)K)1
+K)K)K)
+K)K)K)K)
+K)K)K)
+1K)K)K)K)K)K)K)K)K)c
+K)K)K)K)
+K)K)K)
+K)K)K)K)
+BK)K)K)K)K)K)K)K)K)1
+K)K)K)[k
+K)K)K)
+K)K)K)[k
+K)K)K)K)
+K)K)K)K){
+K)K)K)K)
+K)K)K)[k
+K)K)K)
+K)K)K)K)K)K)K)K)K)K)1
+RK)K)K)c
+K)K)K)
+[kK)K)K)c
+K)K)K)K){
+K)K)K)K){
+K)K)K)
+K)K)K)c
+{K)K)K)c
+cK)K)K)K)K)K)K)K)K)K)1
+K)K)K)K)
+1K)K)K)
+1K)K)K)
+K)K)K)
+K)K)K)
+[kK)K)K)[k
+K)K)K)
+1K)K)K)
+K)K)K)
+[kK)K)K)1
+K)K)K)K){
+{K)K)K)
+K)K)K)K)
+RK)K)K)c
+K)K)K)[k
+BK)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)[k
+{K)K)K)
+cK)K)K)1
+K)K)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)c
+K)K)K)K)
+[kK)K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)
+1K)K)K)
+cK)K)K)1
+[kK)K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)K){
+RK)K)K)
+K)K)K)K)K)K)K)K)K)c
+cK)K)K)
+K)K)K)
+RK)K)K)1
+1K)K)K)K)K)K)K)
+RK)K)K)K)K)K)K)K)K){
+K)K)K)
+RK)K)K)
+K)K)K)K)K)K)K)c
+K)K)K)K)K)K)K)K)K)
+K)K)K)K)K)
+K)K)K)K)K)K)K)c
+K)K)K)K){
+{K)K)K)
+K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+{K)K)K)K)K)
+K)K)K)K)K)K)K)K)
+RK)K)K)1
+K)K)K)K)
+[kK)K)K)K)K)K)K)K)K)[k
+K)K)K)K)K)K)K)K)
+1K)K)K)K)K)
+[kK)K)K)K)K)K)K)K)K)[k
+K)K)K)
+{K)K)K)
+1K)K)K)
+K)K)K)K)
+RK)K)K)
+cK)K)K)
+RK)K)K))
+K)K)K)
+K)K)K)[k
+K)K)K)K)
+K)K)K)K)
+K)K)K)K){
+K)K)K)K)
+BK)K)
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+K)K)K)
+{K)K)K)
+K)K)K)K){
+K)K)K)K)
+K)K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)K)
+[kK)K)K)K)K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)
+cK)K)
+K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)K)K)K)c
+RK)K)K)[k
+BK)K)K)
+[kK)K)K)K)K)K)K)K)
+K)K)K)1
+K)K)K)1
+[kK)K)K)c
+K)K)K)[k
+K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)K)
+BK)K)K)K)K)K)K)K)c
+{K)K)
+K)K)K)1
+1K)K)K)
+[kK)K)K)c
+1K)K)K)K))
+K)K)K)K)K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+1K)K)c
+K)K)K)1
+K)K)K)K)
+1K)K)K)
+[kK)K)K)
+K)K)K)K)K)K)K)K)K)
+K)K)K)
+K)K)K)
+K)K)K)1
+K)K)K)
+K)K)K)K)
+RK)K)K)
+[kK)K)K)[k
+RK)K)K)c
+K)K)K)[k
+BK)K)K)K)K)K)K)K)K)1
+K)K)K)[k
+K)K)K)
+K)K)K)K)
+RK)K)K)c
+{K)K)K)c
+[kK)K)K)c
+K)K)K)K)K)K)K)K)K)K)1
+RK)K)K)c
+K)K)K)
+K)K)K)K)
+K)K)K)K)
+cK)K)K)
+1K)K)K)
+cK)K)K)K)K)K)K)K)K)K)1
+K)K)K)K)
+1K)K)K)
+K)K)K)
+K)K)K)K){
+1K)K)K)
+K)K)K)K)
+K)K)K)
+[kK)K)K)1
+K)K)K)K){
+{K)K)K)
+[kK)K)K)c
+K)K)K)
+K)K)K)K)
+K)K)K)K)K)K)K)K)K)c
+{K)K)K)
+cK)K)K)1
+K)K)K)K)K)K)K)K)K)K)
+RK)K)K)
+[kK)K)K)c
+K)K)K)K)
+K)K)K)K)K)K)K)K)K)
+1K)K)K)
+cK)K)K)1
+[kK)K)K)K)K)K)K)K)K)
+K)K)K)K)
+1K)K)K)
+K)K)K)K)
+RK)K)K)K)K)K)K)K)K){
+K)K)K)
+RK)K)K)1
+1K)K)K)K)K)K)K)
+K)K)K)
+RSJSJSJSJSJSJSJ
+1K)K)K)K)K)K)K)	!	!	!	!	!	!	!	!	!
+RSJSJSJSJSJSJSJ
+1K)K)K)K)K)K)K)	!	!	!	!	!	!	!	!	!
+0123456789ABCDEF@0X
+0123456789abcdef@0x
+cns_serial_comm.c: 137
+cns_updt_comm.c: 194
+cns_updt_comm.c: 157
+cns_updt_comm.c: 187
+iop_stack.c: 202
+iop_grmn_net_trans.c: 415
+echoMAP CHIRP 75cv, Aus/NZ
+echoMAP CHIRP 95cv, Aus/NZ
+echoMAP CHIRP 75dv, Aus/NZ
+echoMAP CHIRP 95dv, Aus/NZ
+echoMAP CHIRP 75sv, Aus/NZ
+echoMAP CHIRP 95sv, Aus/NZ
+echoMAP CHIRP 75cv, Asia
+echoMAP CHIRP 95cv, Asia
+echoMAP CHIRP 75dv, Asia
+echoMAP CHIRP 95dv, Asia
+echoMAP CHIRP 75sv, Asia
+echoMAP CHIRP 95sv, Asia
+echoMAP CHIRP 75cv, UK/Ire
+echoMAP CHIRP 95cv, UK/Ire
+echoMAP CHIRP 75dv, UK/Ire
+echoMAP CHIRP 95dv, UK/Ire
+echoMAP CHIRP 75sv, UK/Ire
+echoMAP CHIRP 95sv, UK/Ire
+echoMAP CHIRP 74cv, US Offshore
+echoMAP CHIRP 94cv, US Offshore
+echoMAP CHIRP 74dv, US Offshore
+echoMAP CHIRP 94dv, US Offshore
+echoMAP CHIRP 74sv, US Offshore
+echoMAP CHIRP 94sv, US Offshore
+echoMAP CHIRP 73cv, US Lakes
+echoMAP CHIRP 93cv, US Lakes
+echoMAP CHIRP 73dv, US Lakes
+echoMAP CHIRP 93dv, US Lakes
+echoMAP CHIRP 73sv, US Lakes
+echoMAP CHIRP 93sv, US Lakes
+echoMAP CHIRP 75cv, Canada Lakes
+echoMAP CHIRP 95cv, Canada Lakes
+echoMAP CHIRP 75dv, Canada Lakes
+echoMAP CHIRP 95dv, Canada Lakes
+echoMAP CHIRP 75sv, Canada Lakes
+echoMAP CHIRP 95sv, Canada Lakes
+ERROR: Undefined Product
+echoMAP CHIRP 72cv
+echoMAP CHIRP 92cv
+echoMAP CHIRP 72dv
+echoMAP CHIRP 92dv
+echoMAP CHIRP 72sv
+echoMAP CHIRP 92sv
+Access Denied
+Lock Failed
+Volume Already Mounted
+Already Initialized
+File Not Found
+Bad Mount Device
+Invalid Handle
+End Of File
+Invalid Name
+Wrong File Type
+No Volume Mounted Here
+File In Use
+Name too Long
+Invalid Path
+Device full
+Unsupported Operation
+I/O Error
+Internal Error
+Unknown Error
+Insufficent Resources
+Cannot Cross Volume Boundries
+Too Many Symlinks
+Bad Parameters
+Success
+File Already Exists
+Bad Alignment
+End Of Directory
+Directory Not Empty
+HWM UFS SD Block Driver
+HWM UFS SD Detection
+HWM Network
+Out of gfx resource, r0=task ID, r1=file name ptr, r2=line #
+Missing TSK_int_entry(), r0=not useful, r1=int #
+Out of file descriptors, r0=task ID, r1=p_fdp, r2=fil usr tsk 1, r3=tsk 1 hndl cnt, r4=fil usr tsk 2, r5=tsk 2 hndl cnt, etc.
+Task not active, r0=calling task ID, r1=inactive task ID
+Deleting cond var with waiters, r0=task ID, r1=cond, r2=waiting task ID
+Deleting cnt smphr with waiters, r0=task ID, r1=smphr, r2=waiting task ID
+Out of NV memory, r0=task ID
+Out of stack pool memory, r0=task ID
+Unhandled SVC exception, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Unhandled SYSTICK exception, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Unhandled non-maskable exception, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Unhandled debug monitor, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Hard-fault, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Memmanage-fault, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Usage-fault, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+Bus-fault, r0-15, CPSR, HFSR, CFSR, BFAR, MMFAR, AFSR, PSP, MSP
+TLS array index overflowed, r0=task ID, r1=tls idx, r2=MAX TLS INDICES
+Stack overflow, r0=task ID, r1=sp, r2=pc
+MIPS32 exception.  R0-R31 + badvaddr + status + cause + epc
+Cond var already initialized, r0=task ID, r1=cond
+Uninitialized cond var, r0=task ID, r1=cond
+Out of memory, r0=not useful, r1=rtrn, r2=blk sz requested, r3=num handles in use, r4=mem bytes in use
+ADS call to __rt_raise(), r0=task ID, r1=sig, r2=type, see RTL_pub_lib.h
+Deleting spinlock that is currently owned, r0=task ID, r1=spin lock
+Uninitialized spinlock, r0=task ID, r1=spin lock
+Bad memory block pointers, r0=task ID, r1=rtrn, r2=first blk, r3=prev blk, r4=prev blk's next, r5=this blk, r6=next blk's prev, r7=next blk, r8=last blk
+Smphr deadlock, r0=smphr 1 owner, r1=smphr 1, r2=smphr n owner, r3=smphr n
+Memory handle pointer missing, r0=task ID, r1=rtrn
+Not allowed in interrupt, r0=not useful, r1=rtrn
+Message queue overrun not allowed, r0=task ID, r1=target task ID, r2=rtrn
+Can't join detached task, r0=task ID, r1=target task ID, r2=rtrn
+Can't delete joinable task, r0=task ID, r1=target task ID, r2=rtrn
+Task already created, r0=calling task ID, r1=tdb, r2=rtrn
+Memory allocation exceeded, r0=task ID, r1=handle, r2=rtrn
+Bad memory handle, r0=task ID, r1=handle, r2=rtrn
+Realloc or xfer of locked memory, r0=task ID, r1=handle, r2=rtrn
+Task msg size not multiple of 4, r0=task ID, r1=msg_size, r2=rtrn
+Semaphore already released, r0=task ID, r1=smphr, r2=rtrn
+Out of memory handles, r0=task ID, r1=limit, r2=rtrn
+Detached event already initialized, r0=task ID, r1=detached event, r2=rtrn
+Uninitialized detached event, r0=task ID, r1=detached event, r2=rtrn
+Deleting detached event with tasks waiting, r0=task ID, r1=detached event, r2=waiting task ID, r3=rtrn
+Bad memory lock count, r0=task ID, r1=handle, r2=oldcnt, r3=newcnt, r4=rtrn
+Bad vector, r0=vector number
+Cnt smphr already initialized, r0=task ID, r1=smphr
+Uninitialized cnt smphr, r0=task ID, r1=smphr
+Bad use of recursively reserved smphr, r0=task ID, r2=smphr
+Cond var used with unowned smphr, r0=task ID, r1=cond, r2=smphr
+Unknown RTL error
+Undefined instruction, system r0-15 + cpsr
+Unhandled software interrupt, system r0-15 + cpsr
+Data abort, system r0-15 + cpsr
+Prefetch abort, system r0-15 + cpsr
+Can't free memory that includes handle, r0=task ID, r1=rtrn, r2=ptr
+%s %u, %s
+TLS key is invalid, r0=task ID, r1=address of tls key, r2=tls idx
+SUBARCTIC_UART0
+SUBARCTIC_UART1
+SUBARCTIC_UART2
+SUBARCTIC_UART3
+SUBARCTIC_UART4
+SUBARCTIC_UART5
+seq_id
+device_id
+item_id
+rgn_id
+version
+result
+prod_nmbr
+variants
+inventory
+data_port
+timeout
+@@@@@@@@@AAAAA@@@@@@@@@@@@@@@@@@
+          

@@ -1,0 +1,124 @@
+\n&\n7\n
+O/O?O
+O/O?O208
+C/OWX
+3.7/s-2.&/c-1.
+/S-0.
+/C-0,
+0-0x"'
+'w' 0
+'p&+\n
+@/A+B+C+1
+B[W@e/f
+@-V1@
+H/X/P
+/s!`-
+gpb+J
+O?_OoO
+ /!+y
+$/%+a
+O/O?O
+O__O"
+@ @0@
+@/P/U
+H__O%
+D__O&
+L__O,
+B!D3@1
+A)G6@a
+@ @0@
+f$w$'
+H-$/0
+!\n!	!
+U$D$3$"$
+1;/J/
+{/\n.`/
+D @0@
+.".3.D.U.
+O?_OoO
+A @0@
+O/O?G
+ /!p@
+O?_OoO
+O/O?O
+$H,U$f$w$
+A)B)C)Q
+@ @0@@
+S/$2P@
+-20@	
+@ @0@
+/_?OI
+E+F+G+
+@/A+B+C+a
+f$w$@
+,_?O	-
+D$U$f$w$
+^\nn\n~\n
+O/O?O
+B[W@e/f
+@ @0@D
+E+F+G+
+@/A+B+C+
+@.E-P
+O__O"
+p.H/O
+3.2*	
+!p&+.`
+OT-I/
+D-9/%-
+O/O?O
+OT-H/W
+D-8/&-$
+O__OU
+N!@0@
+x / t!
+B/@x2/0t4
+B/@rC
+2/0q4
+B/HpC
+2/4p4
+O!@0@
+2/0xB/@tC
+2/0r4
+2/0~/q#
+2/0|/s#
+O__OoO
+@-A)B)C)A
+/C.U$:
+F/V/U
+d.w$d
+L,U$@
+@/A+B+
+AIS600 Ver 2.30
+AIS600
+DataStart
+$PGRM,SET,RESET
+,,,,,,,aa
+,,,,,,,aa
+,,,,,,,aa
+$AISSD,
+,,,,,,,,
+$AIVSD,
+CALLSIGN=
+DIMA=
+DIMB=
+DIMC=
+DIMD=
+MMSI=
+SHIPNAME=
+SHIPTYPE=
+SMODE=
+MODE=
+$PGRM,SET,MMSI,
+$PGRM,SET,SM,
+$PGRM,SET,SRM,
+$PGRM,TRG,SRM
+WDbootload
+BOOTLDR INITIALIZED
+Repeat
+$PGRM,GET,LED
+$PGRM,GET,MMSI
+$--AIQ,VER
+$--AIQ,VSD
+$--AIQ,SSD
+$PGRM,GET,SM

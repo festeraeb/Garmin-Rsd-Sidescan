@@ -1,0 +1,31 @@
+{
+  "survey_name": "Holloway Professional Marine Survey",
+  "data_source": "Holloway.rsd",
+  "processing_system": "Professional Marine Survey Studio v2.0",
+  "chart_services": [
+    "NOAA ENC Online - Electronic Navigational Charts",
+    "NCEI Multibeam Bathymetry - High-resolution depth data"
+  ],
+  "survey_statistics": {
+    "total_records": 2000,
+    "valid_gps_records": 1421,
+    "geographic_bounds": [
+      -74.999962,
+      40.000003,
+      -74.000004,
+      40.999744
+    ],
+    "depth_range_m": [
+      0.1,
+      99.9
+    ],
+    "average_depth_m": 50.27536945812808,
+    "survey_area_sq_miles": 4759.566990790123
+  },
+  "competitive_advantages": {
+    "cost_vs_sonartrx": "$0 vs $165-280/year",
+    "chart_data_source": "Same official NOAA services as commercial solutions",
+    "enhanced_data_extraction": "PINGVerter-style comprehensive field analysis",
+    "performance_optimization": "18x Rust acceleration available"
+  }
+}

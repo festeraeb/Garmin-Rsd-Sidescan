@@ -1,0 +1,240 @@
+mnand%u
+eGarmin
+%s/%s/%S%S
+AUTO
+%S/%s
+/mnt/cards
+%s/%s%d
+sd%c
+sd%c%u
+cache
+erase_empty
+fast_mount
+clamp_data_size
+full_block
+journal
+none
+default
+rgn%u
+"#$-KPbc
+*?<>|":/\
+[];,+=
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ 0@P`p
+ "$$$$$$$$$$$$&(*,............024
+8::<>@BDFHJLNPRTVVVVVVVVVVVXVVVZ\\\\\\\\\\\^\\\`bbbbbbbbbbbbbbbbbbbbbbbbdbbbfhhhhhhhjbbbbbbbbbbbbbbbbbbbbbbblhhjnbbprtvxzr|~b
+hhhhhhh
+bbbbbbbbb
+bbbb
+bbbbbbbbb
+VVVVVVVV
+VVVV
+\\\\\\\\
+\\\\
+bbbbbbbbbbbb
+VVVVVVVVVVVVVVVV\\\\\\\\\\\\\\\\
+bbbbbbbbbbb
+hhhhhh
+bbbbbbbbbbbbbbbbbbb
+bbbbbbbb
+<<<<<<<<<<<<<<<<
+bbbbbbbbbbb
+bbbbbbbbbbbbb
+:::::::::
+RRRRRR
+<<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<
+<<<<
+<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<
+<<<<<<<
+<<<<<<<<<
+<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<
+<<<<<<<
+<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<<
+<<<<<<
+RRRRRRR
+<<<<<<<<
+ ,............02
+eGarmin
+%s/%s/%S%S
+AUTO
+%S/%s
+/mnt/cards
+%s/%s%d
+sd%c
+sd%c%u
+cache
+erase_empty
+fast_mount
+clamp_data_size
+full_block
+journal
+none
+default
+rgn%u
+/mnt/cards/sd0
+"#$-KPbc
+*?<>|":/\
+[];,+=
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ 0@P`p
+ "$$$$$$$$$$$$&(*,............024
+8::<>@BDFHJLNPRTVVVVVVVVVVVXVVVZ\\\\\\\\\\\^\\\`bbbbbbbbbbbbbbbbbbbbbbbbdbbbfhhhhhhhjbbbbbbbbbbbbbbbbbbbbbbblhhjnbbprtvxzr|~b
+hhhhhhh
+bbbbbbbbb
+bbbb
+bbbbbbbbb
+VVVVVVVV
+VVVV
+\\\\\\\\
+\\\\
+bbbbbbbbbbbb
+VVVVVVVVVVVVVVVV\\\\\\\\\\\\\\\\
+bbbbbbbbbbb
+hhhhhh
+bbbbbbbbbbbbbbbbbbb
+bbbbbbbb
+<<<<<<<<<<<<<<<<
+bbbbbbbbbbb
+bbbbbbbbbbbbb
+:::::::::
+RRRRRR
+<<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<
+<<<<
+<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<
+<<<<<<<<<<<
+<<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<
+<<<<<<<
+<<<<<<<<<
+<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<
+<<<<<<<
+<<<<<<<<<<<<<
+<<<<<<<<<<<<
+<<<<<<<<<<<
+<<<<<<
+RRRRRRR
+<<<<<<<<
+ ,............02
+t/mnt/cards/sd0
+/mnt/cards/sd1
+/data
+/cfg
+/tmp
+/usr
+/maps
+/mnt
+/dev
+devfs
+null
+random
+zero
+rufs
+/dev/mnand0
+cache=8M
+Access Denied
+Lock Failed
+Volume Already Mounted
+Already Initialized
+File Not Found
+Bad Mount Device
+Invalid Handle
+End Of File
+Invalid Name
+Wrong File Type
+No Volume Mounted Here
+File In Use
+Name too Long
+Invalid Path
+Device full
+Unsupported Operation
+I/O Error
+Internal Error
+Unknown Error
+Insufficent Resources
+Cannot Cross Volume Boundries
+Too Many Symlinks
+Bad Parameters
+Success
+File Already Exists
+Bad Alignment
+End Of Directory
+Directory Not Empty
+ramfs
+/mnt/cards/sd0
+/mnt/cards/sd1
+/data
+/cfg
+/tmp
+/usr
+/maps
+/mnt
+/dev
+/data/dps/simulator/sonar_data.img
+/data/font/006-D5672-00.bin
+/data/font/006-D4511-01.bin
+/data/font/006-D1053-64.bin
+/data/font/006-D1053-69.bin
+/data/cdp/slideshow/demo.zip
+devfs
+null
+random
+zero
+rufs
+/dev/mnand0
+cache=8M
+Access Denied
+Lock Failed
+Volume Already Mounted
+Already Initialized
+File Not Found
+Bad Mount Device
+Invalid Handle
+End Of File
+Invalid Name
+Wrong File Type
+No Volume Mounted Here
+File In Use
+Name too Long
+Invalid Path
+Device full
+Unsupported Operation
+I/O Error
+Internal Error
+Unknown Error
+Insufficent Resources
+Cannot Cross Volume Boundries
+Too Many Symlinks
+Bad Parameters
+Success
+File Already Exists
+Bad Alignment
+End Of Directory
+Directory Not Empty
+ramfs
