@@ -25,8 +25,23 @@ def find_sonar_files(root):
             files.append(str(p))
 
     # Remove duplicates and sort by size (larger first)
+    # Filter out obviously non-binary or empty files (CSV headers / zero-length)
     unique_files = list(set(files))
-    files_with_size = [(f, os.path.getsize(f)) for f in unique_files]
+    filtered = []
+    for f in unique_files:
+        try:
+            if Path(f).stat().st_size == 0:
+                continue
+            # Quick text sniff: if file starts with ASCII header like 'ofs,' or contains commas early, skip
+            with open(f, 'rb') as fh:
+                start = fh.read(256)
+                if b'ofs,' in start or b',' in start[:64]:
+                    # looks like CSV/text, skip for binary parser runs
+                    continue
+        except Exception:
+            continue
+        filtered.append(f)
+    files_with_size = [(f, os.path.getsize(f)) for f in filtered]
     files_with_size.sort(key=lambda x: x[1], reverse=True)
     return [f[0] for f in files_with_size]
 
