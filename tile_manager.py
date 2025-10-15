@@ -49,18 +49,22 @@ class TileManager:
                     
         return min_lon, min_lat, max_lon, max_lat
     
-    def create_mbtiles(self, images: List[str], csv_path: str, colormap: str = "grayscale", 
-                      min_zoom: int = 10, max_zoom: int = 16) -> str:
+    def create_mbtiles(self, images: List[str], csv_path: str, colormap: str = "grayscale",
+                      min_zoom: int = 8, max_zoom: int = 12, tile_size: int = 256,
+                      on_progress=None, check_cancel=None) -> str:
         """Create MBTiles database from images with geo-reference from CSV."""
+        print(f"Creating MBTiles: min_zoom={min_zoom}, max_zoom={max_zoom}")
+
         db_path = self.mbtiles_path / "output.mbtiles"
-        
+
         # Get bounds
         bounds = self._calculate_bounds(csv_path)
-        
+        print(f"Data bounds: {bounds}")
+
         # Initialize database
         conn = sqlite3.connect(str(db_path))
         c = conn.cursor()
-        
+
         # Create schema
         c.executescript('''
             CREATE TABLE IF NOT EXISTS metadata (name text, value text);
@@ -73,7 +77,7 @@ class TileManager:
             CREATE UNIQUE INDEX IF NOT EXISTS tile_index ON tiles
                 (zoom_level, tile_column, tile_row);
         ''')
-        
+
         # Add metadata
         metadata = {
             "name": "RSD Sidescan",
@@ -85,105 +89,183 @@ class TileManager:
             "minzoom": str(min_zoom),
             "maxzoom": str(max_zoom)
         }
-        
+
         c.executemany("INSERT OR REPLACE INTO metadata VALUES (?, ?)",
                      [(k, v) for k, v in metadata.items()])
-        
+
+        total_tiles = 0
+
         # Process images and create tiles
-        for img_path in images:
-            img = np.array(Image.open(img_path))
-            colored = self.color_manager.apply(img, colormap)
+        for img_idx, img_path in enumerate(images):
+            if check_cancel and check_cancel():
+                print("MBTiles creation cancelled")
+                break
+                
+            if on_progress:
+                on_progress(20 + img_idx * 60 // len(images), f"Processing image {img_idx+1}/{len(images)}")
             
-            # Generate tiles for each zoom level
-            for zoom in range(min_zoom, max_zoom + 1):
-                self._generate_tiles_for_zoom(colored, zoom, bounds, c)
+            print(f"Processing image {img_idx+1}/{len(images)}: {img_path}")
+            try:
+                img = np.array(Image.open(img_path))
+                colored = self.color_manager.apply(img, colormap)
+
+                # Generate tiles for each zoom level
+                for zoom in range(min_zoom, max_zoom + 1):
+                    tiles_created = self._generate_tiles_for_zoom(colored, zoom, bounds, c, tile_size)
+                    total_tiles += tiles_created
+                    print(f"  Zoom {zoom}: {tiles_created} tiles created")
+
+            except Exception as e:
+                print(f"Error processing image {img_path}: {e}")
+                continue
         
         conn.commit()
         conn.close()
-        
+
+        print(f"MBTiles creation complete: {total_tiles} total tiles")
         return str(db_path)
     
     def create_kml_overlay(self, images: List[str], csv_path: str, colormap: str = "grayscale",
-                          min_zoom: int = 10, max_zoom: int = 16) -> str:
+                          min_zoom: int = 8, max_zoom: int = 12, on_progress=None, check_cancel=None) -> str:
         """Create KML super-overlay structure."""
+        print(f"Creating KML overlay: min_zoom={min_zoom}, max_zoom={max_zoom}")
+
         bounds = self._calculate_bounds(csv_path)
+        print(f"Data bounds: {bounds}")
+
         root_kml = self.kml_path / "doc.kml"
-        
+
         # Create directory structure
         for zoom in range(min_zoom, max_zoom + 1):
             (self.kml_path / str(zoom)).mkdir(exist_ok=True)
             (self.tiles_path / str(zoom)).mkdir(exist_ok=True)
-        
+
+        total_tiles = 0
+
         # Process images and create tiles
-        for img_path in images:
-            img = np.array(Image.open(img_path))
-            colored = self.color_manager.apply(img, colormap)
+        for img_idx, img_path in enumerate(images):
+            if check_cancel and check_cancel():
+                print("KML overlay creation cancelled")
+                break
+                
+            if on_progress:
+                on_progress(20 + img_idx * 60 // len(images), f"Processing image {img_idx+1}/{len(images)}")
             
-            for zoom in range(min_zoom, max_zoom + 1):
-                self._generate_kml_tiles(colored, zoom, bounds, img_path)
-        
-        # Create root KML
+            print(f"Processing image {img_idx+1}/{len(images)}: {img_path}")
+            try:
+                img = np.array(Image.open(img_path))
+                colored = self.color_manager.apply(img, colormap)
+
+                for zoom in range(min_zoom, max_zoom + 1):
+                    tiles_created = self._generate_kml_tiles(colored, zoom, bounds, img_path)
+                    total_tiles += tiles_created
+                    print(f"  Zoom {zoom}: {tiles_created} tiles created")
+
+            except Exception as e:
+                print(f"Error processing image {img_path}: {e}")
+                continue        # Create root KML
         self._create_root_kml(root_kml, bounds, min_zoom, max_zoom)
-        
+
+        print(f"KML overlay creation complete: {total_tiles} total tiles")
         return str(root_kml)
     
-    def _generate_tiles_for_zoom(self, img: np.ndarray, zoom: int, 
+    def _generate_tiles_for_zoom(self, img: np.ndarray, zoom: int,
                                bounds: Tuple[float, float, float, float],
-                               cursor: sqlite3.Cursor):
-        """Generate and store tiles for a specific zoom level."""
+                               cursor: sqlite3.Cursor, tile_size: int = 256) -> int:
+        """Generate and store tiles for a specific zoom level. Returns number of tiles created."""
         min_lon, min_lat, max_lon, max_lat = bounds
-        
-        # Calculate tile numbers
+
+        # Calculate tile range that covers our data bounds
         n = 2.0 ** zoom
-        for y in range(int(n)):
-            for x in range(int(n)):
-                tile_bounds = (
-                    x / n * 360.0 - 180.0,
-                    (1 - (y + 1) / n) * 170.1022,
-                    (x + 1) / n * 360.0 - 180.0,
-                    (1 - y / n) * 170.1022
-                )
-                
+
+        # Convert lat/lon bounds to tile coordinates
+        def lon_to_tile(lon): return int((lon + 180.0) / 360.0 * n)
+        def lat_to_tile(lat): return int((1.0 - math.log(math.tan(lat * math.pi / 180.0) + 1.0 / math.cos(lat * math.pi / 180.0)) / math.pi) / 2.0 * n)
+
+        min_tile_x = max(0, lon_to_tile(min_lon) - 1)  # Add padding
+        max_tile_x = min(int(n) - 1, lon_to_tile(max_lon) + 1)
+        min_tile_y = max(0, lat_to_tile(max_lat) - 1)  # Note: lat is inverted
+        max_tile_y = min(int(n) - 1, lat_to_tile(min_lat) + 1)
+
+        tiles_created = 0
+
+        # Only iterate over tiles that could potentially intersect our data
+        for y in range(min_tile_y, max_tile_y + 1):
+            for x in range(min_tile_x, max_tile_x + 1):
+                # Calculate tile bounds
+                tile_min_lon = x / n * 360.0 - 180.0
+                tile_max_lon = (x + 1) / n * 360.0 - 180.0
+                tile_max_lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * y / n))))
+                tile_min_lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * (y + 1) / n))))
+
+                tile_bounds = (tile_min_lon, tile_min_lat, tile_max_lon, tile_max_lat)
+
                 if self._bounds_intersect(bounds, tile_bounds):
-                    tile_img = self._render_tile(img, tile_bounds, bounds)
-                    if tile_img is not None:
-                        # Convert to PNG bytes
-                        from io import BytesIO
-                        buf = BytesIO()
-                        tile_img.save(buf, format='PNG')
-                        tile_data = buf.getvalue()
-                        
-                        # Store in database
-                        cursor.execute(
-                            "INSERT OR REPLACE INTO tiles VALUES (?, ?, ?, ?)",
-                            (zoom, x, y, sqlite3.Binary(tile_data))
-                        )
+                    try:
+                        tile_img = self._render_tile(img, tile_bounds, bounds)
+                        if tile_img is not None:
+                            # Convert to PNG bytes
+                            from io import BytesIO
+                            buf = BytesIO()
+                            tile_img.save(buf, format='PNG')
+                            tile_data = buf.getvalue()
+
+                            # Store in database
+                            cursor.execute(
+                                "INSERT OR REPLACE INTO tiles VALUES (?, ?, ?, ?)",
+                                (zoom, x, y, sqlite3.Binary(tile_data))
+                            )
+                            tiles_created += 1
+                    except Exception as e:
+                        print(f"Error creating tile {zoom}/{x}/{y}: {e}")
+                        continue
+
+        return tiles_created
     
     def _generate_kml_tiles(self, img: np.ndarray, zoom: int,
                           bounds: Tuple[float, float, float, float],
-                          image_path: str):
-        """Generate tiles and KML files for super-overlay."""
+                          image_path: str) -> int:
+        """Generate tiles and KML files for super-overlay. Returns number of tiles created."""
         min_lon, min_lat, max_lon, max_lat = bounds
         n = 2.0 ** zoom
-        
-        for y in range(int(n)):
-            for x in range(int(n)):
-                tile_bounds = (
-                    x / n * 360.0 - 180.0,
-                    (1 - (y + 1) / n) * 170.1022,
-                    (x + 1) / n * 360.0 - 180.0,
-                    (1 - y / n) * 170.1022
-                )
-                
+
+        # Calculate tile range that covers our data bounds
+        def lon_to_tile(lon): return int((lon + 180.0) / 360.0 * n)
+        def lat_to_tile(lat): return int((1.0 - math.log(math.tan(lat * math.pi / 180.0) + 1.0 / math.cos(lat * math.pi / 180.0)) / math.pi) / 2.0 * n)
+
+        min_tile_x = max(0, lon_to_tile(min_lon) - 1)  # Add padding
+        max_tile_x = min(int(n) - 1, lon_to_tile(max_lon) + 1)
+        min_tile_y = max(0, lat_to_tile(max_lat) - 1)  # Note: lat is inverted
+        max_tile_y = min(int(n) - 1, lat_to_tile(min_lat) + 1)
+
+        tiles_created = 0
+
+        for y in range(min_tile_y, max_tile_y + 1):
+            for x in range(min_tile_x, max_tile_x + 1):
+                # Calculate tile bounds
+                tile_min_lon = x / n * 360.0 - 180.0
+                tile_max_lon = (x + 1) / n * 360.0 - 180.0
+                tile_max_lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * y / n))))
+                tile_min_lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * (y + 1) / n))))
+
+                tile_bounds = (tile_min_lon, tile_min_lat, tile_max_lon, tile_max_lat)
+
                 if self._bounds_intersect(bounds, tile_bounds):
-                    tile_img = self._render_tile(img, tile_bounds, bounds)
-                    if tile_img is not None:
-                        # Save tile image
-                        tile_path = self.tiles_path / str(zoom) / f"{x}_{y}.png"
-                        tile_img.save(tile_path)
-                        
-                        # Create tile KML
-                        self._create_tile_kml(zoom, x, y, tile_bounds, tile_path)
+                    try:
+                        tile_img = self._render_tile(img, tile_bounds, bounds)
+                        if tile_img is not None:
+                            # Save tile image
+                            tile_path = self.tiles_path / str(zoom) / f"{x}_{y}.png"
+                            tile_img.save(tile_path)
+
+                            # Create tile KML
+                            self._create_tile_kml(zoom, x, y, tile_bounds, tile_path)
+                            tiles_created += 1
+                    except Exception as e:
+                        print(f"Error creating KML tile {zoom}/{x}/{y}: {e}")
+                        continue
+
+        return tiles_created
     
     def _render_tile(self, img: np.ndarray, tile_bounds: Tuple[float, float, float, float],
                     img_bounds: Tuple[float, float, float, float]) -> Optional[Image.Image]:

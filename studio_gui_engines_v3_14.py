@@ -26,9 +26,9 @@ try:
     LICENSE_SYSTEM_AVAILABLE = True
 except ImportError as e:
     LICENSE_SYSTEM_AVAILABLE = False
-    print("ℹ️ Running in demo mode - for licensing contact festeraeb@yahoo.com")
-    print("🚁 SAR Groups: FREE licensing available")
-    print("💼 Commercial: One-time purchase (no yearly fees)")
+    print("INFO: Running in demo mode - for licensing contact festeraeb@yahoo.com")
+    print("SAR Groups: FREE licensing available")
+    print("Commercial: One-time purchase (no yearly fees)")
     
     # Create dummy functions for graceful fallback
     def check_license_on_startup():
@@ -145,8 +145,8 @@ class App(tk.Tk):
         # Export options
         self.export_format = tk.StringVar(value="video")
         self.tile_size = tk.IntVar(value=256)
-        self.min_zoom = tk.IntVar(value=10)
-        self.max_zoom = tk.IntVar(value=18)
+        self.min_zoom = tk.IntVar(value=8)
+        self.max_zoom = tk.IntVar(value=14)
         
         # Block processing variables
         self.block_size = tk.IntVar(value=25)  # Smaller default for more blocks
@@ -1098,7 +1098,27 @@ Contact: festeraeb@yahoo.com"""
             self.preview_label.config(text=f"Error displaying preview: {str(e)}")
 
     def _browse_input(self):
-        path = filedialog.askopenfilename(filetypes=[("RSD files", "*.RSD")])
+        try:
+            from parsers.universal_parser import format_file_filter
+            filter_string = format_file_filter()
+            # Convert Windows-style filter string to Tkinter format
+            # "Desc (*.ext)|Desc2 (*.ext2)" -> [("Desc", "*.ext"), ("Desc2", "*.ext2")]
+            filetypes = []
+            parts = filter_string.split('|')
+            for part in parts:
+                # Parse "Description (*.ext1;*.ext2)" format
+                if '(' in part and ')' in part:
+                    desc = part[:part.find('(')].strip()
+                    pattern_part = part[part.find('(')+1:part.find(')')]
+                    filetypes.append((desc, pattern_part))
+                else:
+                    # Fallback for malformed parts
+                    filetypes.append((part, "*.*"))
+        except ImportError:
+            # Fallback to basic RSD support if parsers module not available
+            filetypes = [("RSD files", "*.rsd"), ("All files", "*.*")]
+        
+        path = filedialog.askopenfilename(filetypes=filetypes)
         if path:
             self.input_path.set(path)
             if not self.output_path.get():
@@ -1110,218 +1130,100 @@ Contact: festeraeb@yahoo.com"""
             self.output_path.set(path)
     
     def _parse(self):
-        """Parse RSD file using selected engine."""
+        """Parse sonar file using multi-format parsers."""
         in_path = self.input_path.get()
         if not in_path:
-            return messagebox.showerror("Error", "Please select an input RSD file")
+            return messagebox.showerror("Error", "Please select an input sonar file")
             
         out_path = self.output_path.get()
         if not out_path:
             return messagebox.showerror("Error", "Please select an output directory")
             
         def parse_job(on_progress, check_cancel):
-            glue = Path(__file__).parent / "engine_glue.py"
-            
-            # First verify the engine_glue.py exists
-            if not glue.exists():
-                raise RuntimeError(f"Parser glue script not found: {glue}")
-            
-            # Get absolute path to python executable
-            python_exe = sys.executable
-            if not python_exe:
-                raise RuntimeError("Could not determine Python executable path")
-                
-            # Ensure output directory exists
-            out_path_obj = Path(out_path).resolve()
-            out_dir = out_path_obj if out_path_obj.is_dir() else out_path_obj.parent
-            out_dir.mkdir(parents=True, exist_ok=True)
-            
-            # Phase 1: Setup and Validation
-            on_progress(5, "Phase 1: Setting up parser...")
-            
-            args = [
-                python_exe,  # Use full path to Python
-                str(glue.resolve()),  # Use absolute path to script
-                "--input", str(Path(in_path).resolve()),  # Absolute paths
-                "--out", str(out_dir),  # Use directory for output
-                "--prefer", self.parser_pref.get(),
-                "--scan-type", self.scan_type.get(),
-                "--channel", self.channel_id.get(),
-                "--verbose"
-            ]
-            on_progress(10, f"Parser command ready: {Path(in_path).name} → {out_dir.name}")
-            
             try:
-                # Phase 2: Starting Parser Process
-                on_progress(15, "Phase 2: Starting RSD parser process...")
+                # Import multi-format parser
+                from parsers.universal_parser import UniversalSonarParser
                 
-                # Run with timeout to avoid hanging
-                proc = subprocess.Popen(
-                    args,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,  # Capture stderr separately
-                    universal_newlines=True,
-                    cwd=str(glue.parent)  # Ensure working dir is correct
-                )
+                on_progress(5, "Phase 1: Initializing universal parser...")
                 
-                parse_phase = "initializing"
-                last_progress = 15
+                # Initialize universal parser - it auto-detects format
+                parser = UniversalSonarParser(in_path)
                 
-                while True:
-                    if check_cancel():
-                        proc.terminate()
-                        break
-                        
-                    # Read from both stdout and stderr
-                    stdout_line = proc.stdout.readline() if proc.stdout else ''
-                    stderr_line = proc.stderr.readline() if proc.stderr else ''
+                if not parser.is_supported():
+                    raise RuntimeError(f"Unsupported file format: {in_path}")
+                
+                file_format = parser.format_type
+                on_progress(10, f"Phase 2: Detected {file_format} format")
+                
+                # Get available channels
+                channels = parser.get_channels()
+                on_progress(20, f"Phase 3: Found {len(channels)} channels: {channels}")
+                
+                # Ensure output directory exists
+                out_path_obj = Path(out_path).resolve()
+                out_dir = out_path_obj if out_path_obj.is_dir() else out_path_obj.parent
+                out_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Parse the file
+                on_progress(30, f"Phase 4: Parsing {file_format} file...")
+                record_count, csv_path, log_path = parser.parse_records()
+                
+                on_progress(85, f"Phase 5: Processing {record_count} records...")
+                
+                # Check if CSV was created successfully
+                csv_path_obj = Path(csv_path)
+                if not csv_path_obj.exists():
+                    raise RuntimeError(f"Parser failed to create CSV file: {csv_path}")
+                
+                # Move CSV and log files to user-selected output directory
+                expected_csv_name = f"{Path(in_path).stem}_parsed.csv"
+                expected_csv_path = out_dir / expected_csv_name
+                expected_log_path = expected_csv_path.with_suffix('.log')
+                
+                # Copy files to expected location
+                import shutil
+                shutil.copy2(csv_path_obj, expected_csv_path)
+                if Path(log_path).exists():
+                    shutil.copy2(log_path, expected_log_path)
+                
+                # Update paths for GUI tracking
+                final_csv_path = str(expected_csv_path)
+                final_log_path = str(expected_log_path)
+                
+                on_progress(95, "Phase 6: Validating output...")
+                
+                # Quick validation - count lines in the final CSV
+                with open(expected_csv_path, 'r') as f:
+                    line_count = sum(1 for _ in f) - 1  # Subtract header
+                
+                on_progress(100, f"✓ Parse complete! Generated {line_count} records in {expected_csv_path.name}")
+                
+                # Add helpful next steps message
+                self._q.put(("log", ""))
+                self._q.put(("log", "=== PARSING COMPLETE ==="))
+                self._q.put(("log", f"✓ CSV file: {final_csv_path}"))
+                self._q.put(("log", f"✓ Records processed: {line_count}"))
+                self._q.put(("log", f"✓ Format: {file_format}"))
+                self._q.put(("log", f"✓ Channels: {len(channels)}"))
+                self._q.put(("log", ""))
+                self._q.put(("log", "🔍 NEXT STEPS:"))
+                self._q.put(("log", "1. Click 'Auto-Detect' in Block Processing to find channels"))
+                self._q.put(("log", "2. Generate block preview to see aligned sonar data"))
+                self._q.put(("log", "3. Use Legacy Preview for traditional waterfall view"))
+                self._q.put(("log", "4. Export to video, KML, or MBTiles when ready"))
+                self._q.put(("log", ""))
+                
+                # Store the final CSV path for subsequent operations
+                self.last_output_csv_path = final_csv_path
                     
-                    if not stdout_line and not stderr_line and proc.poll() is not None:
-                        break
-                        
-                    if stdout_line:
-                        line = stdout_line.strip()
-                        # Detect different phases of parsing
-                        if "Finding first sync" in line or "sync found" in line:
-                            parse_phase = "scanning"
-                            on_progress(25, "Phase 3: Scanning for sync patterns...")
-                        elif "Header @" in line or "Records:" in line:
-                            parse_phase = "parsing"
-                            if last_progress < 40:
-                                on_progress(40, "Phase 4: Parsing RSD records...")
-                                last_progress = 40
-                        elif "Done" in line and "Records:" in line:
-                            parse_phase = "completing"
-                            on_progress(80, "Phase 5: Finalizing parse results...")
-                            last_progress = 80
-                        elif "CSV written" in line:
-                            parse_phase = "finished"
-                            on_progress(95, "Phase 6: CSV file generated successfully!")
-                            last_progress = 95
-                        
-                        # Try to extract progress percentage for fine-grained updates
-                        try:
-                            if line.startswith("[engine_glue]"):
-                                # Status message
-                                on_progress(None, f"[Parser] {line}")
-                            elif "%" in line and parse_phase == "parsing":
-                                # Progress percentage during parsing phase
-                                pct_str = line.split("%")[0].strip().split()[-1]
-                                pct = float(pct_str)
-                                # Map parser percentage (0-100) to our range (40-75)
-                                mapped_pct = 40 + (pct * 35 / 100)
-                                on_progress(mapped_pct, f"Phase 4: Parsing records... {pct:.1f}%")
-                                last_progress = max(last_progress, mapped_pct)
-                            else:
-                                on_progress(None, f"[Parser] {line}")
-                        except (ValueError, IndexError):
-                            on_progress(None, f"[Parser] {line}")
-                            
-                    if stderr_line:
-                        on_progress(None, f"[Parser ERROR] {stderr_line.strip()}")
-                        
             except Exception as e:
-                on_progress(None, f"Failed to start parser process: {str(e)}")
+                on_progress(None, f"Parse failed: {str(e)}")
+                import traceback
+                traceback.print_exc()
                 raise
-            
-            # Get final output if anything remains
-            remaining_stdout, remaining_stderr = proc.communicate()
-            if remaining_stdout:
-                for line in remaining_stdout.splitlines():
-                    if line.strip():
-                        on_progress(None, f"[Parser] {line.strip()}")
-            if remaining_stderr:
-                for line in remaining_stderr.splitlines():
-                    if line.strip():
-                        on_progress(None, f"[Parser ERROR] {line.strip()}")
-                    
-            if proc.returncode != 0 and not check_cancel():
-                # Try to give a helpful error message
-                err_msg = []
-                if remaining_stderr:
-                    err_msg.append(remaining_stderr.strip())
-                if remaining_stdout:
-                    err_msg.append(remaining_stdout.strip())
-                
-                if err_msg:
-                    raise RuntimeError("\n".join(["Parser failed:"] + err_msg))
-                else:
-                    raise RuntimeError(f"Parser failed with code {proc.returncode}")
-                
-                # Try to save log for debugging
-                try:
-                    log_path = out_dir / "parser_error.log"
-                    with open(log_path, "w") as f:
-                        f.write("\n".join(err_msg))
-                    on_progress(None, f"Error details saved to {log_path}")
-                except:
-                    pass
-            
-            # Phase 7: Post-processing and validation
-            on_progress(98, "Phase 7: Validating output files...")
-            
-            # Check for generated files
-            csv_files = list(out_dir.glob("*.csv"))
-            if csv_files:
-                csv_file = csv_files[0]
-                # Quick validation - count lines
-                try:
-                    with open(csv_file, 'r') as f:
-                        line_count = sum(1 for _ in f) - 1  # Subtract header
-                    on_progress(100, f"✓ Parse complete! Generated {line_count} records in {csv_file.name}")
-                    
-                    # Add helpful next steps message
-                    self._q.put(("log", ""))
-                    self._q.put(("log", "=== PARSING COMPLETE ==="))
-                    self._q.put(("log", f"✓ CSV file: {csv_file}"))
-                    self._q.put(("log", f"✓ Records processed: {line_count}"))
-                    self._q.put(("log", ""))
-                    self._q.put(("log", "🔍 NEXT STEPS:"))
-                    self._q.put(("log", "1. Click 'Auto-Detect' in Block Processing to find channels"))
-                    self._q.put(("log", "2. Generate block preview to see aligned sonar data"))
-                    self._q.put(("log", "3. Use Legacy Preview for traditional waterfall view"))
-                    self._q.put(("log", "4. Export to video, KML, or MBTiles when ready"))
-                    self._q.put(("log", ""))
-                    
-                except Exception as e:
-                    on_progress(100, f"✓ Parse complete! CSV generated: {csv_file.name}")
-            else:
-                on_progress(100, "Parse completed but no CSV file found")
-                
-            # Keep progress visible for a moment
-            import time
-            time.sleep(2)  # Keep progress bar visible for 2 seconds
         
-        self._create_progress_bar("parse", "Parsing RSD file...")
+        self._create_progress_bar("parse", "Parsing sonar file...")
         self.process_mgr.start_process("parse", parse_job)
-    
-    def _paths_cfg(self):
-        """Return (pdir, paths, cfg) for preview/export."""
-        pdir = Path(self.output_path.get())
-        pats = []
-        for ext in ("*.png", "*.jpg", "*.jpeg"):
-            pats.extend(sorted(pdir.glob(ext)))
-        paths = [str(p) for p in pats]
-        
-        cfg = {
-            "VIDEO_ENCODER": "mp4v",
-            "ALIGN_CHANNELS": True,
-            "FLIP_RIGHT": True,
-            "SWAP_LR": False,
-            "MAX_ALIGN_SHIFT": 128,
-            "FORCE_SPLIT_MID": False,
-            "AUTO_SPLIT": False,
-            "COLORMAP": self.cmap.get(),
-            "PREVIEW_MODE": self.preview_mode.get(),
-            "SHOW_SEAM": bool(self.show_seam.get()),
-            "SMOOTH_SHIFT": 11,
-            "AUTO_DECIDE": True,
-            "EDGE_PAD": 0,
-            "SCAN_TYPE": self.scan_type.get(),
-            "CHANNEL_ID": self.channel_id.get(),
-            "FORCE_SINGLE_CHANNEL": self.scan_type.get() != "auto",
-        }
-        return pdir, paths, cfg
     
     def _preview(self):
         """Preview selected images."""
@@ -1377,15 +1279,19 @@ Contact: festeraeb@yahoo.com"""
             messagebox.showerror("Error", "No CSV data available. Please run parser first.")
             return
         
-        # Check if we have block processing results
-        use_block_images = (BLOCK_PROCESSING_AVAILABLE and 
-                           hasattr(self, 'current_block_images') and 
-                           self.current_block_images)
+        # Check if we can use block processing for export
+        # We can use block export if block processing is available AND channels have been detected
+        use_block_images = (BLOCK_PROCESSING_AVAILABLE and
+                           hasattr(self, 'block_processor') and
+                           self.block_processor is not None and
+                           hasattr(self, 'left_channel') and hasattr(self, 'right_channel') and
+                           self.left_channel.get() and self.right_channel.get())
         
         if not use_block_images:
-            messagebox.showwarning("Limited Export", 
-                                 "No block preview data available. Using legacy export method.\n"
-                                 "For best results, build a block preview first.")
+            messagebox.showwarning("Limited Export",
+                                 "Block processing not available or channels not detected.\n"
+                                 "Using legacy export method.\n"
+                                 "For best results, run channel auto-detection first.")
         
         self.log.insert(tk.END, f"\n🚀 Starting {fmt.upper()} export...\n")
         self.log.see("end")
@@ -1420,7 +1326,7 @@ Contact: festeraeb@yahoo.com"""
         try:
             if use_block_images:
                 # Use block processing images
-                self.log.insert(tk.END, f"Using block processing data ({len(self.current_block_images)} blocks)\n")
+                self.log.insert(tk.END, f"Using block processing data (channels {self.left_channel.get()}/{self.right_channel.get()})\n")
                 self._export_from_blocks(fmt, exporter_module)
             else:
                 # Use legacy export method
@@ -1498,59 +1404,45 @@ Contact: festeraeb@yahoo.com"""
                         water_column_pixels=self.water_column_pixels.get()
                     )
                     
-                    # Ensure we have a valid 2D grayscale image
-                    if len(block_image.shape) != 2:
-                        print(f"WARNING: Block {i} has wrong dimensions: {block_image.shape}")
-                        continue
-                        
-                    if block_image.shape[0] == 0 or block_image.shape[1] == 0:
-                        print(f"ERROR: Block {i} has zero dimensions: {block_image.shape}")
-                        continue
+                    # For video export, each block represents a complete frame in the waterfall
+                    # Don't split blocks into individual ping rows - treat each block as one frame
+                    block_height, block_width = block_image.shape
                     
                     # Convert to PIL Image - ensure uint8 format
                     if block_image.dtype != np.uint8:
                         block_image = block_image.astype(np.uint8)
                     
-                    # For video export, we need to split the block into individual rows
-                    # Each row represents one ping/frame in the waterfall
-                    block_height, block_width = block_image.shape
+                    # Create PIL image from the full block (multiple pings stacked vertically)
+                    img = PIm.fromarray(block_image, mode='L')
                     
-                    # Split the block into individual ping rows
-                    for row_idx in range(block_height):
-                        ping_row = block_image[row_idx:row_idx+1, :]  # Single row
-                        
-                        # Create PIL image from this single row
-                        img = PIm.fromarray(ping_row.squeeze(), mode='L')
-                        
-                        # Apply current colormap
-                        if self.colormap_var.get() != 'gray':
-                            try:
-                                # Convert to RGB for colormap
-                                import matplotlib.pyplot as plt
-                                import matplotlib.cm as cm
-                                
-                                # Normalize to 0-1 range
-                                normalized = ping_row.squeeze().astype(np.float32) / 255.0
-                                
-                                # Apply colormap
-                                colormap = cm.get_cmap(self.colormap_var.get())
-                                colored = colormap(normalized)
-                                
-                                # Convert back to uint8 RGB
-                                rgb_image = (colored[:, :3] * 255).astype(np.uint8)
-                                img = PIm.fromarray(rgb_image, mode='RGB')
-                            except:
-                                # Keep as grayscale if colormap fails
-                                pass
-                        
-                        # Save individual ping frame
-                        frame_num = i * block_height + row_idx
-                        frame_path = temp_dir / f"frame_{frame_num:06d}.png"
-                        img.save(frame_path)
-                        frame_paths.append(str(frame_path))
+                    # Apply current colormap
+                    if self.colormap_var.get() != 'gray':
+                        try:
+                            # Convert to RGB for colormap
+                            import matplotlib.pyplot as plt
+                            import matplotlib.cm as cm
+                            
+                            # Normalize to 0-1 range
+                            normalized = block_image.astype(np.float32) / 255.0
+                            
+                            # Apply colormap
+                            colormap = cm.get_cmap(self.colormap_var.get())
+                            colored = colormap(normalized)
+                            
+                            # Convert back to uint8 RGB
+                            rgb_image = (colored[:, :, :3] * 255).astype(np.uint8)
+                            img = PIm.fromarray(rgb_image, mode='RGB')
+                        except:
+                            # Keep as grayscale if colormap fails
+                            pass
+                    
+                    # Save the complete block as one frame
+                    frame_path = temp_dir / f"frame_{i:06d}.png"
+                    img.save(frame_path)
+                    frame_paths.append(str(frame_path))
                     
                     progress = 5 + (i + 1) * 30 // total_blocks
-                    on_progress(progress, f"Generating frames from block {i+1}/{total_blocks}")
+                    on_progress(progress, f"Generating frame from block {i+1}/{total_blocks}")
                 
                 # Configure export
                 cfg = {
@@ -2868,13 +2760,13 @@ def main():
                 license_info = license_mgr.get_license_info()
                 
                 if license_info['type'] == 'TRIAL':
-                    print(f"📅 Trial license active")
+                    print(f"Trial license active")
                 elif license_info['type'] == 'SAR':
-                    print("🚁 SAR License Active (CesarOps) - Thank you for your service!")
+                    print("SAR License Active (CesarOps) - Thank you for your service!")
                 elif license_info['type'] == 'COMMERCIAL':
-                    print("💼 Commercial License Active - All features unlocked")
+                    print("Commercial License Active - All features unlocked")
                 elif not license_info['valid']:
-                    print("📧 Contact festeraeb@yahoo.com for licensing")
+                    print("Contact festeraeb@yahoo.com for licensing")
             except:
                 pass
         
@@ -2882,7 +2774,7 @@ def main():
         app.mainloop()
         
     except Exception as e:
-        print(f"❌ Error starting GUI: {e}")
+        print(f"Error starting GUI: {e}")
         import traceback
         traceback.print_exc()
 
