@@ -74,12 +74,13 @@ class BaseSonarParser:
             'exists': path.exists()
         }
     
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """
         Parse sonar records and export to CSV
         
         Args:
             max_records: Maximum number of records to parse (None for all)
+            progress_callback: Optional callback function for progress updates (pct, message)
             
         Returns:
             Tuple of (record_count, csv_path, log_path)

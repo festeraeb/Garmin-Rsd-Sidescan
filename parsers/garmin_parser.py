@@ -20,14 +20,19 @@ class GarminParser(BaseSonarParser):
         self._cached_channels = None
         self._cached_record_count = None
         
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """
         Parse Garmin RSD records using enhanced engine
+        
+        Args:
+            max_records: Maximum number of records to parse (None for all)
+            progress_callback: Optional callback function for progress updates (pct, message)
         """
         # Use our existing engine with improvements
         from engine_nextgen_syncfirst import parse_rsd_records_nextgen
-        from engine_glue import run_engine
         from pathlib import Path
+        import csv
+        import os
         
         file_path_obj = Path(self.file_path)
         output_dir = file_path_obj.parent / "parsed_output"
@@ -35,32 +40,53 @@ class GarminParser(BaseSonarParser):
         
         csv_name = f"{file_path_obj.stem}_parsed.csv"
         csv_path = str(output_dir / csv_name)
+        log_path = str(output_dir / f"{file_path_obj.stem}_parsed.log")
         
-        try:
-            # Use the improved engine_glue function
-            result_paths = run_engine(
-                engine='nextgen',  # Use nextgen for better tolerance
-                rsd_path=str(self.file_path),
-                csv_out=csv_path,
-                limit_rows=max_records
-            )
+        # CSV header - must match what GUI expects
+        header = [
+            "ofs", "channel_id", "seq", "time_ms", "lat", "lon", "depth_m", 
+            "sample_cnt", "sonar_ofs", "sonar_size", "beam_deg", "pitch_deg", 
+            "roll_deg", "heave_m", "tx_ofs_m", "rx_ofs_m", "color_id", "extras_json"
+        ]
+        
+        record_count = 0
+        
+        # Parse records and write to CSV
+        with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(header)
             
-            if result_paths and len(result_paths) > 0:
-                actual_csv = result_paths[0]
-                log_path = actual_csv.replace('.csv', '.log')
-                
-                # Count actual records
-                record_count = 0
-                if os.path.exists(actual_csv):
-                    with open(actual_csv, 'r') as f:
-                        record_count = sum(1 for line in f) - 1  # Subtract header
-                
-                return record_count, actual_csv, log_path
-            else:
-                raise RuntimeError("Engine returned no output files")
-                
-        except Exception as e:
-            raise RuntimeError(f"Garmin RSD parsing failed: {e}")
+            try:
+                for record in parse_rsd_records_nextgen(str(self.file_path), limit_records=max_records, progress=progress_callback):
+                    writer.writerow([
+                        record.ofs,
+                        record.channel_id,
+                        record.seq,
+                        record.time_ms,
+                        record.lat,
+                        record.lon,
+                        record.depth_m,
+                        record.sample_cnt,
+                        record.sonar_ofs,
+                        record.sonar_size,
+                        record.beam_deg,
+                        record.pitch_deg,
+                        record.roll_deg,
+                        record.heave_m,
+                        record.tx_ofs_m,
+                        record.rx_ofs_m,
+                        record.color_id,
+                        "{}"  # Empty JSON for extras
+                    ])
+                    record_count += 1
+                    
+            except Exception as e:
+                # Write error to log
+                with open(log_path, 'w') as log_file:
+                    log_file.write(f"Parse error: {str(e)}\n")
+                raise
+        
+        return record_count, csv_path, log_path
     
     def get_channels(self) -> List[int]:
         """

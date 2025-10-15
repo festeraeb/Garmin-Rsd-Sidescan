@@ -176,7 +176,16 @@ class EdgeTechParser(BaseSonarParser):
             
         return info
 
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def get_channels(self) -> List[int]:
+        """
+        Get available sonar channels
+        
+        Returns:
+            List of channel IDs
+        """
+        return self.channels
+
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """Parse EdgeTech records and export to CSV"""
         output_csv = self.file_path.replace('.jsf', '_records.csv')
         output_log = output_csv.replace('.csv', '.log')

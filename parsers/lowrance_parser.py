@@ -91,7 +91,7 @@ class LowranceParser(BaseSonarParser):
         # Simplified estimation - real implementation needs format analysis
         return 1024
     
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """
         Parse Lowrance SL2/SL3 records
         
@@ -219,7 +219,7 @@ class LowranceParser(BaseSonarParser):
 class HumminbirdParser(BaseSonarParser):
     """Humminbird DAT/SON/IDX parser framework"""
     
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         raise NotImplementedError("Humminbird parser not yet implemented")
     
     def get_channels(self) -> List[int]:
@@ -231,7 +231,7 @@ class HumminbirdParser(BaseSonarParser):
 class EdgeTechParser(BaseSonarParser):
     """EdgeTech JSF parser framework"""
     
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         raise NotImplementedError("EdgeTech parser not yet implemented")
     
     def get_channels(self) -> List[int]:
@@ -243,7 +243,7 @@ class EdgeTechParser(BaseSonarParser):
 class CeruleanParser(BaseSonarParser):
     """Cerulean SVLOG parser framework"""
     
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         raise NotImplementedError("Cerulean parser not yet implemented")
     
     def get_channels(self) -> List[int]:

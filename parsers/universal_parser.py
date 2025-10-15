@@ -86,6 +86,48 @@ def _verify_format_signature(header: bytes, format_type: str) -> bool:
     
     return True  # Default to allow unknown signatures
 
+def get_supported_formats() -> Dict[str, List[str]]:
+    """
+    Get dictionary of supported sonar formats and their file extensions
+    
+    Returns:
+        Dict mapping format names to lists of extensions
+    """
+    return {
+        'All Sonar Files': ['.rsd', '.sl2', '.sl3', '.dat', '.son', '.idx', '.jsf', '.svlog', '.xtf'],
+        'Garmin': ['.rsd'],
+        'Lowrance': ['.sl2', '.sl3'],
+        'Humminbird': ['.dat', '.son', '.idx'],
+        'EdgeTech': ['.jsf'],
+        'Cerulean': ['.svlog'],
+        'Generic': ['.xtf']
+    }
+
+def format_file_filter() -> str:
+    """
+    Generate file filter string for use in file dialogs
+    
+    Returns:
+        Pipe-separated string of format descriptions and patterns
+    """
+    filters = []
+    
+    # All formats combined (exclude the 'All Sonar Files' key itself)
+    all_extensions = []
+    for format_name, extensions in get_supported_formats().items():
+        if format_name != 'All Sonar Files':
+            all_extensions.extend(extensions)
+    all_pattern = ';'.join(f'*{ext}' for ext in all_extensions)
+    filters.append(f"All Sonar Files ({all_pattern})")
+    
+    # Individual formats
+    for format_name, extensions in get_supported_formats().items():
+        if format_name != 'All Sonar Files':  # Skip the combined one
+            pattern = ';'.join(f'*{ext}' for ext in extensions)
+            filters.append(f"{format_name} ({pattern})")
+    
+    return '|'.join(filters)
+
 class BaseSonarParser(ABC):
     """
     Abstract base class for all sonar format parsers
@@ -156,7 +198,7 @@ class UniversalSonarParser:
             from .lowrance_parser import LowranceParser
             return LowranceParser(self.file_path)
             
-        elif self.format_type == 'humminbird':
+        elif self.format_type == 'humminbird' or self.format_type == 'humminbird_sonar' or self.format_type == 'humminbird_dat':
             from .humminbird_parser import HumminbirdParser
             return HumminbirdParser(self.file_path)
             
@@ -168,14 +210,22 @@ class UniversalSonarParser:
             from .cerulean_parser import CeruleanParser 
             return CeruleanParser(self.file_path)
             
+        elif self.format_type == 'xtf_generic':
+            from .xtf_parser import XTFParser
+            return XTFParser(self.file_path)
+            
         else:
             raise ValueError(f"Unsupported format: {self.format_type}")
     
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """
         Universal parsing interface
+        
+        Args:
+            max_records: Maximum number of records to parse (None for all)
+            progress_callback: Optional callback function for progress updates (pct, message)
         """
-        return self.parser.parse_records(max_records)
+        return self.parser.parse_records(max_records, progress_callback)
     
     def get_channels(self) -> List[int]:
         """
@@ -209,57 +259,3 @@ def auto_parse_sonar(file_path: str, output_dir: str, max_records: Optional[int]
     print(f"Available channels: {parser.get_channels()}")
     
     return parser.parse_records(max_records)
-
-def get_supported_formats() -> Dict[str, List[str]]:
-    """
-    Get all supported formats and their extensions
-    """
-    return {
-        'Garmin': ['.rsd'],
-        'Lowrance': ['.sl2', '.sl3'],
-        'Humminbird': ['.dat', '.son', '.idx'], 
-        'EdgeTech': ['.jsf'],
-        'Cerulean': ['.svlog'],
-        'Generic': ['.xtf']
-    }
-
-def format_file_filter() -> str:
-    """
-    Generate file filter string for GUI dialogs
-    """
-    filters = []
-    
-    # All sonar files
-    all_extensions = []
-    for extensions in get_supported_formats().values():
-        all_extensions.extend(extensions)
-    
-    all_pattern = ';'.join(f'*{ext}' for ext in all_extensions)
-    filters.append(f"All Sonar Files ({all_pattern})")
-    
-    # Individual formats
-    for format_name, extensions in get_supported_formats().items():
-        pattern = ';'.join(f'*{ext}' for ext in extensions)
-        filters.append(f"{format_name} ({pattern})")
-    
-    return '|'.join(filters)
-
-if __name__ == "__main__":
-    # Test detection
-    test_files = [
-        "test.rsd",
-        "test.sl2", 
-        "test.dat",
-        "test.jsf",
-        "unknown.xyz"
-    ]
-    
-    for file_path in test_files:
-        format_type = detect_sonar_format(file_path)
-        print(f"{file_path} -> {format_type}")
-    
-    print("\nSupported formats:")
-    for format_name, extensions in get_supported_formats().items():
-        print(f"  {format_name}: {', '.join(extensions)}")
-    
-    print(f"\nFile filter: {format_file_filter()}")

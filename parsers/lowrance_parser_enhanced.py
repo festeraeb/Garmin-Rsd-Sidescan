@@ -119,7 +119,7 @@ class LowranceParser(BaseSonarParser):
             
         return info
 
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """Parse Lowrance records and export to CSV"""
         output_csv = self.file_path.replace('.sl2', '_records.csv').replace('.sl3', '_records.csv')
         output_log = output_csv.replace('.csv', '.log')

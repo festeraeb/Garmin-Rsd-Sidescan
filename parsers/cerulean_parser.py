@@ -175,7 +175,7 @@ class CeruleanParser(BaseSonarParser):
             
         return info
 
-    def parse_records(self, max_records: Optional[int] = None) -> Tuple[int, str, str]:
+    def parse_records(self, max_records: Optional[int] = None, progress_callback=None) -> Tuple[int, str, str]:
         """Parse Cerulean records and export to CSV"""
         output_csv = self.file_path.replace('.svlog', '_records.csv')
         output_log = output_csv.replace('.csv', '.log')

@@ -163,7 +163,9 @@ class TileManager:
 
             except Exception as e:
                 print(f"Error processing image {img_path}: {e}")
-                continue        # Create root KML
+                continue
+        
+        # Create root KML
         self._create_root_kml(root_kml, bounds, min_zoom, max_zoom)
 
         print(f"KML overlay creation complete: {total_tiles} total tiles")
@@ -216,10 +218,12 @@ class TileManager:
                                 (zoom, x, y, sqlite3.Binary(tile_data))
                             )
                             tiles_created += 1
+                        else:
+                            print(f"Warning: No tile image generated for {zoom}/{x}/{y}")
                     except Exception as e:
-                        print(f"Error creating tile {zoom}/{x}/{y}: {e}")
+                        print(f"Error creating MBTiles tile {zoom}/{x}/{y}: {e}")
                         continue
-
+        
         return tiles_created
     
     def _generate_kml_tiles(self, img: np.ndarray, zoom: int,
@@ -261,40 +265,82 @@ class TileManager:
                             # Create tile KML
                             self._create_tile_kml(zoom, x, y, tile_bounds, tile_path)
                             tiles_created += 1
+                        else:
+                            print(f"Warning: No tile image generated for KML {zoom}/{x}/{y}")
                     except Exception as e:
                         print(f"Error creating KML tile {zoom}/{x}/{y}: {e}")
                         continue
-
+        
         return tiles_created
     
     def _render_tile(self, img: np.ndarray, tile_bounds: Tuple[float, float, float, float],
                     img_bounds: Tuple[float, float, float, float]) -> Optional[Image.Image]:
         """Render a map tile from the image."""
-        # Calculate pixel coordinates
-        img_h, img_w = img.shape[:2]
-        min_lon, min_lat, max_lon, max_lat = img_bounds
-        tile_min_lon, tile_min_lat, tile_max_lon, tile_max_lat = tile_bounds
-        
-        # Convert to pixel coordinates
-        x1 = int((tile_min_lon - min_lon) / (max_lon - min_lon) * img_w)
-        x2 = int((tile_max_lon - min_lon) / (max_lon - min_lon) * img_w)
-        y1 = int((max_lat - tile_max_lat) / (max_lat - min_lat) * img_h)
-        y2 = int((max_lat - tile_min_lat) / (max_lat - min_lat) * img_h)
-        
-        if x1 < 0: x1 = 0
-        if x2 > img_w: x2 = img_w
-        if y1 < 0: y1 = 0
-        if y2 > img_h: y2 = img_h
-        
-        if x2 <= x1 or y2 <= y1:
+        try:
+            # Calculate pixel coordinates
+            img_h, img_w = img.shape[:2]
+            min_lon, min_lat, max_lon, max_lat = img_bounds
+            tile_min_lon, tile_min_lat, tile_max_lon, tile_max_lat = tile_bounds
+
+            # Check for invalid bounds
+            if max_lon <= min_lon or max_lat <= min_lat:
+                print(f"Invalid image bounds: {img_bounds}")
+                return None
+
+            # Convert to pixel coordinates
+            lon_range = max_lon - min_lon
+            lat_range = max_lat - min_lat
+
+            if lon_range <= 0 or lat_range <= 0:
+                print(f"Invalid coordinate ranges: lon_range={lon_range}, lat_range={lat_range}")
+                return None
+
+            x1 = int((tile_min_lon - min_lon) / lon_range * img_w)
+            x2 = int((tile_max_lon - min_lon) / lon_range * img_w)
+            y1 = int((max_lat - tile_max_lat) / lat_range * img_h)
+            y2 = int((max_lat - tile_min_lat) / lat_range * img_h)
+
+            # Clamp coordinates to image bounds
+            x1 = max(0, min(x1, img_w))
+            x2 = max(0, min(x2, img_w))
+            y1 = max(0, min(y1, img_h))
+            y2 = max(0, min(y2, img_h))
+
+            # Ensure valid slice
+            if x2 <= x1 or y2 <= y1:
+                return None
+
+            # Extract tile
+            if img.ndim == 3:
+                # RGB image
+                tile = img[y1:y2, x1:x2, :]
+            else:
+                # Grayscale image
+                tile = img[y1:y2, x1:x2]
+
+            # Ensure tile has valid data
+            if tile.size == 0:
+                return None
+
+            # Create PIL image
+            if tile.ndim == 3:
+                # RGB
+                tile_img = Image.fromarray(tile.astype(np.uint8), mode='RGB')
+            else:
+                # Grayscale
+                tile_img = Image.fromarray(tile.astype(np.uint8), mode='L')
+
+            # Resize to standard tile size
+            tile_img = tile_img.resize((256, 256), Image.Resampling.LANCZOS)
+
+            return tile_img
+
+        except Exception as e:
+            print(f"Error in _render_tile: {e}")
+            print(f"  img.shape: {img.shape}")
+            print(f"  tile_bounds: {tile_bounds}")
+            print(f"  img_bounds: {img_bounds}")
             return None
-            
-        # Extract and resize tile
-        tile = img[y1:y2, x1:x2]
-        tile_img = Image.fromarray(tile)
-        tile_img = tile_img.resize((256, 256), Image.Resampling.LANCZOS)
-        
-        return tile_img
     
     def _create_tile_kml(self, zoom: int, x: int, y: int, bounds: Tuple[float, float, float, float],
                         tile_path: Path):

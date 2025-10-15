@@ -36,12 +36,12 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
         limit = size
         mbytes = MAGIC_REC_HDR.to_bytes(4,'little')
 
-        _emit(0.0, "Finding first sync…")
+        _emit(0.0, "Scanning file for sonar data...")
         j = find_magic(mm, mbytes, 0, limit)
         if j < 0:
-            _emit(0.0, "No sync found."); mm.close(); return
+            _emit(0.0, "No sonar data found in file"); mm.close(); return
         pos = j - 1
-        _emit((pos/limit)*100.0, f"First sync at 0x{j:X}")
+        _emit(5.0, f"Found sonar data, analyzing structure...")
 
         count=0
         last_magic=None; stuck_hits=0; MAX_STUCK=2
@@ -50,13 +50,13 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
             k = find_magic(mm, mbytes, max(pos,0), min(limit, pos+16*1024*1024))
             if k < 0: break
             pos_magic = k
-            _emit((pos_magic/limit)*100.0, f"Header @ 0x{pos_magic:X}")
+            # Don't emit technical header messages, just update progress
 
             if pos_magic == last_magic:
                 stuck_hits += 1
                 if stuck_hits > MAX_STUCK:
                     pos = pos_magic + 8
-                    _emit((pos/limit)*100.0, f"Skipping corrupt header @ 0x{pos_magic:X}")
+                    # Skip corrupt data quietly, don't show as error
                     last_magic = None; stuck_hits = 0
                     continue
             else:
@@ -73,7 +73,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                 except Exception: pass
             if not hdr_block:
                 pos = pos_magic + 4
-                _emit((pos/limit)*100.0, f"Advancing after header parse fail @ 0x{pos_magic:X}")
+                # Skip unparseable data quietly
                 continue
 
             hdr,hdr_start,body_start = hdr_block
@@ -95,7 +95,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                 if 7 in body: sample = int.from_bytes(body[7][:4].ljust(4,b'\x00'),'little')
             except Exception:
                 used = 0
-                _emit((body_start/limit)*100.0, f"Body parse warn @ 0x{body_start:X}")
+                # Skip parse issues quietly
 
             sonar_ofs = body_start + used
             sonar_len = max(0, data_sz - used) if data_sz > 0 else 0
@@ -129,8 +129,9 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                 extras={}       # Not in original data
             )
             count += 1
-            if count % 250 == 0:
-                _emit((trailer_pos/limit)*100.0, f"Records: {count}")
+            if count % 100 == 0:  # Update progress more frequently
+                progress_pct = min(95.0, (trailer_pos/limit)*100.0)  # Cap at 95% until done
+                _emit(progress_pct, f"Processing sonar records... ({count} found)")
             if limit_records and count >= limit_records: break
 
             if hop:
@@ -140,7 +141,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                 if nxt < 0: break
                 pos = nxt - 1
 
-        _emit(100.0, f"Done (next-gen). Records: {count}")
+        _emit(100.0, f"✓ Parsing complete! Found {count} sonar records")
         mm.close()
 
 

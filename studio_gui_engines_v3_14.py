@@ -1140,6 +1140,14 @@ Contact: festeraeb@yahoo.com"""
             return messagebox.showerror("Error", "Please select an output directory")
             
         def parse_job(on_progress, check_cancel):
+            # Get limit settings
+            limit_rows = None
+            if self.limit_enabled.get():
+                try:
+                    limit_rows = int(self.limit_entry.get())
+                except ValueError:
+                    limit_rows = None
+            
             try:
                 # Import multi-format parser
                 from parsers.universal_parser import UniversalSonarParser
@@ -1166,7 +1174,7 @@ Contact: festeraeb@yahoo.com"""
                 
                 # Parse the file
                 on_progress(30, f"Phase 4: Parsing {file_format} file...")
-                record_count, csv_path, log_path = parser.parse_records()
+                record_count, csv_path, log_path = parser.parse_records(max_records=limit_rows, progress_callback=on_progress)
                 
                 on_progress(85, f"Phase 5: Processing {record_count} records...")
                 
