@@ -34,7 +34,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
     with open(path,'rb') as f:
         mm=mmap.mmap(f.fileno(),0,access=mmap.ACCESS_READ)
         limit = size
-        mbytes = MAGIC_REC_HDR.to_bytes(4,'little')
+        mbytes = MAGIC_REC_HDR.to_bytes(4,'big')
 
         _emit(0.0, "Scanning file for sonar data...")
         j = find_magic(mm, mbytes, 0, limit)
@@ -68,7 +68,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                     start = pos_magic - back
                     if start < 0: break
                     hdr, body_start = _parse_varstruct(mm, start, limit, crc_mode='warn')
-                    if struct.unpack('<I', hdr.get(0,b'\x00'*4)[:4])[0] == MAGIC_REC_HDR:
+                    if struct.unpack('>I', hdr.get(0,b'\x00'*4)[:4])[0] == MAGIC_REC_HDR:
                         hdr_block=(hdr,start,body_start); break
                 except Exception: pass
             if not hdr_block:
@@ -77,22 +77,23 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                 continue
 
             hdr,hdr_start,body_start = hdr_block
-            seq     = struct.unpack('<I', hdr.get(2,b'\x00'*4)[:4])[0]
-            time_ms = struct.unpack('<I', hdr.get(5,b'\x00'*4)[:4])[0]
-            data_sz = struct.unpack('<H', (hdr.get(4,b'\x00\x00')[:2] or b'\x00\x00'))[0]
+            seq     = struct.unpack('>I', hdr.get(2,b'\x00'*4)[:4])[0]
+            time_ms = struct.unpack('>I', hdr.get(5,b'\x00'*4)[:4])[0]
+            data_sz = struct.unpack('>H', (hdr.get(4,b'\x00\x00')[:2] or b'\x00\x00'))[0]
 
-            lat=lon=depth=None; sample=None; ch=None; used=0
+            lat=lon=depth=beam_deg=None; sample=None; ch=None; used=0
             try:
                 body, body_end = _parse_varstruct(mm, body_start, limit, crc_mode='warn')
                 used = max(0, body_end-body_start)
-                if 0 in body: ch = int.from_bytes(body[0][:4].ljust(4,b'\x00'),'little')
-                if 9 in body and len(body[9])>=4:  lat = _mapunit_to_deg(int.from_bytes(body[9][:4],'little',signed=True))
-                if 10 in body and len(body[10])>=4: lon = _mapunit_to_deg(int.from_bytes(body[10][:4],'little',signed=True))
+                if 0 in body: ch = int.from_bytes(body[0][:4].ljust(4,b'\x00'),'big')
+                if 9 in body and len(body[9])>=4:  lat = _mapunit_to_deg(int.from_bytes(body[9][:4],'big',signed=True))
+                if 10 in body and len(body[10])>=4: lon = _mapunit_to_deg(int.from_bytes(body[10][:4],'big',signed=True))
                 if 1 in body:
                     try:
                         v,_ = _read_varint_from(mm[body_start:body_start+len(body[1])],0,len(body[1])); depth = v/1000.0
                     except Exception: pass
-                if 7 in body: sample = int.from_bytes(body[7][:4].ljust(4,b'\x00'),'little')
+                if 7 in body: sample = int.from_bytes(body[7][:4].ljust(4,b'\x00'),'big')
+                if 11 in body and len(body[11])>=4: beam_deg = struct.unpack('>f', body[11][:4])[0]
             except Exception:
                 used = 0
                 # Skip parse issues quietly
@@ -103,7 +104,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
             hop=None; trailer_pos = body_start + data_sz
             if trailer_pos + 12 <= limit:
                 try:
-                    tr_magic, chunk_size, tr_crc = struct.unpack('<III', mm[trailer_pos:trailer_pos+12])
+                    tr_magic, chunk_size, tr_crc = struct.unpack('>III', mm[trailer_pos:trailer_pos+12])
                     if tr_magic == MAGIC_REC_TRL and chunk_size > 0:
                         hop = chunk_size
                 except Exception: pass
@@ -119,7 +120,7 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
                 sample_cnt=sample if sample is not None else 0, 
                 sonar_ofs=sonar_ofs if sonar_len > 0 else 0, 
                 sonar_size=sonar_len if sonar_len > 0 else 0,
-                beam_deg=0.0,  # Not in original data
+                beam_deg=beam_deg if beam_deg is not None else 0.0,  # Extracted from field 11
                 pitch_deg=0.0,  # Not in original data  
                 roll_deg=0.0,   # Not in original data
                 heave_m=None,   # Not in original data

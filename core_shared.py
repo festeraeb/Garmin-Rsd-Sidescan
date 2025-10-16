@@ -3,8 +3,8 @@
 
 import struct
 
-MAGIC_REC_HDR = 0xB7E9DA86  # header magic (LE)
-MAGIC_REC_TRL = 0xD9264B7C  # trailer magic (LE)
+MAGIC_REC_HDR = 0x86DAE9B7  # header magic (BE) - changed to big-endian
+MAGIC_REC_TRL = 0x7C4B26D9  # trailer magic (BE) - changed to big-endian
 
 _progress_hook = None
 def set_progress_hook(fn):  # fn(percent_float, message)
@@ -70,7 +70,7 @@ def _parse_varstruct(mm,pos,limit,crc_mode='warn'):
         fields[fn] = bytes(mm[pos:endv])
         pos = endv
     if pos + 4 > limit: raise ValueError('Truncated before CRC')
-    crc_read = struct.unpack('<I', mm[pos:pos+4])[0]; pos += 4
+    crc_read = struct.unpack('>I', mm[pos:pos+4])[0]; pos += 4
     data = bytes(mm[start:pos-4]); crc_calc = _crc32_custom(data)
     if crc_mode == 'strict' and crc_calc != crc_read:
         raise ValueError(f'CRC mismatch: calc=0x{crc_calc:08X} read=0x{crc_read:08X}')
