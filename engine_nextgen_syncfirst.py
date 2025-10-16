@@ -83,19 +83,26 @@ def parse_rsd_records_nextgen(path:str, limit_records:int=0, progress:Callable[[
             data_sz = struct.unpack('<H', (hdr.get(4,b'\x00\x00')[:2] or b'\x00\x00'))[0]
 
             lat=lon=depth=beam_deg=None; sample=None; ch=None
-            # Read body as varstruct
-            body, body_end = _parse_varstruct(mm, body_start, limit, crc_mode='warn')
-            used = max(0, body_end-body_start)
-            
-            if 0 in body: ch = int.from_bytes(body[0][:4].ljust(4,b'\x00'), 'little')
-            if 9 in body and len(body[9])>=4: lat_raw = int.from_bytes(body[9][:4], 'big', signed=True); lat = _mapunit_to_deg(lat_raw)
-            if 10 in body and len(body[10])>=4: lon_raw = int.from_bytes(body[10][:4], 'big', signed=True); lon = _mapunit_to_deg(lon_raw)
-            if 1 in body:
-                try:
-                    v,_ = _read_varint_from(mm[body_start:body_start+len(body[1])],0,len(body[1])); depth = v/1000.0
-                except Exception: pass
-            if 7 in body: sample = int.from_bytes(body[7][:4].ljust(4,b'\x00'), 'little')
-            if 11 in body and len(body[11])>=4: beam_deg = struct.unpack('<f', body[11][:4])[0]
+            # Read body as varstruct, but handle failures gracefully
+            try:
+                body, body_end = _parse_varstruct(mm, body_start, limit, crc_mode='warn')
+                used = max(0, body_end-body_start)
+                
+                if 0 in body: ch = int.from_bytes(body[0][:4].ljust(4,b'\x00'), 'little')
+                if 9 in body and len(body[9])>=4: lat_raw = int.from_bytes(body[9][:4], 'big', signed=True); lat = _mapunit_to_deg(lat_raw)
+                if 10 in body and len(body[10])>=4: lon_raw = int.from_bytes(body[10][:4], 'big', signed=True); lon = _mapunit_to_deg(lon_raw)
+                if 1 in body:
+                    try:
+                        v,_ = _read_varint_from(mm[body_start:body_start+len(body[1])],0,len(body[1])); depth = v/1000.0
+                    except Exception: pass
+                if 7 in body: sample = int.from_bytes(body[7][:4].ljust(4,b'\x00'), 'little')
+                if 11 in body and len(body[11])>=4: beam_deg = struct.unpack('<f', body[11][:4])[0]
+            except Exception as e:
+                # Body parsing failed, use default values and assume fixed size
+                used = 32  # Assume standard metadata size
+                ch = seq  # Use seq as channel ID fallback
+                lat = lon = depth = beam_deg = None
+                sample = 0
 
             sonar_ofs = body_start + used
             sonar_len = max(0, data_sz - used) if data_sz > 0 else 0
